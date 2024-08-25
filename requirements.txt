@@ -1,0 +1,11 @@
+flask
+flask-cors
+langchain
+langchain_openai
+faiss-cpu
+pickle-mixin
+gunicorn
+langchain_community
+langchain_core
+openai
+langchain_text_splitters
