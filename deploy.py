@@ -24,6 +24,18 @@ LOCAL_FILE_PATH = os.path.join(
 # Create a new volume
 volume = modal.Volume.from_name("lex-fridman", create_if_missing=True)
 
+
+def check_pickle_file(file_path):
+    try:
+        with open(file_path, 'rb') as f:
+            data = pickle.load(f)
+        print("File successfully unpickled.")
+        return data
+    except Exception as e:
+        print(f"Error unpickling file: {e}")
+        return None
+check_pickle_file(LOCAL_FILE_PATH)
+
 # Create the Modal app
 app = modal.App("lex-fridman-podcast-rag")
 
