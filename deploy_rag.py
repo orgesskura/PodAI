@@ -18,68 +18,90 @@ api_key = "sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n
 llm = ChatOpenAI(model_name="gpt-4o-mini", openai_api_key=api_key)
 llm_cheap = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=api_key)
 
+
 def extract_podcast_number(llm, file_name):
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are an assistant that extracts podcast numbers from file names."),
-        ("human", "Extract the podcast number from the following file name: {file_name}"
-                  "Return the answer as just a number. For example if podcast number is 325, just return 325.")
-    ])
-    
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                "You are an assistant that extracts podcast numbers from file names.",
+            ),
+            (
+                "human",
+                "Extract the podcast number from the following file name: {file_name}"
+                "Return the answer as just a number. For example if podcast number is 325, just return 325.",
+            ),
+        ]
+    )
+
     chain = prompt | llm | StrOutputParser()
     return chain.invoke({"file_name": file_name})
 
+
 def extract_interviewee_names(llm, file_name):
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are an assistant that extracts interviewee names from podcast file names."),
-        ("human", "Extract the interviewee names from the following file name: {file_name}"
-                  "Return a comma-separated list of names. If you can't determine the names, return 'Unknown Interviewee'.")
-    ])
-    
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                "You are an assistant that extracts interviewee names from podcast file names.",
+            ),
+            (
+                "human",
+                "Extract the interviewee names from the following file name: {file_name}"
+                "Return a comma-separated list of names. If you can't determine the names, return 'Unknown Interviewee'.",
+            ),
+        ]
+    )
+
     chain = prompt | llm | StrOutputParser()
     names = chain.invoke({"file_name": file_name})
-    return [name.strip() for name in names.split(',')]
+    return [name.strip() for name in names.split(",")]
+
 
 def preprocess_transcript(transcript, interviewees):
     processed = transcript
     speaker_map = {}
-    
+
     for i, name in enumerate(interviewees):
         speaker_map[f"Speaker {i}:"] = f"{name}:"
-    
+
     for i, name in enumerate(interviewees):
         speaker_map[f"Speaker {chr(65+i)}:"] = f"{name}:"
-    
+
     for label, name in speaker_map.items():
         processed = processed.replace(label, name)
-    
+
     return processed
+
 
 def process_transcripts(directory_path):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=2500,
         chunk_overlap=250,
         length_function=len,
-        separators=["\n\n", "\n", ". ", " "]
+        separators=["\n\n", "\n", ". ", " "],
     )
     all_documents = []
     embeddings = OpenAIEmbeddings(openai_api_key=api_key)
 
     for file_name in os.listdir(directory_path):
-        if file_name.endswith('.txt'):
+        if file_name.endswith(".txt"):
             file_path = os.path.join(directory_path, file_name)
             podcast_number = extract_podcast_number(llm_cheap, file_name)
-            
+
             interviewees = extract_interviewee_names(llm_cheap, file_name)
-            interviewees = ['Lex Fridman'] + interviewees
-            
+            interviewees = ["Lex Fridman"] + interviewees
+
             # Extract episode name from file name
-            episode_name = file_name.replace('.txt', '').replace('_', ' ').title()
-            
-            print(f"Processing {file_name}, Podcast number: {podcast_number}, Episode: {episode_name}, Interviewees: {', '.join(interviewees)}")
-            
-            with open(file_path, 'r', encoding='utf-8') as file:
+            episode_name = file_name.replace(".txt", "").replace("_", " ").title()
+
+            print(
+                f"Processing {file_name}, Podcast number: {podcast_number}, Episode: {episode_name}, Interviewees: {', '.join(interviewees)}"
+            )
+
+            with open(file_path, "r", encoding="utf-8") as file:
                 transcript = file.read()
-            
+
             processed_transcript = preprocess_transcript(transcript, interviewees)
 
             chunks = text_splitter.split_text(processed_transcript)
@@ -91,32 +113,40 @@ def process_transcripts(directory_path):
                         "podcast_number": podcast_number,
                         "episode_name": episode_name,
                         "chunk_index": i,
-                        "interviewees": interviewees
-                    }
-                ) for i, chunk in enumerate(chunks)
+                        "interviewees": interviewees,
+                    },
+                )
+                for i, chunk in enumerate(chunks)
             ]
             all_documents.extend(documents)
 
     db = FAISS.from_documents(all_documents, embeddings)
     db.save_local("faiss_index_all_transcripts")
-    
+
     bm25_retriever = BM25Retriever.from_documents(all_documents)
 
     with open("all_documents.pkl", "wb") as f:
         pickle.dump(all_documents, f)
-    
+
     return db, bm25_retriever, all_documents
 
+
 def load_or_create_db(directory_path):
-    if os.path.exists("faiss_index_all_transcripts") and os.path.exists("all_documents.pkl"):
+    if os.path.exists("faiss_index_all_transcripts") and os.path.exists(
+        "all_documents.pkl"
+    ):
         print("Loading existing FAISS index and documents...")
         embeddings = OpenAIEmbeddings(openai_api_key=api_key)
-        db = FAISS.load_local("faiss_index_all_transcripts", embeddings, allow_dangerous_deserialization=True)
-        
+        db = FAISS.load_local(
+            "faiss_index_all_transcripts",
+            embeddings,
+            allow_dangerous_deserialization=True,
+        )
+
         # Load all_documents
         with open("all_documents.pkl", "rb") as f:
             all_documents = pickle.load(f)
-        
+
         # Recreate BM25 retriever
         bm25_retriever = BM25Retriever.from_documents(all_documents)
         return db, bm25_retriever, all_documents
@@ -124,11 +154,13 @@ def load_or_create_db(directory_path):
         print("Creating new FAISS and BM25 indexes...")
         return process_transcripts(directory_path)
 
+
 def initialize_db(directory_path):
     return load_or_create_db(directory_path)
 
+
 # Set up retriever and chains
-#db, bm25_retriever, all_documents = load_or_create_db("cleaned_diarized")
+# db, bm25_retriever, all_documents = load_or_create_db("cleaned_diarized")
 
 # faiss_retriever = db.as_retriever(
 #     search_type="mmr",
@@ -190,6 +222,7 @@ def initialize_db(directory_path):
 #         store[session_id] = ChatMessageHistory()
 #     return store[session_id]
 
+
 def multi_step_rag(query, retriever, llm):
     docs = retriever.invoke(query)
 
@@ -219,19 +252,20 @@ def multi_step_rag(query, retriever, llm):
 
     return analysis_chain.invoke(query)
 
+
 # def chat():
 #     session_id = "user1"
 #     print("Welcome to the Lex Fridman Podcast RAG chatbot with Hybrid Retrieval!")
 #     print("Type 'exit' to end the conversation.")
-    
+
 #     while True:
 #         user_input = input("\nYou: ")
 #         if user_input.lower() == 'exit':
 #             print("Goodbye!")
 #             break
-        
+
 #         response = multi_step_rag(user_input, hybrid_retriever, llm)
-        
+
 #         print(f"\nAssistant: {response}")
 
 # if __name__ == "__main__":

@@ -540,15 +540,22 @@ from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
-def process_folder(input_folder, storage_account, output_type, output_container, **kwargs):
+
+def process_folder(
+    input_folder, storage_account, output_type, output_container, **kwargs
+):
     # Mount Google Drive
-    drive.mount('/content/drive')
+    drive.mount("/content/drive")
 
     # Set up Azure Blob Storage client
-    connect_str = os.environ.get('DefaultEndpointsProtocol=https;AccountName=audio7712972043;AccountKey=R9el+JUinydgn+SbKhyjL+1IE0l4FSj3tQwT3Oi20ZixbWub9Y5ZTAxjtqDOWT+0rY1xC686P9NI+AStMlBzmg==;EndpointSuffix=core.windows.net')
+    connect_str = os.environ.get(
+        "DefaultEndpointsProtocol=https;AccountName=audio7712972043;AccountKey=R9el+JUinydgn+SbKhyjL+1IE0l4FSj3tQwT3Oi20ZixbWub9Y5ZTAxjtqDOWT+0rY1xC686P9NI+AStMlBzmg==;EndpointSuffix=core.windows.net"
+    )
     if not connect_str:
-        raise ValueError("AZURE_STORAGE_CONNECTION_STRING environment variable is not set")
-    
+        raise ValueError(
+            "AZURE_STORAGE_CONNECTION_STRING environment variable is not set"
+        )
+
     blob_service_client = BlobServiceClient.from_connection_string(connect_str)
     container_client = blob_service_client.get_container_client(output_container)
 
@@ -556,11 +563,14 @@ def process_folder(input_folder, storage_account, output_type, output_container,
     try:
         container_client.create_container()
     except Exception as e:
-        logging.warning(f"Container creation failed: {str(e)}. Proceeding with existing container.")
+        logging.warning(
+            f"Container creation failed: {str(e)}. Proceeding with existing container."
+        )
 
     # Get list of audio files from Google Drive input folder
-    audio_files = glob(os.path.join('/content/drive/MyDrive', input_folder, "*.mp3")) + \
-                  glob(os.path.join('/content/drive/MyDrive', input_folder, "*.wav"))
+    audio_files = glob(
+        os.path.join("/content/drive/MyDrive", input_folder, "*.mp3")
+    ) + glob(os.path.join("/content/drive/MyDrive", input_folder, "*.wav"))
 
     successful_files = 0
     failed_files = 0
@@ -575,24 +585,24 @@ def process_folder(input_folder, storage_account, output_type, output_container,
                 continue
 
             # Process the audio file
-            success = process_single_file(audio_file, '/tmp', **kwargs)
-            
+            success = process_single_file(audio_file, "/tmp", **kwargs)
+
             if success:
                 # Upload the results to Azure Blob Storage
                 base_name = os.path.splitext(os.path.basename(audio_file))[0]
-                for output_file in ['transcript.txt', 'transcript.srt']:
-                    local_file_path = os.path.join('/tmp', base_name, output_file)
+                for output_file in ["transcript.txt", "transcript.srt"]:
+                    local_file_path = os.path.join("/tmp", base_name, output_file)
                     blob_name = f"{base_name}/{output_file}"
                     blob_client = container_client.get_blob_client(blob_name)
                     with open(local_file_path, "rb") as data:
                         blob_client.upload_blob(data, overwrite=True)
-                
+
                 successful_files += 1
             else:
                 failed_files += 1
 
             # Clean up temporary files
-            shutil.rmtree(os.path.join('/tmp', base_name), ignore_errors=True)
+            shutil.rmtree(os.path.join("/tmp", base_name), ignore_errors=True)
 
         except Exception as e:
             logging.error(f"An error occurred while processing {audio_file}: {str(e)}")
@@ -605,10 +615,14 @@ def process_folder(input_folder, storage_account, output_type, output_container,
         # Add a small delay to allow system resources to stabilize
         time.sleep(1)
 
-    logging.info(f"Processing completed. Successful: {successful_files}, Failed: {failed_files}, Skipped: {skipped_files}")
+    logging.info(
+        f"Processing completed. Successful: {successful_files}, Failed: {failed_files}, Skipped: {skipped_files}"
+    )
+
 
 def sanitize_filename(filename):
-    return re.sub(r'[^\w\-_\. ]', '_', filename)
+    return re.sub(r"[^\w\-_\. ]", "_", filename)
+
 
 def check_files_in_blob_storage(container_client, file_paths):
     result = {}
@@ -616,6 +630,7 @@ def check_files_in_blob_storage(container_client, file_paths):
         blob_client = container_client.get_blob_client(file_path)
         result[file_path] = blob_client.exists()
     return result
+
 
 def output_files_exist(audio_path, output_container, container_client):
     base_name = sanitize_filename(os.path.splitext(os.path.basename(audio_path))[0])
@@ -627,21 +642,34 @@ def output_files_exist(audio_path, output_container, container_client):
 
     return all(existence_status.values())
 
-def process_single_file(audio_path, output_dir, enable_stemming=True, whisper_model_name="large-v2", suppress_numerals=True, batch_size=8, language=None):
+
+def process_single_file(
+    audio_path,
+    output_dir,
+    enable_stemming=True,
+    whisper_model_name="large-v2",
+    suppress_numerals=True,
+    batch_size=8,
+    language=None,
+):
     # Set up logging for this file
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(os.path.basename(audio_path))
 
     # Check if output files already exist
     if output_files_exist(audio_path, output_dir):
-        logger.info(f"Output files already exist for {audio_path}. Skipping processing.")
+        logger.info(
+            f"Output files already exist for {audio_path}. Skipping processing."
+        )
         return True
 
     try:
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
         # Create a subdirectory for this file's outputs
-        sanitized_base_name = sanitize_filename(os.path.splitext(os.path.basename(audio_path))[0])
+        sanitized_base_name = sanitize_filename(
+            os.path.splitext(os.path.basename(audio_path))[0]
+        )
         file_output_dir = os.path.join(output_dir, sanitized_base_name)
         os.makedirs(file_output_dir, exist_ok=True)
 
@@ -679,9 +707,11 @@ def process_single_file(audio_path, output_dir, enable_stemming=True, whisper_mo
 
         # Alignment
         logger.info(f"Aligning transcription for {vocal_target}")
-        alignment_model, alignment_tokenizer, alignment_dictionary = load_alignment_model(
-            device,
-            dtype=torch.float16 if device == "cuda" else torch.float32,
+        alignment_model, alignment_tokenizer, alignment_dictionary = (
+            load_alignment_model(
+                device,
+                dtype=torch.float16 if device == "cuda" else torch.float32,
+            )
         )
 
         audio_waveform = (
@@ -711,7 +741,9 @@ def process_single_file(audio_path, output_dir, enable_stemming=True, whisper_mo
             alignment_dictionary,
         )
 
-        spans = get_spans(tokens_starred, segments, alignment_tokenizer.decode(blank_id))
+        spans = get_spans(
+            tokens_starred, segments, alignment_tokenizer.decode(blank_id)
+        )
 
         word_timestamps = postprocess_results(text_starred, spans, stride, scores)
 
@@ -735,7 +767,9 @@ def process_single_file(audio_path, output_dir, enable_stemming=True, whisper_mo
         # Mapping Speakers to Sentences
         logger.info(f"Mapping speakers to sentences for {vocal_target}")
         speaker_ts = []
-        with open(os.path.join(file_output_dir, "pred_rttms", "mono_file.rttm"), "r") as f:
+        with open(
+            os.path.join(file_output_dir, "pred_rttms", "mono_file.rttm"), "r"
+        ) as f:
             lines = f.readlines()
             for line in lines:
                 line_list = line.split(" ")
@@ -757,7 +791,10 @@ def process_single_file(audio_path, output_dir, enable_stemming=True, whisper_mo
                 if (
                     word
                     and labeled_tuple[1] in ".?!"
-                    and (word[-1] not in ".,;:!?" or re.fullmatch(r"\b(?:[a-zA-Z]\.){2,}", word))
+                    and (
+                        word[-1] not in ".,;:!?"
+                        or re.fullmatch(r"\b(?:[a-zA-Z]\.){2,}", word)
+                    )
                 ):
                     word += labeled_tuple[1]
                     if word.endswith(".."):
@@ -773,10 +810,14 @@ def process_single_file(audio_path, output_dir, enable_stemming=True, whisper_mo
 
         # Export results
         logger.info(f"Exporting results for {vocal_target}")
-        with open(os.path.join(file_output_dir, "transcript.txt"), "w", encoding="utf-8-sig") as f:
+        with open(
+            os.path.join(file_output_dir, "transcript.txt"), "w", encoding="utf-8-sig"
+        ) as f:
             get_speaker_aware_transcript(ssm, f)
 
-        with open(os.path.join(file_output_dir, "transcript.srt"), "w", encoding="utf-8-sig") as srt:
+        with open(
+            os.path.join(file_output_dir, "transcript.srt"), "w", encoding="utf-8-sig"
+        ) as srt:
             write_srt(ssm, srt)
 
         # Cleanup temporary files
@@ -790,9 +831,12 @@ def process_single_file(audio_path, output_dir, enable_stemming=True, whisper_mo
         logger.error(f"An error occurred while processing {audio_path}: {str(e)}")
         return False
 
+
 def process_folder(input_folder, output_folder, **kwargs):
     os.makedirs(output_folder, exist_ok=True)
-    audio_files = glob(os.path.join(input_folder, "*.mp3")) + glob(os.path.join(input_folder, "*.wav"))
+    audio_files = glob(os.path.join(input_folder, "*.mp3")) + glob(
+        os.path.join(input_folder, "*.wav")
+    )
 
     successful_files = 0
     failed_files = 0
@@ -820,7 +864,10 @@ def process_folder(input_folder, output_folder, **kwargs):
         # Add a small delay to allow system resources to stabilize
         time.sleep(1)
 
-    logging.info(f"Processing completed. Successful: {successful_files}, Failed: {failed_files}, Skipped: {skipped_files}")
+    logging.info(
+        f"Processing completed. Successful: {successful_files}, Failed: {failed_files}, Skipped: {skipped_files}"
+    )
+
 
 if __name__ == "__main__":
     # Set up logging
@@ -847,12 +894,18 @@ if __name__ == "__main__":
         "whisper_model_name": "large-v2",
         "suppress_numerals": True,
         "batch_size": 8,
-        "language": None
+        "language": None,
     }
 
     # Run the processing
     try:
-        process_folder(input_folder, storage_account, output_type, output_container, **process_params)
+        process_folder(
+            input_folder,
+            storage_account,
+            output_type,
+            output_container,
+            **process_params,
+        )
     except Exception as e:
         logging.error(f"An error occurred during processing: {str(e)}")
     finally:

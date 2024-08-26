@@ -15,25 +15,34 @@ from langchain.schema import StrOutputParser
 from langchain.document_loaders import TextLoader
 
 llm = ChatOpenAI(
-        model_name="gpt-4o-mini",
-        openai_api_key="sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n0JyM1woTAUDps1dWqv6uYvnKsA"
-    )
+    model_name="gpt-4o-mini",
+    openai_api_key="sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n0JyM1woTAUDps1dWqv6uYvnKsA",
+)
 
 
 def extract_podcast_number(llm, file_name):
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are an assistant that extracts podcast numbers from file names."),
-        ("human", "Extract the podcast number from the following file name: {file_name}"
-                  "Return the answer as just a number. For example if podcast number is 325, just return 325.")
-    ])
-    
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                "You are an assistant that extracts podcast numbers from file names.",
+            ),
+            (
+                "human",
+                "Extract the podcast number from the following file name: {file_name}"
+                "Return the answer as just a number. For example if podcast number is 325, just return 325.",
+            ),
+        ]
+    )
+
     chain = prompt | llm | StrOutputParser()
     return chain.invoke({"file_name": file_name})
+
 
 def save_all_embeddings(file_names, api_key):
     llm_cheap = ChatOpenAI(
         model_name="gpt-3.5-turbo",  # Using a smaller model for this task
-        openai_api_key=api_key
+        openai_api_key=api_key,
     )
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     all_texts = []
@@ -43,7 +52,7 @@ def save_all_embeddings(file_names, api_key):
         podcast_number = extract_podcast_number(llm_cheap, file_name)
 
         print(f"Extracted podcast number: {podcast_number}!")
-        with open(transcript_file, 'r', encoding='utf-8') as file:
+        with open(transcript_file, "r", encoding="utf-8") as file:
             transcript = file.read()
 
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
@@ -54,21 +63,27 @@ def save_all_embeddings(file_names, api_key):
                 metadata={
                     "source": file_name,
                     "podcast_number": podcast_number,
-                    "chunk_index": i
-                }
-            ) for i, chunk in enumerate(texts)
+                    "chunk_index": i,
+                },
+            )
+            for i, chunk in enumerate(texts)
         ]
-    
+
         all_texts.extend(documents)
     db = FAISS.from_documents(all_texts, embeddings)
     db.save_local("faiss_index_multi")
     return db
 
-db = save_all_embeddings(["Michael Levin: Biology, Life, Aliens, Evolution, Embryogenesis & Xenobots | Lex Fridman Podcast #325"], "sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n0JyM1woTAUDps1dWqv6uYvnKsA")
+
+db = save_all_embeddings(
+    [
+        "Michael Levin: Biology, Life, Aliens, Evolution, Embryogenesis & Xenobots | Lex Fridman Podcast #325"
+    ],
+    "sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n0JyM1woTAUDps1dWqv6uYvnKsA",
+)
 retriever = db.as_retriever(
-        search_type="similarity",
-        search_kwargs={"k": 5, "include_metadata": True}
-    )
+    search_type="similarity", search_kwargs={"k": 5, "include_metadata": True}
+)
 ### Contextualize question ###
 contextualize_q_system_prompt = (
     "Given a chat history and the latest user question "
@@ -129,19 +144,22 @@ conversational_rag_chain = RunnableWithMessageHistory(
     output_messages_key="answer",
 )
 
-print(conversational_rag_chain.invoke(
-    {"input": "Was Michael Levin on Lex Fridman podcast?"},
-    config={
-        "configurable": {"session_id": "abc123"}
-    },  # constructs a key "abc123" in `store`.
-)["answer"])
+print(
+    conversational_rag_chain.invoke(
+        {"input": "Was Michael Levin on Lex Fridman podcast?"},
+        config={
+            "configurable": {"session_id": "abc123"}
+        },  # constructs a key "abc123" in `store`.
+    )["answer"]
+)
 
 print(store)
 
-print(conversational_rag_chain.invoke(
-    {"input": "What podcast number was he on? Do you know who I am talking about?"},
-    config={
-        "configurable": {"session_id": "abc123"}
-    },  # constructs a key "abc123" in `store`.
-)["answer"])
-
+print(
+    conversational_rag_chain.invoke(
+        {"input": "What podcast number was he on? Do you know who I am talking about?"},
+        config={
+            "configurable": {"session_id": "abc123"}
+        },  # constructs a key "abc123" in `store`.
+    )["answer"]
+)

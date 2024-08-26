@@ -9,13 +9,15 @@ if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
 ydl_opts = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{  
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',  
-        'preferredquality': '192',
-    }],
-    'outtmpl': os.path.join(output_folder, '%(title)s.%(ext)s'),
+    "format": "bestaudio/best",
+    "postprocessors": [
+        {
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "mp3",
+            "preferredquality": "192",
+        }
+    ],
+    "outtmpl": os.path.join(output_folder, "%(title)s.%(ext)s"),
 }
 
 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
