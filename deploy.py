@@ -11,6 +11,7 @@ import os
 import time
 from openai import RateLimitError
 from deploy_rag import multi_step_rag, initialize_db
+import logging
 
 # Define the path to your local directory
 LOCAL_DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cleaned_diarized")
@@ -86,22 +87,39 @@ def web_app():
     def home():
         return "Welcome to the Lex Fridman Podcast RAG API!"
 
-    @flask_app.route('/chat', methods=['POST'])
+    @flask_app.route('/chat', methods=['POST', "GET"])
     def chat():
-        nonlocal llm, db, bm25_retriever, hybrid_retriever
-        
-        # Initialize data if it hasn't been done yet
-        if db is None or bm25_retriever is None or hybrid_retriever is None:
-            initialize_or_load_data()
-        
-        data = request.json
-        user_input = data['message']
-        session_id = data.get('session_id', 'default')
-        
-        if session_id not in chat_histories:
-            chat_histories[session_id] = ChatMessageHistory()
-        
-        chat_history = chat_histories[session_id]
+
+        if request.method == 'GET':
+        # Handle GET request
+            return jsonify({'message': 'Chat endpoint is working'}), 200
+
+        try:
+            nonlocal llm, db, bm25_retriever, hybrid_retriever
+            
+            # Initialize data if it hasn't been done yet
+            if db is None or bm25_retriever is None or hybrid_retriever is None:
+                initialize_or_load_data()
+            
+            data = request.json
+            if not data:
+                return jsonify({'error': 'No JSON data provided'}), 400
+            
+            user_input = data.get('message')
+            if not user_input:
+                return jsonify({'error': 'No message provided'}), 400
+            
+            session_id = data.get('session_id', 'default')
+            
+            if session_id not in chat_histories:
+                chat_histories[session_id] = ChatMessageHistory()
+            
+            chat_history = chat_histories[session_id]
+        except Exception as e:
+            logging.error(f"Error in chat endpoint: {str(e)}", exc_info=True)
+            return jsonify({'error': 'An unexpected error occurred. Please try again later.'}), 500
+
+
         
         # Try different models in case of rate limiting
         for model in models:
@@ -119,7 +137,7 @@ def web_app():
                 return jsonify({'response': response, 'model_used': model})
             
             except RateLimitError as e:
-                print(f"Rate limit reached for {model}. Trying next model...")
+                logging.error(f"Rate limit reached for {model}. Trying next model...")
                 if model == models[-1]:
                     return jsonify({'error': 'All models are currently rate limited. Please try again later.'}), 429
                 time.sleep(1)  # Wait a bit before trying the next model
