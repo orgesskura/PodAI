@@ -36,7 +36,7 @@ image = modal.Image.debian_slim().pip_install(
 
 @app.function(
     image=image,
-    secret=modal.Secret.from_name("my-openai-secret"),
+    # secret=modal.Secret.from_name("my-openai-secret"),
     volumes={"/data": volume},
     mounts=[modal.Mount.from_local_file(LOCAL_FILE_PATH, remote_path=f"/app/local/all_documents.pkl"), modal.Mount.from_local_dir(LOCAL_DATA_PATH,remote_path='app/local')],
     cpu=2,
