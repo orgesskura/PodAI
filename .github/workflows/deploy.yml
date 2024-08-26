@@ -52,7 +52,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Install Modal
-        run: pip install modal
+        run: pip install modal==0.64.52
 
       - name: Configure Modal token
         env:
