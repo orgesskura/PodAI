@@ -14,7 +14,8 @@ from deploy_rag import multi_step_rag, initialize_db
 import logging
 
 # Define the path to your local directory
-LOCAL_DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cleaned_diarized")
+LOCAL_DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "faiss_index_all_transcripts")
+LOCAL_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "all_documents.pkl")
 
 # Create a new volume
 volume = modal.Volume.from_name("lex-fridman", create_if_missing=True)
@@ -29,16 +30,17 @@ image = modal.Image.debian_slim().pip_install(
     "langchain_openai",
     "langchain_community",
     "faiss-cpu",
-    "openai"
+    "openai",
+    "rank_bm25",
 )
 
 @app.function(
     image=image,
     secret=modal.Secret.from_name("my-openai-secret"),
     volumes={"/data": volume},
-    mounts=[modal.Mount.from_local_dir(LOCAL_DATA_PATH, remote_path="/app/local")],
-    cpu=1,
-    memory=4096,
+    mounts=[modal.Mount.from_local_file(LOCAL_FILE_PATH, remote_path=f"/app/local/all_documents.pkl"), modal.Mount.from_local_dir(LOCAL_DATA_PATH,remote_path='app/local')],
+    cpu=2,
+    memory=8192,
 )
 @modal.wsgi_app()
 def web_app():
@@ -54,14 +56,20 @@ def web_app():
 
     def initialize_or_load_data():
         nonlocal db, bm25_retriever, hybrid_retriever
-        if os.path.exists("/data/initialized_data.pkl"):
+        if os.path.exists("/app/local/all_documents.pkl"):
             print("Loading existing data...")
-            with open("/data/initialized_data.pkl", "rb") as f:
-                db, bm25_retriever, all_documents = pickle.load(f)
+            try:
+                with open("/app/local/all_documents.pkl", "rb") as f:
+                    all_documents = pickle.load(f)
+                    bm25_retriever = BM25Retriever.from_documents(all_documents)
+                    embeddings=OpenAIEmbeddings(openai_api_key="sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n0JyM1woTAUDps1dWqv6uYvnKsA")
+                    db = FAISS.load_local("/app/local",embeddings, allow_dangerous_deserialization=True)
+            except Exception as e:
+                print(f"Error loading file: {str(e)}")
         else:
             print("Initializing database...")
-            db, bm25_retriever, all_documents = initialize_db("/app/local/cleaned_diarized")
-            with open("/data/initialized_data.pkl", "wb") as f:
+            db, bm25_retriever, all_documents = initialize_db("/app/local/")
+            with open("/app/local/all_documents.pkl", "wb") as f:
                 pickle.dump((db, bm25_retriever, all_documents), f)
 
         faiss_retriever = db.as_retriever(
@@ -82,6 +90,7 @@ def web_app():
 
     # Initialize chat histories
     chat_histories = {}
+    initialize_or_load_data()
 
     @flask_app.route('/')
     def home():
@@ -125,7 +134,7 @@ def web_app():
         for model in models:
             try:
                 if llm is None or llm.model_name != model:
-                    llm = ChatOpenAI(model_name=model, openai_api_key=os.environ["OPENAI_API_KEY"])
+                    llm = ChatOpenAI(model_name=model, openai_api_key="sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n0JyM1woTAUDps1dWqv6uYvnKsA")
                 
                 # Use the multi_step_rag function to generate a response
                 response = multi_step_rag(user_input, hybrid_retriever, llm)
@@ -137,7 +146,7 @@ def web_app():
                 return jsonify({'response': response, 'model_used': model})
             
             except RateLimitError as e:
-                logging.error(f"Rate limit reached for {model}. Trying next model...")
+                print(f"Rate limit reached for {model}. Trying next model...")
                 if model == models[-1]:
                     return jsonify({'error': 'All models are currently rate limited. Please try again later.'}), 429
                 time.sleep(1)  # Wait a bit before trying the next model

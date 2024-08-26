@@ -12,6 +12,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_community.vectorstores import FAISS
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
 import pickle
+from langchain.schema.runnable import RunnablePassthrough
 
 api_key = "sk-mDDbQXk0nqPVUKjReeOIgiBoIyyjANlaXcERYJqyM6T3BlbkFJ5V6MdFRVmWcxIG2n0JyM1woTAUDps1dWqv6uYvnKsA"
 llm = ChatOpenAI(model_name="gpt-4o-mini", openai_api_key=api_key)
@@ -190,22 +191,33 @@ def initialize_db(directory_path):
 #     return store[session_id]
 
 def multi_step_rag(query, retriever, llm):
-    # Step 1: Retrieve relevant documents using the hybrid retriever
     docs = retriever.invoke(query)
-    
-    # Step 2: Analyze and synthesize information
-    analysis_prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert analyst of Lex Fridman's podcasts. "
-                   "Analyze the following retrieved information and synthesize an answer to the query. "
-                   "Make reasonable inferences based on the context and your general knowledge about the person. "
-                   "Always include the podcast number and speaker name when referencing information from a specific episode. "
-                   "Provide a concise analysis and answer, followed by the relevant episode reference(s)."),
-        ("human", "Query: {query}\n\nRetrieved Information: {docs}\n\nProvide a concise analysis and answer:"),
-    ])
-    
-    analysis_chain = analysis_prompt | llm | StrOutputParser()
-    
-    return analysis_chain.invoke({"query": query, "docs": docs})
+
+    analysis_prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                "You are an expert analyst of Lex Fridman's podcasts. "
+                "You are able to carry a natural conversation with the user, but also able to provide relevant information "
+                "Quote the content using quotation marks if necessary"
+                "Always include the podcast number and speaker name when referencing information from a specific episode. "
+                "Provide a concise answer, followed by the relevant episode reference(s).",
+            ),
+            (
+                "human",
+                "Query: {query}\n\nRetrieved Information: {docs}\n\nProvide a concise answer:",
+            ),
+        ]
+    )
+
+    analysis_chain = (
+        {"query": RunnablePassthrough(), "docs": lambda x: docs}
+        | analysis_prompt
+        | llm
+        | StrOutputParser()
+    )
+
+    return analysis_chain.invoke(query)
 
 # def chat():
 #     session_id = "user1"
