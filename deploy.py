@@ -16,7 +16,7 @@ from deploy_rag import multi_step_rag, initialize_db
 LOCAL_DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cleaned_diarized")
 
 # Create a new volume
-volume = modal.Volume.from_name("lex-fridman")
+volume = modal.Volume.from_name("lex-fridman", create_if_missing=True)
 
 # Create the Modal app
 app = modal.App("lex-fridman-podcast-rag")

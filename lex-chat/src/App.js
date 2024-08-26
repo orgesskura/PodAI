@@ -15,7 +15,7 @@ const ChatApp = () => {
   const messagesEndRef = useRef(null);
 
   // Use environment variable for API URL
-  const apiUrl = process.env.REACT_APP_API_URL || 'https://kitchan98--lex-fridman-podcast-rag-web-app.modal.run';
+  const apiUrl = process.env.REACT_APP_API_URL || 'https://orgesskura--lex-fridman-podcast-rag-web-app.modal.run';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
