@@ -14,9 +14,11 @@ jobs:
       - name: Downloads files
         env:
           ALL_DOCUMENTS_PICKLE: ${{ secrets.ALL_DOCUMENTS_PICKLE }}
+          FAISS_LEX: ${{ secrets.FAISS_LEX }}
         run: |
-          apt-get install gdown
+          sudo apt-get install gdown
           gdown "$ALL_DOCUMENTS_PICKLE"
+          gdown "$FAISS_LEX"
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
