@@ -10,8 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          lfs: true
+          
+      - name: Downloads files
+        env:
+          ALL_DOCUMENTS_PICKLE: ${{ secrets.ALL_DOCUMENTS_PICKLE }}
+        run: |
+          apt-get install gdown
+          gdown "$ALL_DOCUMENTS_PICKLE"
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -61,7 +66,7 @@ jobs:
           MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
           MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
         run: |
-          modal token set --token-id "$MODAL_TOKEN_ID" --token-secret "$MODAL_TOKEN_SECRET"
+          modal token set --token-id D --token-secret "$MODAL_TOKEN_SECRET"
 
 
       - name: Deploy to Modal
