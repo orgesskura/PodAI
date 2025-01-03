@@ -1,0 +1,343 @@
+Speaker A: The following is a conversation with Judea Pearl, a professor at UCLA and a winner of the Turing award that's generally recognized as the Nobel Prize of Computing. He's one of the seminal figures in the field of artificial intelligence, computer science, and statistics. He has developed and championed probabilistic approaches to AI, including Beijing networks and profound ideas and causality in general. These ideas are important not just to AI, but to our understanding and practice of science, but in the field of AI, the idea of causality, cause and effect to many lie at the core of what is currently missing and what must be developed in order to build truly intelligent systems. For this reason and many others, his work is worth returning to often. I recommend his most recent book called book of why that presents key ideas from a lifetime of work in a way that is accessible to the general public. This is the artificial intelligence podcast. If you enjoy it, subscribe on YouTube, give it five stars on Apple podcast, support on Patreon, or simply connect with me on Twitter alexfridman, spelled f r I d m A N. If you leave a review on Apple Podcasts especially, but also castbox or comment on YouTube, consider mentioning topics, people, ideas, questions, quotes, and science, tech and philosophy that you find interesting, and I'll read them on this podcast. I won't call out names, but I love comments with kindness and thoughtfulness in them, so I thought I'd share them with you. Someone on YouTube highlighted a quote from the conversation with Noam Chomsky where he said that the significance of your life is something you create. I like this line as well. On most days, the existentialist approach to life is one I find liberating and fulfilling. I recently started doing ads at the end of the introduction. I'll do one or two minutes after introducing the episode, and never any ads in the middle that break the flow of the conversation. I hope that works for you and doesn't hurt the listening experience. This show is presented by Cash app, the number one finance app in the App Store. I personally use Cash app to send money to friends, but you can also use it to buy, sell and deposit bitcoin in just seconds. Cash app also has a new investing feature. You can buy fractions of a stock, say $1 worth, no matter what the stock price is. Brokerage services are provided by Cash app Investing, a subsidiary of Square a member SIPC. I'm excited to be working with Cash app to support one of my favorite organizations called first. Best known for their first robotics and Lego competitions, they educate and inspire hundreds of thousands of students in over 110 countries and have a perfect rating on charity Navigator, which means the donated money is used to the maximum effectiveness. When you get cash app from the App Store or Google Play and use code Lex podcast, you'll get $10. And Cash app will also donate $10 to first, which, again, is an organization that I've personally seen inspire girls and boys to dream of engineering a better world. And now here's my conversation with Judea Pearl. You mentioned in an interview that science.
+Speaker B: Is not a collection of effects by a constant human struggle with the mysteries of nature. What was the first mystery that you can recall that hooked you? That captain?
+Speaker C: Oh, the Christmas mystery. That's a good one. Yeah, I remember that. I had a fever for three days when I learned about Descartes analytic geometry. And I found out that you can do all the construction in geometry using algebra. And I couldn't get over it. I simply couldn't get out of bed.
+Speaker B: What kind of world does analytical geometry unlock?
+Speaker C: It connects algebra with geometry. Okay, so Descartes had the idea that geometrical construction and geometrical theorems and assumptions can be articulated in the language of algebra, which means that all the proof that we did in high school, trying to prove that the three bisectors meet at one point and that, okay, all. All this can be proven by shuffling around notation. Yeah, that was the traumatic experience for me. It was.
+Speaker B: I'm telling you, it's the connection between the different mathematical disciplines that they all just languages. So which mathematic discipline is most beautiful is geometry.
+Speaker C: It for you, both are beautiful. They have almost the same power.
+Speaker B: But there's a visual element to geometry.
+Speaker C: Being of visual, it's more transparent. But once you get over to algebra, then linear equation is a straight line. This translation is easily absorbed. And to pass a tangent to a circle, you have the basic theorems and you can do it with algebra. But the transition from one to another was really. I thought that Descartes was the greatest mathematician of all times.
+Speaker B: So you have been at the. If you think of engineering and mathematics as a spectrum. Yes, you have been. You have walked casually along this spectrum throughout your life. You know, a little bit of engineering and then, you know, done a little bit of mathematics here and there.
+Speaker C: Not a little bit. I mean, we got a very solid background in mathematics because our teachers were geniuses. Our teachers came from Germany in the 1930s, running away from Hitler. They left their careers in Heidelberg and Berlin and came to teach high school in Israel. And we were the beneficiary of that experiment. So when they taught us mathematic a good way.
+Speaker A: What's a good way to teach math?
+Speaker C: Chronologically.
+Speaker B: The people.
+Speaker C: The people behind the Ethereums. Yeah. Their cousins and their nieces and their faces and how they jumped from the bathtub when they screamed Eureka. And ran naked in town.
+Speaker B: So you're almost educated as a historian of math?
+Speaker C: No, we just got a glimpse of that history together with Ethereum. So every exercise in math was connected with the person and the time of the person. The period.
+Speaker B: The period. Also, mathematically speaking.
+Speaker C: Mathematically speaking, yes. Not the politics.
+Speaker B: So. And then in university, you have. You've gone on to do engineering.
+Speaker C: Yeah, I get a b's in engineering and technique. Right. And then I moved here for graduate work, and I got engineering in addition to physics, in Rutgers. And it would combine very nicely with my thesis, which I did in RCA laboratories, in superconductivity, and then somehow thought.
+Speaker B: To switch to almost computer science software, even not switch, but long to become. To get into software engineering a little bit. Programming, if you can call it that, in the seventies. So there's all these disciplines. If you were to pick a favorite in terms of engineering and mathematics, which path do you think has more beauty, which path has more power?
+Speaker C: It's hard to choose. No, I enjoy doing physics and even have vortex names on my name. So I have investment in immortality.
+Speaker B: So what is a vortex?
+Speaker C: Vortex is in superconductivity. In superconductivity, you have permanent current swirling around one way or the other. You can have a store, one or zero for computer. That was we worked on in the 1960 in LCA, and I discovered a few nice phenomena with the vortices. How do they move? Vortex, pearl Vortex. Right. You can google it, right? I didn't know about it, but the physicists picked up on my thesis, on my PhD thesis, and it becomes popular when thin film superconductors became important for high temperature superconductors. So they call it Pearl vortex. Without my knowledge. I discovered only about 15 years ago.
+Speaker B: You have footprints in all of the sciences. So let's talk about the universe a little bit. Is the universe at the lowest level deterministic or stochastic in your amateur philosophy view? Put another way, does God play dice?
+Speaker C: Well, we know it is stochastic, right.
+Speaker B: Today. Today we think it is stochastic.
+Speaker C: Yes. We think because we have the Heisenberg uncertainty principle and we have some experiments to confirm that.
+Speaker B: All we have is experiments to confirm it. We don't understand why.
+Speaker C: Why is.
+Speaker B: You wrote a book about why.
+Speaker C: Yeah, it's a puzzle. It's a puzzle that you have the dice, flipping machine or God, and the result of the flipping propagate with the speed faster than the speed of light. We can't explain that. Okay, so. But it only governs microscopic phenomena.
+Speaker B: So you don't think of quantum mechanics as useful for understanding the nature of reality?
+Speaker C: No. Diversionary.
+Speaker B: So in your thinking, the world might as well be deterministic?
+Speaker C: The world is deterministic. And as far as the neuron firing is concerned, it is deterministic to first approximation.
+Speaker B: What about free will?
+Speaker C: Free will is also a nice exercise. Free will is an illusion that we AI people are going to solve.
+Speaker B: So what do you think once we solve it, that solution will look like, once we put it in the paper.
+Speaker C: Look like, first of all, it will look like a machine. A machine that act as though it had free will. It communicates with other machines as though they have free will. And you wouldn't be able to tell the difference between a machine that does and machine that doesn't have free will.
+Speaker B: Okay, so the illusion it propagates, the.
+Speaker A: Illusion of free will amongst the other.
+Speaker C: Machines, and faking it is having it. Okay, that's what Turing test is all about.
+Speaker B: Yeah.
+Speaker C: Faking intelligence is intelligent because it's not easy to fake. It's very hard to fake. And you can only fake if you have it.
+Speaker B: Yeah. So that's such a beautiful statement. That's. Yeah, you could. Yeah, yeah. You can't fake it if you don't have it. Yeah. So let's begin at the beginning with the probability, both philosophically and mathematically. What does it mean to say the probability of something happening is 50%? What is probability?
+Speaker C: It's a degree of uncertainty that an agent has about the world.
+Speaker B: You're still expressing some knowledge in that statement.
+Speaker C: Of course, if the probability is 90%, it's absolutely different kind of knowledge than if it is 10%.
+Speaker B: But it's still not solid knowledge.
+Speaker C: It is solid knowledge by, if you tell me that 90%, sure enough, smoking will give you lung cancer in five years versus 10%, it's a piece of useful knowledge.
+Speaker B: So the statistical view of the universe, why is it useful? So we're swimming in complete uncertainty. Most of everything around us allows you.
+Speaker C: To predict things with a certain probability, and computing those probabilities are very useful. That's the whole idea of prediction. And you need prediction to be able to survive. If you cannot predict the future, then you just crossing the street will be extremely fearful.
+Speaker B: And so you've done a lot of work in causation. And so let's think about correlation.
+Speaker C: I started with the probability.
+Speaker B: You started with probability. You've invented the bayesian networks.
+Speaker C: Yeah.
+Speaker B: And so we'll dance back and forth between these levels of uncertainty, but what is correlation? What is it? So, probability of something happening is something, but then there's a bunch of things happening, and sometimes they happen together, sometimes not. They're independent or not. So how do you think about correlation of things?
+Speaker C: Correlation occurs when two things vary together over a very long time as one way of measuring it. Or when you have a bunch of variables that are very cohesively, then we have a correlation here. And usually when we think about correlation, we really think causally. Things cannot be correlated unless there is a reason for them to vary together. Why should they vary together if they don't see each other? Why should they vary together?
+Speaker B: So underlying it somewhere is causation.
+Speaker C: Yes, hidden in our intuition, there is a notion of causation because we cannot grasp any other logic except causation.
+Speaker B: And how does conditional probability differ from causation? So what is conditional probability?
+Speaker C: Conditional probability, how things vary when one of them stays the same. Now, staying the same means that I have chosen to look only at those incidents where the guy has the same value as previous one. It's my choice as an experimenter. So things that are not correlated before could become correlated. Like, for instance, if I have two coins which are uncorrelated, and I choose only those flippings experiments in which a bell rings and a bell rings when at least one of them is a tail, then suddenly I see correlation between the two coins because I only look at the cases where the bell rang. You see, it's my design, with my ignorance, essentially, with my audacity to ignore certain incident, I suddenly create a correlation where it doesn't exist physically.
+Speaker B: Right? So that's. You just outlined one of the flaws of observing the world and. And trying to infer something fundamental about the world from looking at the correlation.
+Speaker C: I don't look it as a flaw. The world works like that, which. But the flaws comes if we try to impose causal logic on correlation. It doesn't work too well.
+Speaker B: I mean, but that's exactly what we do. That's what that has been.
+Speaker C: The majority of science is the majority of naive science. Statisticians know it. Statisticians know that if you condition on a third variable, then you can destroy or create correlations among two other variables. They know it. It's in the data.
+Speaker B: Right.
+Speaker C: There's nothing surprising. That's why they all dismiss the Simpson paradox. Ah, we know it. We don't know anything about it.
+Speaker B: Well, there's, there's disciplines like psychology where all the variables are hard to get to account for. And so oftentimes there's a leap between correlation to causation, your impulse leap.
+Speaker C: Who is trying to get causation from correlation?
+Speaker B: Not, you're not proving causation, but you're sort of discussing it, implying, sort of hypothesizing with our ability.
+Speaker C: Which discipline you have in mind? I'll tell you if they are obsolete or if they are outdated or they are about to get outdated. Tell me, which one do you have?
+Speaker B: Oh, psychology.
+Speaker C: You know, what is it? Semiphdemental structural equation?
+Speaker B: No, no, I was thinking of applied psychologists studying, for example, we work with human behavior and semi autonomous vehicles, how people behave. And you have to conduct these studies of people driving cars.
+Speaker C: Everything starts with the question, what is the research question?
+Speaker B: What is the research question? The research question, do people fall asleep when the car is driving itself?
+Speaker C: Do they fall asleep, or do they tend to fall asleep more frequently? More frequently than with the car not driving?
+Speaker B: It's not driving itself.
+Speaker C: That's a good question. Okay.
+Speaker B: And so you measure, you put people in the car because it's real world. You can't conduct an experiment where you control everything.
+Speaker C: Why can't you? You could turn the automatic module on.
+Speaker B: And off because it's on road public. I mean, there's, you have, it's, there's aspects to it that's unethical because it's testing on public roads. So you can only use vehicle. You. They have to, the people, the drivers themselves have to make that choice themselves.
+Speaker C: Mm hmm.
+Speaker B: And so they regulate that. And so you just observe when they drive it autonomously and when they don't.
+Speaker C: But maybe they turn it off when they were very tired.
+Speaker B: Yeah, that kind of thing. But you don't know those very well.
+Speaker C: Okay. So that you have now. Uncontrolled experiment.
+Speaker B: Uncontrolled experiment.
+Speaker C: We call it observational study, and we form the correlation detected. We have to infer causal relationship whether it was the automatic piece that caused them to fall asleep or. So that is an issue that is about 120 years old.
+Speaker B: Yeah.
+Speaker C: I should only go 100 years old, maybe. No, actually, I should say it's 2000 years old because we have this experiment by Daniel. But the babylonian kingdom that wanted the exile, the people from Israel that were taken in exile to Babylon to serve the king, he wanted to serve them king's food, which was meat and Daniel, as a good jew, couldn't eat non kosher food, so he asked them to eat vegetarian food. But the king overseer said, I'm sorry, but if the king sees that youre performance falls below that of other kids, he's going to kill me. Daniel said, let's make an experiment. Let's take four of us from Jerusalem, okay? Give us vegetarian food. Let's take the other guys to eat the king's food. In about a week's time, we'll test our performance. And you know the answer. Of course he did the experiment, and they were so much better than the others. And the kings nominated them to super position in his king. So it was the first experiment. Yes. So there was a very simple. It's also the same research questions. We want to know if vegetarian food assist or obstruct your mental ability. And, okay, so the question is very old one. Even Democritus said, if I could discover one cause of things, I would rather discover one cause than be a king of Persia. The task of discovering causes what in the mind of ancient people from many, many years ago. But the mathematics of doing that was only developed in the 1920s. So science has left us often, okay, science has not provided us with the mathematics to capture the idea of x causes y and y does not cause x because all the equation of physics, symmetrical, algebraic, the equality sign goes both ways.
+Speaker B: Okay, let's look at machine learning, machine learning today. If you look at deep neural networks, you can think of it as a kind of conditional probability conditions. Estimators, correct.
+Speaker C: Beautiful. So where did you say that conditional probability estimators. None of the machine learning people clobbered you, attack you.
+Speaker B: Listen, most people, and this is why this, today's conversation, I think is interesting, is most people would agree with you. There's certain aspects that are just effective today, but we're going to hit a wall and there's a lot of ideas. I think you're very right that we're going to have to return to about causality. And it would be, let's try to explore it. Let's even take a step back. You've invented bayesian networks that look awfully, a lot like they express something like causation, but they don't, not necessarily. So how do we turn bayesian networks into expressing causation? How do we build causal networks? This a causes b, b causes c. How do we start to infer that kind of thing?
+Speaker C: We start asking ourselves questions. What are the factors that would determine the value of x? X could be blood pressure, death, hungry, hunger.
+Speaker A: But these are hypotheses that we propose.
+Speaker C: Hypothesis. Everything which has to do with causality comes from a theory. The difference is only what kind, how you interrogate the theory you have in your mind.
+Speaker B: So it still needs the human expert to propose, right?
+Speaker C: You need the human expert to specify the initial model. Initial model could be very qualitative. Just who listens to whom, by whom? Listen to, I mean, one variable listen to the other. So I say, okay, the tide is listening to the moon and not to the rooster crow. And so far, this is our understanding of the world in which we live, scientific understanding of reality. We have to start there, because if we don't know how to handle cause and effect relationship when we do have a model, and we certainly do not know how to handle it when we don't have a model. So let's start first. In AI slogan is representation first, discovery second. But if I give you all the information that you need, can you do anything useful with it? That is the first representation. How do you represent it? I give you all the knowledge in the world. How do you represent it? When you represent it, I ask you, can you infer x or y or z? Can you answer certain queries? Is it complex? Is it polynomial? All the computer science exercises we do, once you give me a representation for my knowledge, then you can ask me, now I understand how to represent things. How do I discover them? It's a secondary thing.
+Speaker B: So, first of all, I should echo the statement that mathematics and the current, much of the machine learning world has not considered causation, that a causes b just in anything. So that seems like us. That seems like a non obvious thing that you think we would have really acknowledged it, but we haven't. So we have to put that on the table. Knowledge. How hard is it to create a knowledge from which to work?
+Speaker C: In certain areas, it's easy because we have only four or five major variables in an epidemiologist or an economist can put them down, what minimum wage, unemployment policy, x, y, z, and start collecting data and quantify the parameters that were left unquantified with the initial knowledge. That's the routine work that you find in experimental psychology, in economics, everywhere, in the health science. That's a routine thing. But I should emphasize, you should start with a research question. What do you want to estimate once you have that, you have to have a language of expressing what you want to estimate. You think it's easy? No.
+Speaker B: So we can talk about two things. I think. One is how the science of causation is very useful for at answering certain questions. And then the other is, how do we create intelligence systems that need to reason with causation? So if my research question is, how do I pick up this water bottle from the table, all the knowledge that is required to be able to do that, how do we construct that knowledge base? Does it, do we return back to the problem that we didn't solve in the eighties with expert systems? Do have to solve that problem of automated construction of knowledge?
+Speaker C: You're talking about the task of eliciting knowledge from an expert.
+Speaker B: Task of eliciting knowledge of an expert, or just self discovery of more knowledge, more and more knowledge. So automating the building of knowledge as.
+Speaker C: Much as possible, it's a different game in the causal domain because it's essentially the same thing. You have to start with some knowledge and you're trying to enrich it. But you don't enrich it by asking for more rules. You enrich it by asking for the data, for to look at the data and quantifying and ask queries that you couldn't answer when you started, he couldn't because the question is quite complex and it's not within the capability of ordinary cognition of ordinary person, ordinary expert, even, to answer.
+Speaker B: So what kind of questions do you think we can start to answer, even a simple one?
+Speaker C: Suppose. Yeah, let's start with easy one.
+Speaker B: Let's do it.
+Speaker C: Okay. What's the effect of a drug on recovery? What are the aspirin that caused my headache to be cured? Or what did the television program or the good news I received? This is already, you see, it's a difficult question because it's find the cause from effect. The easy one is find effect from cause.
+Speaker B: That's right. So first you construct a model saying that this is an important research question. This is an important question. Then you.
+Speaker C: I didn't construct a model yet. I just said it's important question, one question. And the first exercise is express it mathematically. What do you want to, like, if I tell you what's the, what will be the effect of taking this drug? Okay. You have to say that in mathematics. How do you say that?
+Speaker B: Yes.
+Speaker C: Can you write down the question, not the answer? I want to find the effect of the drug on my headache. Right, right down. Write it down.
+Speaker B: That's where the do calculus comes in.
+Speaker C: Yes. Do operator. What do you do operator?
+Speaker B: Do operator.
+Speaker C: Yeah, yeah. Which is nice.
+Speaker B: It's the difference between association and intervention. Very beautifully sort of constructed.
+Speaker C: Yeah. So we have a do operator. So the dual calculus connects it on the dual operator itself, connects the operation of doing to something that we can see.
+Speaker B: Right. So as opposed to the purely observing, you're making the choice to change a variable.
+Speaker C: That's what it expresses. And then the way that we interpret it, the mechanism by which we take your query and we translate into something that we can work with, is by giving it semantics, saying that you have a model of the world and you cut off all the incoming arrow into x, and you're looking now in the modified mutilated model, you ask for the probability of y, that is, interpretation of doing x, because by doing things, you liberate them from all influences that acted upon them earlier, and you subject them to the tyranny of your muscles.
+Speaker B: So you remove all the questions about causality by doing them.
+Speaker C: So you're not one level of questions. Answer questions about what will happen if you do things, if you do.
+Speaker B: If you drink the coffee, if you take the asthma, right? So how do we get the. How do we get the doing data?
+Speaker C: Now, the question is, if we cannot one experiment, right, then we have to rely on observational studies.
+Speaker B: So first we could. Sorry to interrupt. We could run an experiment where we do something where we drink the coffee and dough. And this, the dooperator, allows you to sort of be systematic about expressing, to.
+Speaker C: Imagine how the experiment will look like, even though we cannot physically and technologically conducted. I'll give you an example. What is the effect of blood pressure on mortality? I cannot go down into your vein and change your blood pressure, but I can ask the question, which means I can even have a model of your body. I can imagine the effect of your. How the blood pressure change will affect your mortality. How I go into the model and I conduct this surgery about the blood pressure, even though physically I can do. I cannot do it.
+Speaker B: Let me ask the quantum mechanics question. Does the doing change the observation, meaning the surgery of changing the blood pressure is. I mean.
+Speaker C: No, the surgery is called very delicate.
+Speaker B: It's very delicate, infinitely delicate, incisive and delicate.
+Speaker C: Which means? Do means do X means I'm going to touch only X, only X directly into X. So that means that I change only things which depends on Xdev by virtue of X changing. But I don't depend things which are not dependent on x. Like, I wouldn't change your sex or your age, I just change your blood pressure.
+Speaker B: So in the case of blood pressure, it may be difficult or impossible to construct such an experiment.
+Speaker C: No. Physically, yes. But hypothetically, no.
+Speaker B: Hypothetically, no.
+Speaker C: If we have a model. That is what the model is for. So you conduct a surgeries on a model, you take it apart, put it back. That's the idea of a model. It's the idea of thinking counterfactual imagining and that idea of creativity.
+Speaker A: So by constructing that model, you can.
+Speaker B: Start to infer if the higher the blood pressure leads to mortality, which increases or decreases.
+Speaker C: I construct the model, I can still not answer it. I have to see if I have enough information in the model that would allow me to find out the effects of intervention from a non interventional study. From observation. Hands off study.
+Speaker B: So what's needed?
+Speaker C: We need to have assumptions about who affects whom. If the graph had a certain property, the answer is yes, you can get it from observational study. If the graph is too meshy, bushy, bushy. The answer is no, you cannot. Then you need to find either different kind of observation that you haven't considered or one experiment.
+Speaker B: So basically does that, that puts a lot of pressure on you to encode wisdom into that graph.
+Speaker C: But you don't have to encode more than what you know. God forbid if you put the like economists are doing that they call identifying assumptions. They put assumptions even they don't prevail in the world. They put assumptions so they can identify things.
+Speaker B: But the problem is. Yes, beautifully put. But the problem is you don't know what you don't know.
+Speaker C: So you know what you don't know, because if you don't know, you say it's possible. It's possible that x affect the traffic tomorrow. It's possible. You put down an arrow which says it's possible. Every arrow in the graph says it's possible.
+Speaker A: So there's not a significant cost to.
+Speaker B: Adding arrows that the more arrow you.
+Speaker C: Add, the better, the less likely you are to identify things from purely observational data. So if the whole world is bushy and everybody affect everybody else, the answer is you can answer it ahead of time. I cannot answer my query from observational data. I have to go to experiments.
+Speaker B: So you talk about machine learning is essentially learning by association or reasoning by association. And this do calculus is allowing for intervention. I like that word, action. So you also talk about counterfactuals.
+Speaker C: Yeah.
+Speaker B: And trying to sort of understand the difference in counterfactuals and intervention. What's the, first of all, what is counterfactuals and why are they useful? Why are they especially useful as opposed to just reasoning what, what effect actions have?
+Speaker C: Counterfactual contains what we normally call explanations.
+Speaker B: Can you give an example?
+Speaker C: If I tell you that acting one way affects something else. I didn't explain anything yet, but if I. If I ask you, was it the aspirin that cure my headache? I'm asking for explanation. What cure my headache? And putting a finger on aspirin provide an explanation. It was aspirin. It was responsible for your headache going away. If you didn't take the aspirin, you would still have a headache.
+Speaker B: So by saying, if I didn't take aspirin, I would have a headache. You're thereby saying that aspirin is the thing that removes the headache.
+Speaker C: Yes, but you have to have another pot of information. I took the aspirin and my headache is gone. It's very important information. Now I'm reasoning backward. And I said, what is the aspirin?
+Speaker B: Yeah. By considering what would have happened if everything else is the same. But I didn't take aspirin.
+Speaker C: That's right. So you know that things took place. You know, Joe killed Schmoe. And Schmo would be alive had John not used his gun. Okay, so that is the counterfactual. It had a confliction or clash between observed fact that he did shoot and the hypothetical predicate which says, had he not shut, you have a clash, a logical clash. They cannot exist together. That's a counterfactual. And that is the source of our explanation of our idea of responsibility, regret and free will.
+Speaker B: Yeah. So it certainly seems that's the highest level of reasoning, right?
+Speaker C: Yes. Physicists do it all the time.
+Speaker B: Who does it all the time?
+Speaker C: Physicists. Physicists in every equation of physics, let's say you have a hooke's law and you put 1 kg on the spring, and the spring is 1 meter. And you say, had this weight been two kilogram, the spring would have been twice as long. It's no problem for physicists to say that, except that mathematics is only in the form of equation. Okay? Equating the weight proportionality constant and the length of the string so you don't have the asymmetry in the equation of physics. Although every physicist thinks counterfactually. Ask high school kids, had the weight been 3 kg, what will be the length of the spring? They can answer it immediately because they do the counterfactual processing in their mind. And then they put it into equation, algebraic equation, and they solve it. But a robot cannot do that.
+Speaker B: How do you make a robot learn these relationships?
+Speaker C: Why, you would learn. Suppose you tell him, can you do it? Before you go learning, you have to ask yourself, suppose I give you all the information. Can the robot perform the task that I ask him to perform? Can he reason and say, no, it wasn't the aspirin. It was the good news you received on the phone.
+Speaker B: Right. Because, well, unless the robot had a model, a causal model of the world.
+Speaker C: Right, right.
+Speaker B: I'm sorry I have to linger on.
+Speaker C: This, but now we have to linger and we have to say, how do we. How do we do it?
+Speaker B: How do we build it?
+Speaker C: Yes.
+Speaker B: How do we build a causal model without a team of human experts running around?
+Speaker C: Why don't you go to learning right away? You're too much involved with learning.
+Speaker B: Because I like babies. Babies learn fast. I'm trying to figure out how they do it.
+Speaker C: Good. That's another question. How do the babies come out? With the counterfactual model of the world. And babies do that? Yeah, they know how to play with. In the crib. They know which balls hits another one, and they learn it. Bye. Playful manipulation of the world. Yes, the simple world involves only toys and balls and chimes, but it's a. If you think about. It's a complex world.
+Speaker B: We take for granted how complicated.
+Speaker C: And kids do it by playful manipulation. Plus parent guidance, pure wisdom and hearsay. They meet each other. Can they say, you shouldn't have taken my toy?
+Speaker B: Right. And these multiple sources of information they're able to integrate. So the challenge is about how to integrate, how to form these causal relationships from different sources of data. So how. How. How much information is it to play? How much causal information is required to be able to play in the crib with different objects?
+Speaker C: I don't know. I haven't experimented with the crib.
+Speaker B: Okay. Not a crib. Picking up.
+Speaker C: Very interesting.
+Speaker B: Manipulating physical objects on this very. Opening the pages of a book. All the tasks, physical manipulation tasks. Do you have a sense? Because my sense is the world is extremely complicated.
+Speaker C: Extremely complicated. I agree. And I don't know how to organize it because I've been spoiled by easy problems such as cancer and death.
+Speaker B: First, we have to start easy.
+Speaker C: There is in the sense that you have only 20 variables and they are just variables and not mechanics. Okay? It's easy. You just put them on the graph and they speak to you.
+Speaker B: And you're providing a methodology for letting them speak.
+Speaker C: Yeah, I'm working only in the abstract. The abstract was knowledge in, knowledge out, data in between.
+Speaker B: Now, can we take a leap to trying to learn in this very. When it's not 20 variables, but 20 million variables trying to learn causation in this world. Not learn, but somehow construct models. I mean, it seems like you would only have be able to learn because constructing it manually will be too difficult. Do you have ideas of.
+Speaker C: I think it's a matter of combining simple models for many, many sources, for many, many ideas, disciplines and many metaphors. Metaphors are the basics of human intelligence and basis.
+Speaker B: Yeah. So how do you think about a metaphor in terms of its use in human intelligence?
+Speaker C: Metaphors is an expert system. An expert. It's mapping problem with which you are not familiar. To a problem with which you are familiar. Like I give you a good example. The Greek believed that the sky is an opaque shell. It's not really infinite space. It's an opaque shell. And the stars are holes poked in the shell through which you see the eternal light. It was a metaphor. Why? Because they understand how you poke holes in shells. They were not familiar with infinite space. And we are walking on a shell of a turtle. And if you get too close to the edge, you're going to fall down to Hades or whatever. There's a metaphor. It's not true. But this kind of metaphor enabled Aristotenes to measure the radius of the earth. Because he said, come on, if we are walking on a turtle shell, then the ray of light coming to this angle will be different. This place will be different angle than coming to this place. I know the distance. I'll measure the two angles and then I have the radius of the shell of the. Of the turtle. And he did. And he found his measurement very close to the measurements we have today through the year, what, 6700, 700 km. That's something that would not occur to babylonian astronomers. Even though the babylonian experiments were the machine learning people of the time. They fit curves and they could predict the eclipse of the moon much more accurately than the greek, because they fit curve. That's the difference in metaphor. Something that you're familiar with. A game, a total shield. Okay, what does it mean? It you are familiar. Familiar means that answers to certain questions are explicit. You don't have to derive them.
+Speaker B: And they were made explicit because somewhere in the past you've constructed a model.
+Speaker C: Of that you're familiar with. So the child is familiar with billiard ball?
+Speaker B: Yes.
+Speaker C: So the child could predict that if you let loose of one ball, the other one will bounce off. These are. You obtain that by familiarity. Familiarity is answering questions and you store the answer explicitly. You don't have to derive them. So this is idea of a metaphor. All our life, all our intelligence is built around metaphors, mapping from the unfamiliar to the familiar. But the marriage between the two is a tough thing, which I, which we haven't yet been able to algorithmicize.
+Speaker B: So you think of that process of using metaphor to leap from one place to another. We can call it reasoning. Is it a kind of reasoning?
+Speaker C: It is reasoning by metaphor. Metaphorically reasoning by metaphor.
+Speaker B: Do you think of that as learning? So learning is a popular terminology today. In a narrow sense.
+Speaker C: It is. It is. It is definitely a form.
+Speaker B: So you may not. Okay, right.
+Speaker C: It's one of the most important learning. Taking something which theoretically is derivable and store it in accessible format. I'll give you an example. Chess. Okay, finding, winning, winning, starting move in chess is hard, but there is an answer. Either there is a winning move for white, or there isn't, or there is a draw. So it is the answer to that is available through the rule of the games. But we don't know the answer. So what does the chess master have that we don't have? He has taught explicitly an evaluation of certain complex pattern of the board. We don't have it. Ordinary people like me, I don't know about you, I'm not a chess master. So for me, I have to derive yes things that for him is explicit. He has seen it before, or he has seen the pattern before, or similar pattern. You see metaphor and he generalized and said, don't move. It's a dangerous move.
+Speaker B: It's just that not in the game of chess, but in the game of billiard balls, we humans are able to initially derive very effectively, and then reason by metaphor, very effectively, make it look so easy that it makes one wonder, how hard is it to build it in a machine? So in your sense, how far away are we to be able to construct?
+Speaker C: I don't know. I'm not a futurist. All I can tell you is that we are making tremendous progress in the causal reasoning domain, something that I even dare to call it revolution, the cultural revolution, because what we have achieved in the past three decades is something that dwarf everything that was derived in the entire history.
+Speaker B: So there's an excitement about current machine learning methodologies, and there's really important good work you're doing in causal inference. Where do the, what is the future? Where do these worlds collide? And what does that look like?
+Speaker C: First, they're gonna work without collision. It's gonna work in harmony.
+Speaker B: Harmony.
+Speaker C: It's not. The human is going to jumpstart the exercise by providing qualitative, non committing models of how the universe works universally, how the. In the reality, the domain of discourse works the machine is going to take over from that point of view and derive whatever the calculus says can be derived, namely quantitative answer to our questions. These are complex questions. I give you some example of complex questions that would boggle your mind if you think about it. You take result of studies in diverse population, under diverse condition, and you infer the cause effect of a new population which doesn't even resemble any of the ones studied. And you do that by do calculus. You do that by generalizing from one study to another, see what's common between the two, what is different. Let's ignore the differences and pull out the commonality. And you do it over maybe 100 hospitals around the world. From that you can get really mileage from big data. It's not only do you have many samples, you have many sources of data.
+Speaker B: So that's a really powerful thing, I think, for, especially for medical applications, cure cancer. Right. That's how, from data, you can cure cancer. So we're talking about causation, which is the temporal, temporal relationships between things.
+Speaker C: Not only temporal, it was structural and temporal. Temporal. Temporal precedence by itself cannot replace causation.
+Speaker B: Is temporal precedence the era of time?
+Speaker C: In physics, it's important. Necessary. It's important, yes.
+Speaker B: Is it?
+Speaker C: Yes. I never seen the cause propagate backwards.
+Speaker B: But if we call. If we use the word cause, but there's relationships that are timeless, I suppose that's still forward in the arrow of time. But are there relationships, logical relationships that fit into the structure?
+Speaker C: Sure. The whole Duke alcala is logical relationship.
+Speaker B: That doesn't require a temporal. It has just the condition that it's. You're not traveling back in time.
+Speaker C: Yes. Correct.
+Speaker B: So it's really a generalization of. A powerful generalization of what?
+Speaker C: Logic.
+Speaker B: Yeah. Boolean logic.
+Speaker C: Yes.
+Speaker B: That is sort of simply put, and allows us to, you know, reason. Reason about the order of events, the.
+Speaker C: Source, the not about between. We're not deriving the order of event. We are given cause of active relationship. Okay. They ought to be obeying the. The time president's relationship. We are given that. And now that we ask questions about other cause of relationship that could be derived from the initial ones, but were not given to us explicitly. Like the case of the firing squad I gave you in the first chapter. And I asked, what if rifleman a declined to shoot, would the prisoner still be dead? Declined to shoot. It means that disobey order. And the rule of the games were that he is a obedient and marksman. Okay, that's how you start. That's the initial auto but now you ask questions about breaking the rules. What if he decided not to pull the trigger? He just became a pacifist. And you can. You and I can answer that. The other rifleman would have killed him. I want a machine to do that. Is it so hard to ask a machine to do that? It's such a simple task, but you have to have a calculus for that.
+Speaker B: Yes. Yeah, but the curiosity, the natural curiosity for me is that, yes, you're absolutely correct and important. And it's hard to believe that we haven't done this seriously, extensively already a long time ago. So this is really important work. But I also want to know, you know, there's maybe you can philosophize about how hard is it to learn?
+Speaker C: Okay, let's assume we're learning. We want to learn it. Okay?
+Speaker B: We want to learn.
+Speaker C: So what do we do? We put a learning machine that watches execution trials in many countries, in many locations. Okay? All the machine can learn is to see shot or not shot dead. Not dead. Court issued an order or didn't. Okay. Just the facts. From the fact you don't know who listens to whom. You don't know that the condemned person listened to the bullets, that the bullets are listening to the captain. Okay. All we hear is one command, two shots dead. Okay? Triple of variables. Yes. No. Yes. No. Okay. You can learn who listens to whom and you can answer the question no.
+Speaker B: Definitively, no. But don't you think you can start proposing ideas for humans to review?
+Speaker C: You want machine to learn, right? You want a robot. So robot is watching trials like that, 200 trials, and then he has to answer the question, what if rifleman Aethereze refrain from shooting?
+Speaker B: Yeah. So how to do that?
+Speaker C: That's exactly my point. That looking at the facts don't give you the strings behind the facts.
+Speaker B: Absolutely. But do you think of machine learning as it's currently defined as only something that looks at the facts and tries.
+Speaker C: Right now they only look at the facts.
+Speaker B: So is there a way to modify. Yeah, in your sense?
+Speaker C: Playful manipulation.
+Speaker B: Playful manipulation, yes. Doing the interventionist kind of thing?
+Speaker C: Yes, intervention, but it could be at random. For instance, the rifleman is sick that day or he just vomits or whatever. So machine can observe this unexpected event which introduced noise. The noise still have to be random to be able to related to randomized experiment. And then you have observational studies from which to infer the strings behind the facts. It's doable to a certain extent, but now that we are expert in what you can do, once you have a model we can reason back and say what kind of data you need to build a model.
+Speaker B: Got it. So I know you're not a futurist, but are you excited? Have you, when you look back at your life long for the idea of creating a human level intelligence system?
+Speaker C: Yeah, I'm driven by that all my life. I'm driven just by one thing. But I go slowly. I go from what I know to the next step incrementally.
+Speaker B: So without imagining what the end goal looks like, do you imagine what the.
+Speaker C: End goal is going to be? A machine that can answer sophisticated questions, counterfactuals of regret, compassion, responsibility, and free will.
+Speaker B: So what is a good test? Is it turing test? A reasonable test.
+Speaker C: Free will doesn't exist yet.
+Speaker B: How would you test free will?
+Speaker C: So far, we know one thing. If robots can communicate with reward and punishment among themselves and hitting each other on the wrist and say, you shouldn't have done that, playing better soccer, because they can do that.
+Speaker B: What do you mean, because they can do that?
+Speaker C: Because they can communicate among themselves because.
+Speaker B: Of the communication they can do.
+Speaker C: Because they communicate like us. Reward and punishment. Yes. You didn't pass the ball the right time and so forth. Therefore, you're gonna sit on the bench for the next two. If they start communicating like that, the question is, will they play better soccer? As opposed to what? As opposed to what they do now, without this ability to reason about reward and punishment, responsibility, and I can only think about communication.
+Speaker B: Communication is not necessarily natural language, but just communication.
+Speaker C: Just communication. And that's important to have a quick and effective means of communicating knowledge. If the coach tells you he should have passed the ball, ping. He conveys so much knowledge to you, as opposed to what? Go down and change your software. That's the alternative. But the coach doesn't know your software, so how can a coach tell you, you should have passed the ball, but our language is very effective. You should have passed the ball. You know, your software, you tweak the right module. Okay. And next time, you don't do it.
+Speaker B: Now, that's for playing soccer, where the rules are well defined.
+Speaker C: No, they're not well defined. When you should pass the ball is not well defined. No. It's very soft, very noisy.
+Speaker B: Yes.
+Speaker C: You have to do it under pressure.
+Speaker B: It's art. But in terms of aligning values between computers and humans, do you think this cause and effect type of thinking is important to align the values? Values, morals, ethics, under which the machines make decisions, is the cause effect where the two can come together?
+Speaker C: Cause effect is necessary component to build a ethical machine, because the machine has to empathize to understand what's good for you, to build a model of your, of you recipient, which should be very much what, what is compassion? They imagine that you suffer pain as much as me.
+Speaker B: As much as me.
+Speaker C: I do have already a model of myself. Right. So it's very easy for me to map you to mine. I don't have to rebuild the model. It's much easier to say, oh, you're like me, okay? Therefore, I would not hate you.
+Speaker B: And the machine has to imagine, has to try to fake to be human, essentially. So you can imagine that you're, that you're like me, right?
+Speaker C: And moreover, who is me? That's the first, that's consciousness. They have a model of yourself. Where do you get this model? You look at yourself as if you are a part of the environment. If you build a model of yourself versus the environment, then you can say, I need to have a model of myself. I have abilities, I have desires and so forth. Okay? I have a blueprint of my soft flow. Not a full detail, because I cannot get the halting problem, but I have a blueprint. So on that level of a blueprint, I can modify things. I can look at myself in the mirror and say, hmm, if I change this, tweak this model, I'm going to perform differently. That is what we mean by free will and consciousness.
+Speaker B: What do you think is consciousness? Is it simply self awareness? So including yourself into the model of the world?
+Speaker C: That's right. Some people tell me, no, this is only part of consciousness. And then they start telling me what they really mean by consciousness and I lose them.
+Speaker B: Yeah.
+Speaker C: For me, consciousness is having a blueprint of your software.
+Speaker B: Do you have concerns about the future of AI, all the different trajectories of all of our research?
+Speaker C: Yes.
+Speaker B: Where's your hope, where the movement heads? Where are your concerns?
+Speaker C: I'm concerned because I know we are building a new species that has the capability of exceeding us, exciting our capabilities, and can breed itself and take over the world. Absolutely. It's a new species that is uncontrolled. We don't know the degree to which we control it. We don't even understand what it means to be able to control this new species. So I'm concerned, I don't have anything to add to that because it's such a gray area that unknown. It never happened in history.
+Speaker B: Yeah.
+Speaker C: The only, the only time it happened in history was evolution with human being.
+Speaker B: Right.
+Speaker C: And it wasn't very successful, was it. Some people say it was a great success for us.
+Speaker B: It was. But a few people along the way, a few creatures along the way would not agree to. So it's just because it's such a gray area. There's nothing else to say.
+Speaker C: We have a sample of one.
+Speaker B: Sample of one, it's us. But some people would look at you and say, yeah, but we were looking to you to help us make sure that sample two works out. Okay.
+Speaker C: We have more than a sample of mine. We have theory of theories, and that's good. We don't need to be statisticians. So sample of one doesn't mean poverty of knowledge. It's not sample of one plus theory, conjectural theory of what could happen. Yeah, that we do have. But I really feel helpless in contributing to this argument because I know so little and my imagination is limited and I know how much I don't know, but I'm concerned.
+Speaker B: You were born and raised in Israel? Born and raised in Israel and later served in Israel. Military defense forces.
+Speaker C: In the Israel Defense force, yeah.
+Speaker B: What did you learn from that experience?
+Speaker C: From that experience?
+Speaker B: There's a kibbutz in there as well.
+Speaker C: Yes, because I was in Nakhal, which is a combination of agricultural work and military service. We were supposed. I was really idealist. I wanted to be a member of the kibbutz throughout my life and to live a communal life. And so I prepared myself for that. Slowly, slowly, I. The greater challenge.
+Speaker B: So that's a far world away.
+Speaker C: Both what I learned from that, it was a miracle. It was a miracle that I served in the 1950s. I don't know how we survived. The country was under austerity. It tripled its population from 600,000 to a million .8 when I finished college, no one went hungry. Austerity, yes. When you wanted to buy, to make an omelette in a restaurant, you had to bring your own egg. And they imprisoned people from bringing food, from farming, from the villages to the city. But no one went hungry. And I always add to it, higher education did not suffer any budget cut. They still invested in me, in my wife, in our generation, to get the best education that they could. So I'm really grateful for the opportunity, and I'm trying to pay back now. It's a miracle that we survived the war of 1948. We were so close to a second genocide. It was all in planned, but we survived it by miracle. And then the second miracle that not many people talk about, the next phase, how no one went hungry and the country managed to triple its population. You know what it means to triple. Imagine United States going from, what, 350,000,002?
+Speaker B: Yeah.
+Speaker C: Unbelieve.
+Speaker B: This is really tense part of the world. It's a complicated part of the world. Israel and all around. Religion is at the core of that complexity, one of the components.
+Speaker C: Religion is a strong motivating cause for many, many people in the Middle east. Yes.
+Speaker B: In your view, looking back, is religion good for society?
+Speaker C: It's a good question for robotic. You know, there's echoes of that question. Equip robot with religious beliefs. Suppose we find out we agree that religion is good to you, to keep you in line, should we give robot the metaphor of a goddess? Yeah, as a matter of fact, the robot will get it without us also. Why? But robot will reason by metaphor. And what is the most primitive metaphor? A child grows with mother smile. Father teaching father image and mother image. That's God. So whether you want it or nothing, the robot will assume. Assuming the robot is going to have a mother and father, it may only have a programmer, which doesn't supply warmth and discipline. Discipline. It does. So the robot will have this model of the trainer, and everything that happens in the world, cosmology and so on, is going to be mapped into the programmer. It's God man, the.
+Speaker B: The thing that represents the origin of everything.
+Speaker C: For that robot, it's the most primitive relationship.
+Speaker A: So it's gonna arrive there by metaphor. And so the.
+Speaker B: The question is if overall, that metaphor has served us well as humans.
+Speaker C: I really don't know. I think it did. But as long as you keep in mind, it's only a metaphor.
+Speaker B: So if you think we can. Can we talk about your son?
+Speaker C: Yes. Yes.
+Speaker B: Can you tell his story?
+Speaker C: His story? Well, Daniel is known he was abducted in Pakistan by al Qaeda driven sect and under various pretenses. I don't even pay attention to what the pretense was. Originally, they wanted to have. To have the United States deliver some promised airplanes. It was all made up. All these demands were bogus. I don't know, really. But eventually he was executed in front of a camera.
+Speaker B: At the core of that is hate and intolerance.
+Speaker C: At the core. Yes. Absolutely, yes. We don't really appreciate the depth of the hate at which. Which billions of people are educated. We don't understand it. I just listened recently to what they teach you in Mogadishu. When the water stopped in the tap, we knew exactly who did it. The Jews.
+Speaker B: The Jews.
+Speaker C: We didn't know how, but we knew who did it. We don't appreciate what it means to us. The depth is unbelievable.
+Speaker B: Do you think all of us are capable of evil? And the education, the indoctrination, is really.
+Speaker C: What creates evil, because we are capable of evil. If you are indoctrinated sufficiently long and in depth, we are capable of ISIS. We are capable of Nazism. Yes, we are. But the question is whether we, after we have gone through some western education and we learn that everything is really relative. There is no absolute God. There is only a belief in God. Whether we are capable now of being transformed under certain circumstances to become brutal. Yeah, that is a. I'm worried about it because some people say, yes, given the right circumstances, given economical, bad, economical crisis, you are capable of doing it, too. That worries me. I want to believe it. I'm not capable.
+Speaker B: This is seven years after Daniel's death. He wrote an article at the Wall Street Journal titled Daniel Pearl in the normalization of evil.
+Speaker C: Yes.
+Speaker B: What was your message back then, and how did it change today? Over the years?
+Speaker C: I lost.
+Speaker B: What was the message?
+Speaker C: The message was that. But we are not treating terrorism as a taboo. We are treating it as a bargaining device that is accepted. People have grievance and they go and bomb restaurants. Okay? It's normal. Look, you're even not surprised when I tell you that 20 years ago you say, what, for grievance, you go and blow a restaurant. Today it's becoming normalized, the banalization of evil. And we have created that to ourselves by normalizing, by making it part of political life. It's a political debate. Every terrorist yesterday becomes a freedom fighter today, and tomorrow it becomes terrorist again. It's switchable.
+Speaker B: Right? And so we should call out evil.
+Speaker C: When there's evil, if we don't want to be part of it, become it. Yeah. If we want to separate good from evil. That's one of the first things that what was in the Garden of Eden, remember? The first thing that God tells him was, hey, you want some knowledge? Here is a tree of good and evil.
+Speaker B: So this evil touched your life personally. Does your heart have anger, sadness, or is it hope?
+Speaker C: I see some beautiful people coming from Pakistan. I see beautiful people everywhere, but I see horrible propagation of evil in this country, too. It shows you how populistic slogans can catch the mind of the best intellectuals.
+Speaker B: Today is Father's day.
+Speaker C: I didn't know that.
+Speaker B: Yeah. What's a fond memory you have of Daniel?
+Speaker C: Oh, many good memories. Immense. He was my mentor, William. He had a sense of balance that I didn't have.
+Speaker B: Yeah.
+Speaker C: He saw the beauty in every person he was not as emotional as I am and more looking at things in perspective. He really liked every person. He really grew up with the idea that a foreigner is a reason for curiosity, not for fear. At one time we went in Berkeley and homeless came out from some dark alley and said, hey, man, can you spare a dime? I retreated back, you know, 2ft back, and then I just hugged him and said, here's a dime, enjoy yourself. Maybe you want some money to take a bus or whatever. Where did you get it? Not for me.
+Speaker B: Do you have advice for young minds today? Dreaming about creating as you have dreamt creating intelligent systems? What is the best way to arrive at new breakthrough ideas and carry them through the fire of criticism and past conventional ideas?
+Speaker C: Ask your question freely. Your questions are never dumb. And solve them your own way. And don't take no for an answer. Look, if they are really dumb, you will find up quickly by trying an arrow to see that they are not leading any place, but follow them and try to understand things your way. That is my advice. I don't know if it's gonna help anyone.
+Speaker B: No, that's brilliantly.
+Speaker C: There is a lot of inertia in science. In academia, it is slowing down science.
+Speaker B: Yeah. Those two words your way, that's a powerful thing. It's against inertia, potentially against the flow, against your professor. Against your professor.
+Speaker C: I wrote the book of why? In order to democratize common sense, in order to instill rebellious spirit in students. So they wouldn't wait until the professor get things right.
+Speaker B: So you wrote the manifesto of the rebellion against the professor.
+Speaker C: Against the professor, yes.
+Speaker B: So, looking back at your life of research, what ideas do you hope ripple through the next many decades? What? What do you hope your legacy will be?
+Speaker C: I already have a tombstone carved.
+Speaker B: Oh, boy.
+Speaker C: The fundamental law of counterfactuals. That's what. It's a simple equation. What? Counterfactual in terms of a model surgery. That's it. Because everything follows from that. If you get that, all the rest, I can die in peace and my student can derive all my knowledge by mathematical means.
+Speaker B: The rest follows.
+Speaker C: Yeah.
+Speaker B: Thank you so much for talking today.
+Speaker C: I really appreciate it. Thank you for being so attentive and instigating.
+Speaker B: We did it.
+Speaker C: We did it.
+Speaker B: The coffee helped.
+Speaker A: Thanks for listening to this conversation with Judea Pearl, and thank you to our presenting sponsor cash app. Download it, use code LexPodcast, you'll get $10, and $10 will go to first, a STEM education nonprofit that inspires hundreds of thousands of young minds to learn and to dream of engineering our future. If you enjoy this podcast, subscribe on YouTube, give it five stars on Apple podcasts, support on Patreon, or simply connect with me on Twitter. And now, let me leave you with some words of wisdom from Judea Pearl. You cannot answer a question that you cannot ask, and you cannot ask a question that you have no words for. Thank you for listening and hope to see you next time.

@@ -1,0 +1,1037 @@
+﻿Speaker 1: The following is a conversation with Charles Isbell and Michael Litman.  Charles is the Dean of the College of Computing at Georgia Tech, and Michael is a computer science professor at Brown University.  I've spoken with each of them individually on this podcast, and since they are good friends in real life, we all thought it would be fun to have a conversation together.  Quick mention of each sponsor, followed by some thoughts related to the episode.  Thank you to Athletic Greens, the all-in-one drink that I start every day with to cover all my nutritional bases, Eight Sleep, a mattress that cools itself and gives me yet another reason to enjoy sleep, Masterclass, online courses from some of the most amazing humans in history, and Cash App, the app I use to send money to friends.  Please check out the sponsors in the description to get a discount and to support this podcast.  As a side note, let me say that having two guests on the podcast is an experiment that I've been meaning to do for a while.  In particular, because down the road, I would like to occasionally be a kind of moderator for debates between people that may disagree in some interesting ways.  If you have suggestions for who you would like to see debate on this podcast, let me know.  As with all experiments of this kind, it is a learning process.  Both the video and the audio might need improvement.  I realized I think I should probably do three or more cameras next time as opposed to just two, and also try different ways to mount the microphone for the third person.  Also, after recording this intro, I'm going to have to go figure out the thumbnail for the video version of the podcast, since I usually put the guest's head on the thumbnail, and now there's two heads and two names to try to fit into the thumbnail.  It's a kind of a bin packing problem, which in theoretical computer science happens to be an NP-hard problem.  Whatever I come up with, if you have better ideas for the thumbnail, let me know as well.  And in general, I always welcome ideas how this thing can be improved.  If you enjoy it, subscribe on YouTube, review it with Five Stars on Apple Podcasts, follow on Spotify, support on Patreon, or connect with me on Twitter at Lex Friedman.  And now, here's my conversation with Charles Isbell and Michael Littman.  You'll probably disagree about this question, but what is your biggest, would you say, disagreement about either something profound and very important or something completely not important at all?  
+
+Speaker 0: I don't think I have any disagreements at all.  
+
+Speaker 2: I'm not sure that's true.  
+
+Speaker 0: We walked into that one, didn't we?  
+
+Speaker 2: So one thing that you sometimes mention is that, and we did this one on air too, as it were, whether or not machine learning is computational statistics.  
+
+Speaker 0: It's not.  
+
+Speaker 2: But it is.  
+
+Speaker 0: Well, it's not.  And in particular, and more importantly, it is not just computational statistics.  
+
+Speaker 1: So what's missing in the picture?  
+
+Speaker 0: All the rest of it.  
+
+Speaker 2: What's missing?  That which is missing.  Oh, yes.  Well, you can't be wrong now.  
+
+Speaker 0: Well, it's not just the statistics.  He doesn't even believe this.  We've had this conversation before.  If it were just the statistics, then we would be happy with where we are.  But it's not just the statistics.  
+
+Speaker 2: That's why it's computational statistics.  
+
+Speaker 0: Or if it were just the computational.  
+
+Speaker 2: I agree that machine learning is not just statistics.  
+
+Speaker 0: It is not just statistics.  
+
+Speaker 2: We can agree on that.  
+
+Speaker 0: Nor is it just computational statistics.  
+
+Speaker 2: It's computational statistics.  
+
+Speaker 0: It is computational.  It's not just statistics.  
+
+Speaker 1: What is the computational and computational statistics?  Does this take us into the realm of computing?  
+
+Speaker 0: It does, but I think perhaps the way I can get him to admit that he's wrong is that it's about rules.  
+
+Speaker 2: It's about rules.  
+
+Speaker 0: It's about symbols.  It's about all these other things.  
+
+Speaker 2: But statistics is not about rules?  I'm gonna say statistics is about rules.  
+
+Speaker 0: But it's not just the statistics, right?  It's not just a random variable that you choose and you have a probability.  
+
+Speaker 2: I think you have a narrow view of statistics.  
+
+Speaker 0: Okay, well then, what would be the broad view of statistics?  that would still allow it to be statistics and not, say, history, that would make computational statistics okay?  
+
+Speaker 2: Well, okay, so I had, my first sort of research mentor, a guy named Tom Landauer, taught me to do some statistics.  And I was annoyed all the time because the statistics would say that what I was doing was not statistically significant.  And I was like, but, but, but, and basically what he said to me is statistics is how you're going to keep from lying to yourself, which I thought was really deep.  
+
+Speaker 0: It is a way to keep yourself honest in a particular way.  I agree with that.  Yeah.  
+
+Speaker 2: And so you're trying to find rules.  I'm just going to bring it back to rules.  
+
+Speaker 1: Wait, wait, wait.  Could you possibly try to define rules?  
+
+Speaker 2: Even regular statisticians, non-computational statisticians, do spend some of their time evaluating rules, right?  Applying statistics to try to understand, does this rule capture this?  Does this not capture that?  
+
+Speaker 1: You mean like hypothesis testing kind of thing?  Sure.  Or like confidence intervals?  
+
+Speaker 2: More like hypothesis.  I feel like the word statistic literally means a summary, like a number that summarizes other numbers.  But I think the field of statistics actually applies that idea to things like rules, to understand whether or not a rule is valid.  
+
+Speaker 0: So software engineering statistics?  
+
+Speaker 2: No.  
+
+Speaker 0: Programming languages statistics?  
+
+Speaker 2: No.  
+
+Speaker 0: Because I think it's useful to think about a lot of what AI and machine learning is, or certainly should be, as software engineering, as programming languages.  To put it in language that you might understand, the hyperparameters beyond the problem itself.  
+
+Speaker 2: See, hyperparameters is too many syllables for me to understand.  
+
+Speaker 0: the hyperparameter that goes around it, right?  It's the decisions you choose to make.  It's the metrics you choose to use.  It's the loss function you choose to focus on.  
+
+Speaker 2: So you want to say the practice of machine learning is different than the practice of statistics.  Like the things you have to worry about and how you worry about them are different, therefore they're different.  
+
+Speaker 0: At the very least, that much is true.  It doesn't mean that statistics, computational or otherwise, aren't important.  I think they are.  I mean, I do a lot of that, for example.  But I think it goes beyond that.  I think that we could think about game theory in terms of statistics, but I don't think it's very as useful to do.  I mean, the way I would think about it, or a way I would think about it, is this way.  Chemistry is just physics.  But I don't think it's as useful to think about chemistry as being just physics.  It's useful to think about it as chemistry.  The level of abstraction really matters here.  
+
+Speaker 2: So I think there are contexts in which it is useful to think of it that way, right?  And so finding that connection is actually helpful.  And I think that's when I emphasize the computational statistics thing.  I think I want to befriend statistics and not absorb them.  
+
+Speaker 0: Here's a way to think about it beyond what I just said, right?  So what would you say, and I want you to think back to a conversation we had a very long time ago, what would you say is the difference between, say, the early two thousands, ICML and what we used to call NIPS, NIRPS?  Is there a difference, particularly on the machine learning that was done there?  
+
+Speaker 1: ICML was around that long?  
+
+Speaker 0: Oh, yeah.  
+
+Speaker 1: So iClear is the new conference, new-ish?  
+
+Speaker 0: Yeah, I guess so.  
+
+Speaker 1: And ICML was around the two thousand?  
+
+Speaker 0: Oh, ICML predates that.  
+
+Speaker 2: I think my most cited ICML paper is from ninety-four.  
+
+Speaker 0: Michael knows this better than me because, of course, he's significantly older than I am.  But the point is, what is the difference between ICML and NeurIPS in the late nineties, early two thousands?  
+
+Speaker 2: I don't know what everyone else's perspective would be, but I had a particular perspective at that time, which is I felt like ICML was more of a computer science place, and that NeurIPS was more of an engineering place, like the kind of math that happened at the two places.  As a computer scientist, I felt more comfortable with the ICML math, And the NURBS.  people would say that that's because I'm dumb.  And that's such an engineering thing to say, so.  
+
+Speaker 0: I agree with that part of it, but I do it a little differently.  Actually, I had a nice conversation with Tom Dietrich about this.  On Twitter.  On Twitter just a couple days ago.  I put it a little differently, which is that ICML was machine learning done by computer scientists.  And NURBS was machine learning done by computer scientists trying to impress statisticians.  Which was weird because it was the same people, at least by the time I started paying attention.  But it just felt very, very different.  And I think that that perspective of whether you're trying to impress the statisticians or you're trying to impress the programmers is actually very different and has real impact on what you choose to worry about and what kind of outcomes you come to.  So I think it really matters.  I think computational statistics is a means to an end.  It is not an end in some sense.  And I think that really matters here in the same way that I don't think computer science is just engineering or just science or just math or whatever.  
+
+Speaker 2: Okay.  So I'd have to now agree that now we agree on everything.  
+
+Speaker 0: Yes.  Yes.  The important thing here is that my opinions may have changed, but not the fact that I'm right, I think is what we just came to.  
+
+Speaker 2: Right.  And my opinions may have changed and not the fact that I'm wrong.  
+
+Speaker 0: That's right.  
+
+Speaker 1: You lost me, I'm not even.  
+
+Speaker 0: I think I lost myself there too.  But anyway.  But we're back.  We're back.  
+
+Speaker 2: This happens to us sometimes, we're sorry.  
+
+Speaker 1: How does neural networks change this, just to even linger on this topic, change this idea of statistics, how big of a pie statistics is within the machine learning thing?  Like, because it sounds like hyperparameters and also just the role of data, you know, people are starting to use this terminology of software.  two point O, which is like the act of programming as a, like you're a designer in the hyperparameter space of neural networks, and you're also the collector and the organizer and the cleaner of the data, and that's part of the programming.  So how did, on the NeurIPS, versus ICML topic, what's the role of neural networks in redefining the size and the role of machine learning?  
+
+Speaker 0: I can't wait to hear what Michael thinks about this, but I would add one.  But you will.  That's true, I will, I'll force myself to.  I think there's one other thing I would add to your description, which is the kind of software engineering part of.  what does it mean to debug, for example.  But this is a difference between the kind of computational statistics view of machine learning and the computational view of machine learning.  Which is I think one is worried about the equation as it were and by the way, this is not a value judgment I just think it's about perspective.  but the kind of questions you would ask you start asking yourself Well, what does it mean to program and develop and build the system is a very computer science II view of the problem.  I mean when if you get on data science Twitter and econ Twitter you actually hear this a lot with the economist and the data scientist complaining about the machine learning people.  Well, it's just statistics, and I don't know why they don't see this.  But they're not even asking the same questions.  They're not thinking about it as a kind of programming problem.  And I think that that really matters, just asking this question.  I actually think it's a little different from programming in hyperparameter space and sort of collecting the data.  But I do think that that immersion really matters.  So I'll give you a quick example of the way I think about this.  So I teach machine learning.  Michael and I have co-taught a machine learning class, which has now reached, I don't know, ten thousand people at least over the last several years or somewhere thereabouts.  My machine learning assignments are of this form.  So the first one is something like, implement these five algorithms, you know, KNN and SVMs and boosting and decision trees and neural networks, and maybe that's it, I can't remember.  And when I say implement, I mean steal the code.  I am completely uninterested.  You get zero points for getting the thing to work.  I don't want you spending your time worrying about getting the corner case right of what happens when you are trying to normalize distances and the points on the thing, and so you divide by zero.  I'm not interested in that.  Steal the code.  However, you're going to run those algorithms on two datasets.  The datasets have to be interesting.  What does it mean to be interesting?  Well, a data set's interesting if it reveals differences between algorithms, which presumably are all the same, because they can represent whatever they can represent.  And two data sets are interesting together if they show different differences, as it were.  And you have to analyze them.  You have to justify their interestingness, and you have to analyze them in a whole bunch of ways.  But all I care about is the data in your analysis, not the programming.  And I occasionally end up in these long discussions with students.  Well, I don't really, I copy and paste the things that I've said the other fifteen thousand times.  it's come up, which is, they go, but the only way to learn, really understand, is to code them up.  Which is a very programmer, software engineering view of the world.  If you don't program it, you don't understand it.  Which is, by the way, I think is wrong, in a very specific way.  But it is a way that you come to understand, because then you have to wrestle with the algorithm.  But the thing about machine learning is it's not just sorting numbers.  where in some sense the data doesn't matter.  What matters is, well, does the algorithm work on these abstract things, one less than the other.  In machine learning, the data matters.  It matters more than almost anything.  And not everything, but almost anything.  And so as a result, you have to live with the data.  And don't get distracted by the algorithm, per se.  And I think that that focus on the data and what it can tell you, and what question it's actually answering for you, as opposed to the question you thought you were asking, is a key and important thing about machine learning and is a way that computationalists, as opposed to statisticians, bring a particular view about how to think about the process.  The statisticians, by contrast, bring, I think I'd be willing to say, a better view about the kind of formal math that's behind it and what an actual number ultimately is saying about the data.  And those are both important, but they're also different.  
+
+Speaker 1: I didn't really think of it.  this way, is to build intuition about the role of data, the different characteristics of data by having two data sets that are different, and they reveal the differences in the differences.  That's a really fascinating, that's a really interesting educational approach.  
+
+Speaker 2: The students love it, but not right away.  
+
+Speaker 0: No, they love it at the end.  They love it later.  They love it at the end, not at the beginning.  
+
+Speaker 2: Not even immediately after.  
+
+Speaker 1: I feel like there's a deep, profound lesson about education there.  That you can't listen to students about whether what you're doing is the right or the wrong thing.  
+
+Speaker 0: Well, as a wise, Michael Lipman once said to me about children, which I think applies to teaching, is you have to give them what they need without bending to their will.  And students are like that.  You have to figure out what they need.  You're a curator.  Your whole job is to curate and to present.  Because on their own, they're not going to necessarily know where to search.  So you're providing pushes in some direction and learn space.  And you have to give them what they need in a way that keeps them engaged enough so that they eventually discover what they want and they get the tools they need to go and learn other things.  
+
+Speaker 1: What's your view, let me put on my Russian hat, which believes that life is suffering.  
+
+Speaker 2: I like Russian hats, by the way.  If you have one, I would like this.  
+
+Speaker 1: Those are ridiculous, yes.  
+
+Speaker 2: But in a delightful way, but sure.  
+
+Speaker 1: What do you think is the role of, we talked about balance a little bit, what do you think is the role of hardship in education?  I think the biggest things I've learned What made me fall in love with math, for example, is by being bad at it until I got good at it.  So like struggling with a problem, which increased the level of joy I felt when I finally figured it out.  And it always felt with me, with teachers, especially modern discussions of education, how can we make education more fun, more engaging, more all those things?  Well, from my perspective, it's like, you're maybe missing the point that education, that life is suffering.  Education is supposed to be hard, and that actually what increases the joy you feel when you actually learn something.  Is that ridiculous?  Do you like to see your students suffer?  
+
+Speaker 2: Okay, so this may be a point where we differ.  
+
+Speaker 0: I suspect not.  Let me do go on.  
+
+Speaker 2: Well, what would your answer be?  
+
+Speaker 0: I want to hear you first.  
+
+Speaker 2: OK, well, I was going to not answer the question.  
+
+Speaker 0: So you don't want the students to know you encourage them to suffer?  
+
+Speaker 2: No, no, no, no, no.  I was going to say that there's, I think there's a distinction that you can make in the kind of suffering, right?  So I think you can be in a mode where you're suffering in a hopeless way versus you're suffering in a hopeful way, right?  Where you're like, you can see that you still have, you can still imagine getting to the end, right?  And as long as people are in that mindset where they're struggling, but it's not a hopeless kind of struggling, that's productive.  I think that's really helpful.  But if struggling, like if you break their will, if you leave them hopeless, No, that don't, sure, some people are gonna, whatever, lift themselves up by their bootstraps, but like mostly you give up and certainly it takes the joy out of it and you're not gonna spend a lot of time on something that brings you no joy.  So it is a bit of a delicate balance, right?  You have to thwart people in a way that they still believe that there's a way through.  
+
+Speaker 0: right so that's a that we strongly agree actually.  so i think well first off struggling and suffering aren't the same thing right just being poetic?  oh no no i actually appreciate the poetry and and i one of the reasons i appreciate it is that they are often the same thing and often quite different right.  so you can struggle without suffering.  you certainly suffer suffer suffer pretty easily.  you don't necessarily have to struggle to suffer.  So I think that you want people to struggle, but that hope matters.  They have to understand that they're gonna get through it on the other side.  And it's very easy to confuse the two.  I actually think Brown University has a very, just philosophically has a very different take on the relationship with their students, particularly undergrads from say, a place like Georgia Tech, which is- Which university is better?  Well, I have my opinions on that.  
+
+Speaker 2: I mean, remember, Charles said, it doesn't matter what the facts are, I'm always right.  
+
+Speaker 0: The correct answer is that it doesn't matter.  They're different.  But there's clearly answers to that.  
+
+Speaker 2: He went to a school like the school where he is as an undergrad.  I went to a school, specifically the same school, though it changed a bit in the intervening years.  
+
+Speaker 0: Brown or Georgia Tech?  
+
+Speaker 2: No, I was talking about Georgia Tech.  And I went to an undergrad place.  that's a lot like the place where I work now.  And so it does seem like we're more familiar with these models.  
+
+Speaker 1: There's a similarity between Brown and Yale.  
+
+Speaker 2: Yeah, I think they're quite similar.  Yeah.  
+
+Speaker 0: And Duke.  
+
+Speaker 2: Duke has some similarities too, but it's got a little Southern drawl.  
+
+Speaker 0: You've sort of worked at universities that are like the places where you learned.  and the same would be true for me.  
+
+Speaker 1: Are you uncomfortable venturing outside the box?  Is that what you're saying, journeying out?  
+
+Speaker 0: Not what I'm saying.  
+
+Speaker 2: Yeah, Charles is definitely.  He only goes to places that have institute in the name, right?  
+
+Speaker 0: It has worked out that way, well, academic places anyway.  Well, no, I was a visiting scientist at UPenn, or visiting something at UPenn.  
+
+Speaker 1: Oh, wow, I just understood your joke.  
+
+Speaker 2: Which one?  
+
+Speaker 1: Five minutes later.  
+
+Speaker 2: I like to set these sort of time bombs.  
+
+Speaker 1: The institute is in the, that Charles only goes to places that have institute in the name.  So I guess Georgia, I forget that Georgia Tech is Georgia Institute of Technology.  
+
+Speaker 0: The number of people who refer to it as Georgia Tech University is large and incredibly irritating.  That's one of the few things that genuinely gets under my skin.  
+
+Speaker 2: But schools like Georgia Tech and MIT have, as part of the ethos, there is, I want to say there's an abbreviation that someone taught me, like IHTFP, something like that.  There's an expression which is basically, I hate being here, which they say so proudly.  And that is definitely not the ethos at Brown.  Brown is, there's a little more, pampering and empowerment and stuff, and it's not like we're gonna crush you and you're gonna love it.  So yeah, I think the ethoses are different.  
+
+Speaker 1: That's interesting, yeah.  
+
+Speaker 0: We had drown proofing.  
+
+Speaker 1: What's that, drown proofing?  
+
+Speaker 0: In order to graduate from Georgia Tech, this is a true thing, feel free to look it up.  
+
+Speaker 2: A lot of schools have this, by the way.  
+
+Speaker 0: No, actually, Georgia Tech was apparently the first.  
+
+Speaker 2: Brandeis has it.  
+
+Speaker 0: Had it.  
+
+Speaker 1: I feel like Georgia Tech was the first in a lot of ways.  
+
+Speaker 0: It was the first in a lot of ways.  It was the first in a lot of things.  Had the first master's degree in computer science.  First Bumblebee mascot.  Stop that.  First master's in computer science, actually.  
+
+Speaker 2: Right, online master's.  
+
+Speaker 0: Well, that too, but way back in the sixties.  Oh, really?  Yeah, yeah.  We had the first information and computer science master's degree in the country.  Wow.  Georgia Tech, it used to be the case that in order to graduate from Georgia Tech, you had to take a drown-proofing class, where effectively, they threw you in the water, tied you up, and if you didn't drown, you got to graduate.  Tied you up?  I believe so.  No.  There were certainly versions of it, but I mean, luckily, they ended it just before I had to graduate, because otherwise, I would have never graduated.  It wasn't going to happen.  I want to say, eighty-four, eighty-three, someone around then, they ended it, but Yeah, you used to have to prove you could tread water for some ridiculous amount of time, or you couldn't graduate.  No, it was more than two minutes.  Okay, well, we'll look at that.  
+
+Speaker 1: And it was in a bathtub.  
+
+Speaker 0: It was in a pool, but it was a real thing.  But that idea that, you know, push you- Fully clothed.  Yeah, fully clothed.  
+
+Speaker 2: I bet it was that and not tied up, because who needs to learn how to swim when you're tied?  Nobody, but who needs to learn to swim when you're actually falling into the water dressed?  That's a real thing.  
+
+Speaker 1: I think your facts are getting in the way with a good story.  
+
+Speaker 2: Oh, that's fair.  That's fair.  All right.  So they tie you up.  
+
+Speaker 0: Sometimes the narrative matters more.  But whatever it was, you had to, it was called drown-proofing for a reason.  The point of the story.  Michael, is- Struggle.  Well, no, but that's good.  It does bring it back to struggle.  That's a part of what Georgia Tech has always been.  And we struggle with that, by the way, about what we want to be- And they like it.  Particularly as things go.  But you sort of, how much can you be pushed without breaking?  And you come out of the other end stronger, right?  There's this saying we used to have when I was an undergrad there, which was Georgia Tech, building tomorrow the night before.  And it was just kind of idea that give me something impossible to do and I'll do it in a couple of days because that's what I just spent the last four or five or six years doing.  
+
+Speaker 2: That ethos definitely stuck to you.  Having now done a number of projects with you, you definitely will do it the night before.  
+
+Speaker 0: That's not entirely true.  There's nothing wrong with waiting until the last minute.  The secret is knowing when the last minute is.  
+
+Speaker 1: Right, that's brilliantly put.  
+
+Speaker 2: Yeah, that is a definite Charles statement that I am trying not to embrace.  
+
+Speaker 0: I appreciate that because you helped move my last minute.  
+
+Speaker 1: That's a social construct where you converge together what the definition of last minute is.  And we figure that out all together.  In fact, MIT, you know, I'm sure a lot of universities have this, but MIT has like MIT time that everyone is always agreed together that there is such a concept and everyone just keeps showing up like ten to fifteen to twenty, depending on the department, late to everything.  So there's like a weird drift that happens.  It's kind of fascinating.  
+
+Speaker 0: Yeah, we're five minutes.  
+
+Speaker 1: Or five minutes.  
+
+Speaker 0: In fact, the classes will say, well, this is no longer true, actually.  But it used to be a class would start at eight.  But actually, it started at eight o' five.  It ends at nine.  Actually, it ends at eight fifty-five.  Everything's five minutes off, and nobody expects anything to start until five minutes after the half hour, whatever it is.  It still exists.  
+
+Speaker 2: That hurts my head.  
+
+Speaker 1: Well, let's rewind the clock back to the fifties and sixties when you guys met.  How did you, I'm just kidding, I don't know.  But what, can you tell the story of how you met?  So you've, like the internet and the world kind of knows you as connected in some ways in terms of education, of teaching the world.  That's like the public facing thing, but how did you as human beings and as collaborators meet?  
+
+Speaker 0: So I think there's two stories.  One is how we met, and the other is how we got to know each other.  I'm not gonna say fell in love.  I'm gonna say that we came to understand that we had some common something.  
+
+Speaker 2: Yeah, it's funny, because on the surface, I think we're different in a lot of ways, but there's something that just consonant.  
+
+Speaker 0: There you go.  Afternoon.  So I will tell the story of how we met.  And I'll let Michael tell the story of how we met.  OK.  All right.  So here's how we met.  I was already at that point.  It was AT&T Labs.  There's a long, interesting story there.  But anyway, I was there.  And Michael was coming to interview.  He was a professor at Duke at the time, but decided for reasons that he wanted to be in New Jersey.  And so that would mean Bell Labs slash AT&T Labs.  And we were doing the interview.  Interviews are very much like academic interviews.  And so I had to be there.  We all had to meet with him afterwards and so on, one-on-one.  But it was obvious to me that he was gonna be hired, no matter what, because everyone loved him.  They were just talking about all the great stuff he did.  Oh, he did this great thing, and you had just won something at AAAI, I think, or maybe you got at least ten papers in AAAI that year.  
+
+Speaker 2: I got the best paper award at AAAI for the crossword stuff.  
+
+Speaker 0: Right, exactly.  So that had all happened, and everyone was going on and on and on about it.  Actually, Satinder was saying incredibly nice things about you.  Really?  
+
+Speaker 2: Yes.  He can be very grumpy.  Yes.  That's nice to hear.  
+
+Speaker 0: He was grumpily saying very nice things about you.  
+
+Speaker 2: Oh, that makes sense.  
+
+Speaker 0: Yeah, it does make sense.  So it was going to come.  So why was I meeting him?  I had something else I had to do.  I can't remember what it was.  It probably involved comic books.  
+
+Speaker 2: So he remembers meeting me as inconveniencing his afternoon.  
+
+Speaker 0: So he came, so I eventually came to my office, I was in the middle of trying to do something, I can't remember what, and he came and he sat down.  And for reasons that are purely accidental, despite what Michael thinks, my desk at the time was set up in such a way that it had sort of an L shape, and the chair on the outside was always lower than the chair that I was in.  And, you know, the kind of point was to.  
+
+Speaker 2: The only reason I think that it was on purpose is because you told me it was on purpose.  
+
+Speaker 0: I don't remember that.  Anyway, the thing is that, you know, it kind of gave...  
+
+Speaker 2: His guest chair was really low so that he could, he could look down at everybody.  
+
+Speaker 0: The idea was just to simply create a nice environment that you were asking for a mortgage and I was going to say no.  That was the point.  It's a very simple idea here.  Anyway, so we sat there and we just talked for a little while, and I think he got the impression that I didn't like him.  It wasn't true.  The talk was really good.  
+
+Speaker 2: The talk, by the way, was terrible.  And right after the talk, I said to my host, Michael Kearns, who ultimately was my boss.  
+
+Speaker 1: I'm a friend and a huge fan of Michael, yeah.  
+
+Speaker 2: Yeah, he is a remarkable person.  After my talk, I went into the- Racquetball, he's good at everything.  
+
+Speaker 1: No, basketball.  No, but basketball, racquetball too.  Squash.  Squash, squash, not racquetball.  
+
+Speaker 0: Yeah, squash, which is not... Racquetball, yes.  Squash, no.  And I hope you hear that, Michael.  
+
+Speaker 1: In terms of as a game, not his skill level, because I'm pretty sure he's...  
+
+Speaker 2: All right, there's some competitiveness there.  But the point is that it was like the middle of the day.  I had a full day of interviews.  I met with people.  But then in the middle of the day, I gave a job talk.  And then there was going to be more interviews.  But I pulled Michael aside.  And I said, I think it's in both of our best interest if I just leave now.  because that was so bad that it'd just be embarrassing if I have to talk to any more people.  Like, you look bad for having invited me.  Like, it's just, let's just forget this ever happened.  So I don't think the talk went well.  
+
+Speaker 0: That's one of the most Michael Lipman set of sentences I think I've ever heard.  He did great, or at least everyone knew he was great, so maybe it didn't matter.  I was there, I remember the talk, and I remember him being very much the way I remember him now on any given week.  So it was good, and we met, and we talked about stuff.  He thinks I didn't like him, but.  
+
+Speaker 2: Because he was so grumpy.  
+
+Speaker 1: Must have been the chair thing.  
+
+Speaker 2: The chair thing and the low voice, I think.  
+
+Speaker 1: He obviously wasn't happy with me.  And that slight skeptical look.  Yes.  
+
+Speaker 2: I have no idea what you're talking about.  
+
+Speaker 0: Well, I probably didn't have any idea what you were talking about.  Anyway, I liked him.  He asked me questions.  
+
+Speaker 2: I answered questions.  I felt bad about myself.  It was a normal day.  
+
+Speaker 0: It was a normal day.  And then he left.  
+
+Speaker 1: And then he left.  That's how we met.  
+
+Speaker 2: And then I got hired and I was in the group.  
+
+Speaker 1: Can we take a slight tangent on this topic of, it sounds like, maybe you could speak to the bigger picture, it sounds like you're quite self-critical.  
+
+Speaker 2: Who, Charles?  
+
+Speaker 1: No, you.  
+
+Speaker 2: Oh.  I think I can do better.  I can do better.  Try me again.  I'll do better.  
+
+Speaker 1: Don't be so self-critical.  
+
+Speaker 2: I won't, I won't.  
+
+Speaker 1: Yeah, that was like a three out of ten response.  Let's try to work it up to five and six.  I remember Marvin Minsky said on a video interview something that the key to success in academic research is to hate everything you do.  
+
+Speaker 2: For some reason I think I followed that because I hate everything he's done.  
+
+Speaker 1: Ah, that's a good line.  That's a sick line.  
+
+Speaker 2: Maybe that's a keeper.  
+
+Speaker 1: But do you find that resonates with you at all in how you think about talks and so on?  
+
+Speaker 0: I would say a different line.  It's not that.  No, not really.  That's such an MIT view of the world, though.  So I remember talking about this when, as a student, you were basically told, I will clean it up for the purpose of the podcast.  My work is crap, my work is crap, my work is crap, my work is crap.  Then you go to a conference or something, and you're like, everybody else's work is crap, everybody else's work is crap, and you feel better and better about it, relatively speaking, and then you keep working on it.  I don't hate my work.  That resonates with me.  Yes.  I've never hated my work, but I have been dissatisfied with it.  And I think being dissatisfied, being okay with the fact that you've taken a positive step.  The derivative's positive.  Maybe even the second derivative's positive.  That's important because that's a part of the hope, right?  But you have to, but I haven't gotten there yet.  If that's not there, that I haven't gotten there yet, then, you know, it's hard to move forward, I think.  So I buy that, which is a little different from hating everything that you do.  
+
+Speaker 2: I mean, there's things that I've done that I like better than I like myself.  So it's separating me from the work, essentially.  So I think I am very critical of myself, but sometimes the work I'm really excited about, and sometimes I think it's kind of good.  
+
+Speaker 0: Does that happen right away?  So I found the work that I've liked, that I've done, most of it, I liked it in retrospect more when I was far away from it in time.  
+
+Speaker 2: I have to be fairly excited about it to get done.  
+
+Speaker 0: No, excited at the time, but then happy with the result.  But years later, or even, I might go back, you know what?  That actually turned out to matter.  That turned out to matter.  Or, oh gosh, it turns out I've been thinking about that.  It's actually influenced all the work that I've done since without realizing it.  Boy, that guy was smart.  Yeah, that guy had a future.  Yeah, I, yeah.  
+
+Speaker 2: He's going places.  
+
+Speaker 0: I think there's, so yeah, so I think there's something to it.  I think there's something to the idea you gotta, you know, hate what you do, but it's not quite hate.  It's just being unsatisfied.  And different people motivate themselves differently.  I don't happen to motivate myself with self-loathing.  I happen to motivate myself with something else.  
+
+Speaker 1: So you're able to sit back and be proud of, in retrospect, of the work you've done.  
+
+Speaker 0: Well, and it's easier when you can connect it with other people, because then you can be proud of them.  
+
+Speaker 1: And then you can still safely hate yourself privately.  
+
+Speaker 0: It's win-win, Michael.  Or at least win-lose, which is what you're looking for.  
+
+Speaker 1: Oh, wow.  There's so many brilliant minds in this.  There's levels.  So how did you actually meet me?  
+
+Speaker 2: So the way I think about it is, because we didn't do much research together at AT&T, but then we all got laid off.  
+
+Speaker 1: So that was- By the way, sorry to interrupt, but that was like one of the most magical places, historically speaking.  
+
+Speaker 0: They did not appreciate what they had.  
+
+Speaker 1: And how do we, I feel like there's a profound lesson in there too.  How do we get it, like what was, why was it so magical?  Is it just a coincidence of history or is there something special about?  
+
+Speaker 2: There were some really good managers and people who really believed in machine learning as this is gonna be important.  Let's get the people who are thinking about this in creative and insightful ways and put them in one place and stir.  
+
+Speaker 0: Yeah, but even beyond that, right, it was, It was Bell Labs at its heyday, and even when we were there, which I think was past its heyday.  
+
+Speaker 2: And to be clear, he's gotten to be at Bell Labs.  I never got to be at Bell Labs.  I joined after that.  
+
+Speaker 0: Yeah, I should have been at one as a grad student.  So I was there for a long time, every summer except for two.  
+
+Speaker 2: So twice I worked for companies that had just stopped being Bell Labs.  Right.  Bellcore and then AT&T Labs.  
+
+Speaker 1: So Bell Labs was several locations, or for the researchers, or is it one?  Definitely several.  Jersey's involved somehow?  
+
+Speaker 2: They're all in Jersey.  
+
+Speaker 0: Yeah, they're all over the place.  
+
+Speaker 2: But they were in a couple places in Jersey.  
+
+Speaker 0: Murray Hill was the Bell Labs place.  
+
+Speaker 2: So you had an office at Murray Hill at one point in your career.  
+
+Speaker 0: Yeah, I played ultimate frisbee on the cricket pitch at Bell Labs at Murray Hill, and then it became AT&T Labs when it split off with Luce during what we call trivestiture.  
+
+Speaker 1: Are you better than Michael Korns at ultimate frisbee?  Yeah.  
+
+Speaker 0: Oh, yeah.  
+
+Speaker 2: Okay.  But I think that one's not boasting.  I think Charles plays a lot of ultimate, and I don't think Mike.  
+
+Speaker 0: No, I was yes, but but that wasn't the point.  The point is yes.  
+
+Speaker 2: Okay, I have played on a championship winning ultimate frisbee team or whatever ultimate team with Charles so I know how good he is, he's really good.  
+
+Speaker 0: How good I was anyway when I was younger.  
+
+Speaker 2: But the thing is- I know how young he was when he was younger.  
+
+Speaker 0: That's true.  
+
+Speaker 2: So much younger than now.  He's older now.  
+
+Speaker 0: Yes, I'm older.  Michael was a much better basketball player than I was.  
+
+Speaker 2: Michael Kearns.  
+
+Speaker 0: Yes, no, not Michael.  Let's be very clear about that.  
+
+Speaker 2: To be clear, I've not played basketball with you, so you don't know how terrible I am, but you have a probably pretty good guess.  
+
+Speaker 0: That you're not as good as Michael Kearns.  
+
+Speaker 2: He's tall and athletic.  
+
+Speaker 0: And he cared about it.  He's very athletic.  He's very good.  
+
+Speaker 2: And probably competitive.  
+
+Speaker 0: I love hanging out with Michael.  Anyway, but we were talking about something else, although I no longer remember what it was.  What were we talking about?  
+
+Speaker 1: Oh, Bell Labs.  Oh, Bell Labs.  
+
+Speaker 0: But also Labs.  So this was kind of cool about what was magical about it.  The first thing you have to know is that Bell Labs was an arm of the government, right?  Because AT&T was an arm of the government.  It was a monopoly.  And, you know, every month you paid a little thing on your phone bill, which turned out was a tax for like all the research that Bell Labs was doing.  And, you know, they invented transistors and the laser and whatever else is the big bang or whatever the cosmic background radiation.  Yeah, they did all that stuff.  They had some amazing stuff with directional microphones, by the way.  I got to go in this room where they had all these panels and everything, and we would talk, and one another, and he'd move some panels around, and then he'd have me step two steps to the left, and I couldn't hear a thing he was saying because nothing was bouncing off the walls.  And then he would shut it all down, and you could hear your heartbeat.  which is deeply disturbing, to hear your heartbeat.  You can feel it.  I mean, you can feel it now.  There's just so much all this sort of noise around.  Anyway, Bell Labs is about pure research.  It was a university, in some sense, the purest sense of a university, but without students.  So it was all the faculty working with one another, and students would come in to learn.  They would come in for three or four months during the summer, and they would go away.  But it was just this kind of wonderful experience.  I could walk out my door, In fact, I would often have to walk out my door and deal with Rich Sutton and Michael Kearns yelling at each other about whatever it is they were yelling about, the proper way to prove something or another.  And I could just do that, and Dave McAllister, and Peter Stone, and all of these other people, including Satinder, and then eventually Michael.  And it was just a place where you could think, thoughts.  And it was okay, because so long as once every twenty-five years or so, somebody invented a transistor, it paid for everything else.  You could afford to take the risk.  And then when that all went away, it became harder and harder and harder to justify it as far as the folks who were very far away were concerned.  And there was such a fast turnaround among mental management on the AT&T side that you never had a chance to really build a relationship.  At least people like us didn't have a chance to build a relationship.  So when the diaspora happened, it was amazing, right?  Everybody left and I think everybody ended up at a great place and continued to do really good work with machine learning.  But it was a wonderful place and people will ask me, what's the best job you've ever had?  As a professor, the answer that I would give is, well, probably Bell Labs in some very real sense, and I will never have a job like that again because Bell Labs doesn't exist anymore.  And you know, Microsoft research is great, and Google does good stuff, and you can pick IBM, you can tell if you want to, but Bell Labs was magical.  It was around for, it was an important time, and it represents a high watermark in basic research in the US.  
+
+Speaker 1: Is there something you could say about the physical proximity and the chance collisions?  Like we live in this time of the pandemic where everyone is maybe trying to see the silver lining and accepting the remote nature of things.  Is there, one of the things that people like faculty that I talk to miss is the procrastination.  Like the chance to, like everything is about meetings that are supposed to be, there's not a chance to just talk about comic books or whatever, like go into discussion.  that's totally pointless.  
+
+Speaker 0: So it's funny you say this, because that's how we met, met.  It was exactly that.  So I'll let Michael say that, but I'll just add one thing, which is just that research is a social process.  And it helps to have random social interactions, even if they don't feel social at the time, that's how you get things done.  One of the great things about the AI lab.  when I was there, I don't quite know what it looks like now once they move buildings, but we had entire walls that were whiteboards and people would just get up there and they would just write and people would walk up and you'd have arguments and you'd explain things to one another and you got so much out of the freedom to do that.  You had to be okay with people challenging every fricking word you said, which I would sometimes find Deeply irritating but most of the time it was.  it was quite useful But the sort of pointlessness and the interaction was in some sense the point at least for me.  
+
+Speaker 1: Yeah, I mean you I think offline.  yesterday mentioned Josh tenenbaum and he's very much he put.  he's man.  He's such an inspiration in in the child like way that he pulls you in on any topic.  It doesn't even have to be about machine learning or the brain.  He'll just pull you into a closest writable surface, which is still, you can find whiteboards at MIT everywhere.  And just like, like basically cancel all meetings and talk for a couple hours about some aimless thing.  And it feels like the whole world, the time-space continuum kind of warps and that becomes the most important thing.  And then it's just- It's so true.  It's definitely something worth missing in this world where everything's remote.  There's some magic to the physical presence.  
+
+Speaker 0: Whenever I wonder myself whether MIT really is as great as I remember it, I just go talk to Josh.  
+
+Speaker 1: Yeah, you know, that's funny.  There's a few people in this world that carry the best of what particular institutions stand for, right?  
+
+Speaker 0: That's Josh.  My guess is he's unaware of this.  
+
+Speaker 1: That's the point.  The masters are not aware of their mastery.  
+
+Speaker 0: How did they meet?  
+
+Speaker 1: Yes, but first a tangent, no.  How did you meet me?  So  
+
+Speaker 2: I'm not sure what you were thinking, but when it started to dawn on me that maybe we had a longer term bond was after we all got laid off, and you had decided at that point that we were still paid, we were given an opportunity to do a job search and kind of make a transition, but it was clear that we were done.  and I would go to my office to work, and you would go to my office to keep me from working.  That was my recollection of it.  You had decided that there was really no point in working for the company, because our relationship with the company was done.  
+
+Speaker 0: Yeah, but remember, I felt that way beforehand.  It wasn't about the company.  It was about the set of people there doing really cool things, and it had always been that way.  But we were working on something together.  
+
+Speaker 2: Oh, yeah, that's right.  So at the very end, we all got laid off.  But then our boss came to.  our boss's boss came to us because our boss was Michael Kearns.  And he had jumped ship brilliantly, like perfect timing, like things like right before the ship was about to sink.  He was like, Got to go.  And landed perfectly because Michael Kearns.  
+
+Speaker 0: Because Michael Kearns.  
+
+Speaker 2: And leaving the rest of us to go like, this is fine.  And then it was clear that it wasn't fine and we were all toast.  So we had this sort of long period of time.  But then our boss figured out, okay, wait, maybe we can save a couple of these people.  if we can have them do something really useful.  And the useful thing was we were going to make basically an automated assistant that could help you with your calendar.  You could tell it things and it would respond appropriately.  It would just kind of integrate across all sorts of your personal information.  And And so me and Charles and Peter Stone were set up as the crack team to actually solve this problem.  Other people maybe were too theoretical, they thought, but we could actually get something done.  So we sat down to get something done and there wasn't time and it wouldn't have saved us anyway.  And so it all kind of went downhill.  But the interesting, I think, coda to that is that our boss's boss is a guy named Ron Brockman.  And when he left AT&T, because we were all laid off, He went to DARPA, started up a program there that became CALO, which is the program from which Siri sprung, which is a digital assistant that helps you with your calendar and a bunch of other things.  It really, in some ways, got its start with me and Charles and Peter trying to implement this vision that Ron Brockman had that he ultimately got implemented through his role at DARPA.  So when I'm trying to feel less bad about having been laid off from what is possibly the greatest job of all time, I think about, well, we kind of helped birth Siri.  That's something.  
+
+Speaker 0: And then he did other things too.  But we got to spend a lot of time in his office and talk about- We got to spend a lot of time in my office.  
+
+Speaker 2: Yeah, yeah, yeah.  And so then we went on our merry way.  Everyone went to different places.  Charles landed at Georgia Tech, which was what he always dreamed he would do.  And so that worked out well.  I came up with a saying at the time, which is luck favors the Charles.  It's kind of like luck favors the prepared, but Charles, like, he wished something and then it would basically happen just the way he wanted.  It was inspirational to see things go that way.  
+
+Speaker 0: Things worked out.  
+
+Speaker 2: And we stayed in touch and then... I think it really helped when you were working on, I mean, you'd kept me in the loop for things like threads and the work that you were doing at Georgia Tech, but then when they were starting their online master's program, he knew that I was really excited about MOOCs and online teaching, and he's like, I have a plan.  And I'm like, tell me your plan.  He's like, I can't tell you the plan yet, because they were deep in negotiations between Georgia Tech and Udacity to make this happen, and they didn't want it to leak.  So Charles Wood kept teasing me about it, but wouldn't tell me what was actually going on.  And eventually it was announced and he said, I would like you to teach the machine learning course with me.  I'm like, that can't possibly work.  But it was a great idea and it was super fun.  It was a lot of work to put together, but it was really great.  
+
+Speaker 1: And- Was that the first time you thought about, first of all, was it the first time you got seriously into teaching?  
+
+Speaker 2: I mean, I was a professor.  
+
+Speaker 1: I'm trying to get the timing right.  Also, this was already after you jumped to, so like there's a little bit of jumping around in time.  
+
+Speaker 2: Yeah, sorry about that.  
+
+Speaker 0: There's a pretty big jump in time.  
+
+Speaker 1: So like the MOOCs thing.  
+
+Speaker 2: So Charles got to Georgia Tech and he, I mean, maybe Charles, maybe this is a Charles story.  
+
+Speaker 1: I think  
+
+Speaker 0: this was like,  
+
+Speaker 2: He got to Georgia Tech in two thousand two, and worked on things like revamping the curriculum, the undergraduate curriculum, so that it had some kind of semblance of modular structure, because computer science was, at the time, moving from a fairly narrow, specific set of topics to touching a lot of other parts of intellectual life, and the curriculum was supposed to reflect that, and so Charles played a big role in kind of redesigning that, And  
+
+Speaker 0: for my labors, I ended up the associate dean.  
+
+Speaker 2: Right, he got to become associate dean in charge of educational stuff.  
+
+Speaker 1: This should be a valuable lesson.  If you're good at something, they will give you responsibility to do more of that thing.  
+
+Speaker 2: Don't show competence.  
+
+Speaker 0: Don't show competence if you don't have responsibility.  Here's what they say.  The reward for good work is more work.  The reward for bad work is less work.  which I don't know, depending on what you're trying to do that week, one of those is better than the other.  
+
+Speaker 1: Well, one of the problems with the word work, sorry to interrupt, is that it seems to be an antonym in this particular language we have, the opposite of happiness.  But it seems like they're, that's one of, you know, we talked about balance.  It's always like work-life balance.  It always rubbed me the wrong way as a terminology.  I know it's just words.  
+
+Speaker 2: Right, the opposite of work is play.  Yeah.  Ideally, work is play.  
+
+Speaker 0: Oh, I can't tell you how much time I'd spend, certainly when I was at Bell Labs, except for a few very key moments.  As a professor, I would do this, too.  I would just say, I cannot believe they're paying me to do this.  Because it's fun.  It's something that I would do for a hobby if I could, anyway.  So that's what it worked out.  
+
+Speaker 1: You sure you want to be saying that when this is being recorded?  
+
+Speaker 0: As a dean, that is not true at all.  I need a raise.  But I think here with this, that even though a lot of time passed, you know, Michael and I talked almost every, well we texted almost every day during the period.  
+
+Speaker 2: Charles at one point took me, there was the ICML conference, the machine learning conference was in Atlanta.  I was the chair, the general chair of the conference.  Charles was my publicity chair, something like that, or fundraising chair.  Yeah, but he decided it'd be really funny if he didn't actually show up for the conference in his own home city.  So he didn't, but he did at one point pick me up at the conference in his Tesla and drove me to the Atlanta mall and forced me to buy an iPhone because he didn't like how it was to text with me and thought it would be better for him if I had an iPhone, the text would be somehow smoother.  
+
+Speaker 0: And it was.  
+
+Speaker 2: And it was.  
+
+Speaker 0: And it is, and his life is better as well.  
+
+Speaker 2: And my life is better, and so, yeah.  But it was, yeah, Charles forced me to get an iPhone so that he could text me more efficiently.  I thought that was an interesting moment.  
+
+Speaker 0: It works for me.  Anyway, so we kept talking the whole time.  And eventually we did the teaching thing.  And it was great.  And there's a couple of reasons for that, by the way.  One is I really wanted to do something different.  You've got this medium here.  People claim it can change things.  What's a thing that you could do in this medium that you could not do otherwise?  besides edit, right?  I mean, what could you do?  And being able to do something with another person was that kind of thing.  It's very hard.  I mean, you can take turns, but teaching together, having conversations is very hard, right?  So that was a cool thing.  The second thing, give me an excuse to do more stuff with him.  
+
+Speaker 2: Yeah, I always thought, he makes it sound brilliant.  And it is, I guess.  But at the time, it really felt like, I've got a lot to do, Charles is saying, and it would be great if Michael could teach the course and I could just hang out.  Yeah, just kind of coast on that.  
+
+Speaker 0: Well, that's what the second class was more like that.  Because the second class was explicit like that.  
+
+Speaker 1: But the first class, it was at least half Once again letting the facts get in the way of a good story.  
+
+Speaker 2: I should just let Charles talk.  
+
+Speaker 0: So that was that was kind of your facts.  Yeah, that was sort of true for seventy six forty two, which is the reinforcement learning class because that was really his class.  
+
+Speaker 1: You started with reinforcement learning?  
+
+Speaker 0: No, we started with, I did the intro to machine learning, seventy-six forty-one, which is supervised learning, unsupervised learning, and reinforcement learning and decision-making, cram all that in there, the kind of assignments that we talked about earlier.  And then eventually, about a year later, we did a follow-on, seventy-six forty-two, which is reinforcement learning and decision-making.  The first class was based on something I'd been teaching at that point for well over a decade, and the second class was based on something Michael had been Actually, I learned quite a bit teaching that class with him.  But he drove most of that.  But the first one I drove most of, it was all my material.  Although I had stolen that material originally from slides I found online from Michael, who had originally stolen that material from, I guess, slides he found online, probably from Andrew Moore, because the jokes were the same anyway.  At least some of the, at least when I found the slides, some of the stuff was there.  Yes, every machine learning class taught in the early two thousands stole from Andrew Moore.  
+
+Speaker 2: A particular joke or two.  
+
+Speaker 0: at least the structure.  Now I did, and he did, actually, a lot more with reinforcement learning and such, and game theory and those kinds of things, but we all sort of built this.  
+
+Speaker 1: No, no, no, in that class.  
+
+Speaker 0: No, I mean in teaching that class.  The coverage was different than what we started.  Most people were just doing supervised learning and maybe a little bit of clustering and whatnot, but we took it all the way to machine learning.  
+
+Speaker 2: A lot of it just comes from Tom Mitchell's book.  
+
+Speaker 0: Oh, no.  Yeah, except, well, half of it comes from Tom Mitchell's book, right?  The other half doesn't.  This is why it's all readings, right?  Because certain things weren't invented when Tom Robinson.  
+
+Speaker 2: Yeah, okay, that's true.  
+
+Speaker 0: Right?  But it was quite good.  But there's a reason for that.  besides, you know, just I wanted to do it.  I wanted to do something new, and I wanted to do something with him, which is a realization, which is despite what you might believe, he's an introvert, and I'm an introvert, or I'm on the edge of being an introvert anyway.  But both of us, I think, enjoy the energy of the crowd.  There's something about talking to people and bringing them into whatever we find interesting that is empowering, energizing, or whatever.  And I found the idea of staring alone at a computer screen and then talking off of materials less inspiring than I wanted it to be.  
+
+Speaker 2: And I had, in fact, done a MOOC for Udacity on algorithms.  It was a week in a dark room talking at the screen, writing on the little pad.  And I didn't know this was happening, but the crew had watched some of the videos while in the middle of this.  And they're like, something's wrong.  You're sort of shutting down.  And I think a lot of it was I'll make jokes and no one would laugh.  And I felt like the crowd hated me.  Now, of course, there was no crowd, so it wasn't rational.  But each time I tried it and I got no reaction, it just was taking the energy out of my performance, out of my presentation.  
+
+Speaker 0: Such a fantastic metaphor for grad school.  
+
+Speaker 2: Anyway, by working together, We could play off each other and keep the energy up, because you can't let your guard down for a moment with Charles.  He'll just overpower you.  
+
+Speaker 0: I have no idea what you're talking about.  But we would work really well together, I thought, and we knew each other, so I knew that we could sort of make it work.  Plus, I was the associate dean, so they had to do what I had to do.  told him to do, so we had to make it work.  And so it worked out very well, I thought.  
+
+Speaker 2: Well enough that we- With great power comes great power.  
+
+Speaker 0: That's right.  And we became smooth and curly, and that's when we did the overfitting thriller video.  
+
+Speaker 2: Yeah, that's a thing.  
+
+Speaker 1: So can we just smooth and curly, where does that come from?  
+
+Speaker 2: It was completely spontaneous.  
+
+Speaker 1: These are nicknames you go by.  
+
+Speaker 0: It's what the students call us.  
+
+Speaker 2: He was lecturing.  So the way that we structure the lectures is one of us is the lecturer and one of us is basically the student.  
+
+Speaker 0: And so he was lecturing on- The lecturer prepares all the materials, comes up with the quizzes, and then the student comes in not knowing anything.  So it was just like being on campus.  And I was doing game theory in particular, the Prisoner's Dilemma.  
+
+Speaker 2: Prisoner's Dilemma.  And so he needed to set up a little Prisoner's Dilemma grid.  So he drew it and I could see what he was drawing.  And the Prisoner's Dilemma consists of two players, two parties.  So he decided he would make little cartoons of the two of us.  And so there was, two criminals that were deciding whether or not to rat each other out.  One of them he drew as a circle with a smiley face and a kind of goatee thing, smooth head, and the other one with all sorts of curly hair.  And he said, this is smooth and curly.  I said, smooth and curly?  He said, no, no, smooth with a V. It's very important that it have a V. And then the students really took to that.  They found that relatable.  
+
+Speaker 0: He started singing Smooth Criminal by Michael Jackson.  
+
+Speaker 1: And those names stuck.  
+
+Speaker 2: So we now have a video series, an episode, our kind of first actual episode should be coming out today, Smooth and Curly on Video, where the two of us discuss episodes of Westworld.  We watch Westworld and we're like, huh, what does this say about computer science and AI?  
+
+Speaker 0: And we did not watch it.  I mean, I know it's on season three or whatever.  As of this recording, it's on season three.  
+
+Speaker 2: You've watched now two episodes total.  
+
+Speaker 0: Yeah, I think I've watched three.  
+
+Speaker 1: What do you think about Westworld?  
+
+Speaker 2: Two episodes in, so I can tell you so far, I'm just guessing what's gonna happen next.  It seems like bad things are gonna happen with the robots uprising.  
+
+Speaker 1: Spoiler alert.  
+
+Speaker 0: So I have not, I mean, I vaguely remember a movie existing, so I assume it's related to that.  
+
+Speaker 2: That was more my time than your time, Charles.  
+
+Speaker 0: That's right, because you're much older than I am.  I think the important thing here is that It's narrative, right?  It's all about telling a story.  That's the whole driving thing.  But the idea that they would give these reveries, that they would make people remember the awful things that happened.  I mean, I don't know.  I've only seen the first two episodes or maybe the third one.  I think I've only seen the third one.  
+
+Speaker 2: You know what it was?  You know what the problem is?  What?  That the robots were actually designed by Hannibal Lecter.  
+
+Speaker 0: That's true.  
+
+Speaker 2: They weren't.  So what do you think's going to happen?  Bad things.  
+
+Speaker 0: It's clear that things are happening and characters are being introduced and we don't yet know anything.  Still, I was just struck by how it's all driven by narrative and story.  And there's all these implied things, like programming, the programming interface is talking to them about what's going on in their heads, which is both, I mean, artistically, it's probably useful to film it that way, but think about how it would work in real life.  It just seems very creative.  But there was, we saw in the second episode, there's a screen, you could see things that sort of stayed in the world.  It was quite interesting to just kind of ask this question so far.  I mean, I assume it veers off into Never Never Land at some point.  
+
+Speaker 2: No, no, no, we can't answer that question.  
+
+Speaker 1: I'm also a fan of a guy named Alex Garland.  He's a director of Ex Machina.  And he is the first, I wonder if Kubrick was like this.  actually, is he like studies?  what would it take to program in AI systems?  Like he's curious enough to go into that direction.  on the Westworld side, I felt there was more emphasis on the narratives than actually asking computer science questions.  How would you build this?  How would you debug it?  
+
+Speaker 0: To me, that's the key issue.  They were terrible debuggers.  
+
+Speaker 2: Well, they said specifically, so we make a change and we put it out in the world and that's bad because something terrible could happen.  If you're putting things out in the world and you're not sure whether something terrible is going to happen, your process is probably flawed.  
+
+Speaker 0: I just feel like there should have been someone whose sole job it was, was to walk around and poke his head in and say, what could possibly go wrong?  Just over and over again.  
+
+Speaker 1: I would have loved if there was an, and I did watch a lot more and I'm not giving anything away.  I would have loved it if there was like an episode where like, like the new intern is like debugging a new model or something.  And like, it just keeps failing and they're like, all right.  And then it's more turns into like a episode of Silicon Valley or something like that.  Versus like this ominous AI systems that are constantly like threatening the fabric of this world that's been created.  
+
+Speaker 0: Yeah, and this reminds me of something that, so I agree with that, that it should be very cool, at least for the small percentage of people who care about debugging systems.  But the other thing is- Debugging, the series.  Yeah, it falls into, think of the sequels, fear of the debugging.  
+
+Speaker 2: Oh my gosh.  Anyway, so- It's a nightmare show.  It's a horror movie.  
+
+Speaker 0: I think that's where we lose people, by the way, early on, is the people who either figure out debugging or think debugging is terrible.  This is part of the struggle.  
+
+Speaker 2: Where we lose people in computer science.  
+
+Speaker 0: This is part of the struggle versus suffering, right?  You get through it and you kind of get the skills of it, or you're just like, this is dumb, and this is a dumb way to do anything.  And I think that's when we lose people.  Well, I'll leave it at that.  But I think that there's something really neat about framing it that way, but what I don't like about all of these things, and I love Dex Machina, by the way, although the ending was very depressing.  
+
+Speaker 1: One of the things I have to talk to Alex about, he says that the thing that nobody noticed he put in is at the end, spoiler alert, the robot turns and looks at the camera and smiles briefly.  And to him, he thought that his definition of passing the general version of the Turing test or the consciousness test is smiling for no one.  It's like the Chinese room kind of experiment.  It's not always trying to act for others, but just on your own, being able to have a relationship with the actual experience and just take it in.  I don't know, he said nobody noticed the magic of it.  
+
+Speaker 0: I have this vague feeling that I remember the smile, but now you've just put the memory in my head, so probably not.  But I do think that That's interesting.  Although, by looking at the camera, you are smiling for the audience, right?  You're breaking the fourth wall.  It seems... I mean, well, that's a limitation of the medium, but I like that idea.  But here's the problem I have with all of those movies, all of them, is that... But I know why it's this way, and I enjoy those movies, and Westworld, is it sets up the problem of AI as succeeding and then having something we cannot control.  But it's... That's not the bad part of AI.  The bad part of AI is the stuff we're living through now, right?  It's using the data to make decisions that are terrible.  It's not the intelligence that's going to go out there and surpass us and take over the world or lock us into a room to starve to death slowly over multiple days.  It's instead the tools that we're building that are allowing us to make the terrible decisions we would have less efficiently made before.  Computers are very good at making us more efficient, including being more efficient at doing terrible things.  That's the part of the AI we have to worry about.  It's not the true intelligence that we're going to build sometime in the future, probably long after we're around.  I think that whole framing of it misses the point, even though it is inspiring.  And I was inspired by those ideas, right?  I got into this in part because I wanted to build something like that.  Philosophical questions are interesting to me, but that's not where the terror comes from.  The terror comes from the everyday.  
+
+Speaker 1: And you can construct, situate, it's in the subtlety of the interaction between AI and the human, like with social networks, all the stuff you're doing with interactive artificial intelligence.  But, you know, I feel like Cal-Nine-Thousand came a little bit closer to that in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, in the, over-relying in some fundamental way on our dumb assistants or on social networks, offloading too much of us onto things that require internet and power and so on, and thereby becoming powerless as a standalone entity.  And then when that thing starts to misbehave, in some subtle way, it creates a lot of problems.  And those problems are dramatized when you're in space, because you don't have a way to walk away.  
+
+Speaker 0: Well, as the man said, once we started making the decisions for you, it stopped being your world, right?  That's the matrix, Michael, in case you don't remember.  But on the other hand, I could say, no, because isn't that what we do with people anyway?  the shared intelligence that is humanity is relying on other people constantly.  I mean, we hyper-specialize, right, as individuals.  We're still generally intelligent.  We make our own decisions in a lot of ways, but we leave most of this up to other people, and that's perfectly fine.  And by the way, everyone doesn't necessarily share our goals.  Sometimes they seem to be quite against us.  Sometimes we make decisions that others would see as against our own interests, and yet we somehow manage it, manage to survive.  I'm not entirely sure why an AI would actually make that worse or even different really.  
+
+Speaker 1: You mentioned the matrix.  Do you think we're living in a simulation?  
+
+Speaker 2: It does feel like a thought game more than a real scientific question.  
+
+Speaker 1: Well, I'll tell you why.  I think it's an interesting thought experiment, see what you think.  From a computer science perspective, it's a good experiment of how difficult would it be to create a sufficiently realistic world that us humans would enjoy being in.  That's almost like a competition.  
+
+Speaker 2: I mean, if we're living in a simulation, then I don't believe that we were put in the simulation.  I believe that it's just physics playing out and we came out of that.  Like, I don't think.  
+
+Speaker 1: So you think you have to build the universe?  
+
+Speaker 2: I think that the universe itself, we can think of that as a simulation.  And in fact, sometimes I try to think about to understand what it's like for a computer to start to think about the world.  I try to think about the world.  Things like quantum mechanics, where it doesn't feel very natural to me at all.  And it really strikes me as, I don't understand this thing that we're living in.  There's weird things happening in it that don't feel natural to me at all.  Now, if you wanna call that the result of a simulator, okay, I'm fine with that.  
+
+Speaker 1: But like I don't- There's the bugs in the simulation.  
+
+Speaker 0: There's the bugs.  I mean, the interesting thing about simulation is that it might have bugs.  I mean, that's the thing that I, part of the thought of it for my life.  
+
+Speaker 2: But there wouldn't be bugs for the people in the simulation.  That's just reality.  
+
+Speaker 0: They're not bugs.  Unless you were aware enough to know that there was a bug.  
+
+Speaker 1: But I think- Back to the matrix.  
+
+Speaker 0: Yeah, the way you put the question, though.  
+
+Speaker 2: I don't think that we live in a simulation created for us.  Okay, I would say that.  
+
+Speaker 0: I think that's interesting.  I've actually never thought about it that way.  I mean, the way you asked the question, though, could you create a world that is enough for us humans, it's an interestingly sort of self-referential question because beings that created the simulation probably have not created the simulation.  that's realistic for them.  But we're in the simulation, and so it's realistic for us.  So we could create a simulation that is fine for the people in the simulation, as it were, that would not necessarily be fine for us as the creators of the simulation.  
+
+Speaker 1: But, well, you can forget.  I mean, if you play video games and virtual reality, You can, if it was some suspension of disbelief or whatever.  
+
+Speaker 2: It becomes the world.  
+
+Speaker 1: It becomes the world, even like in brief moments.  You forget that another world exists.  I mean, that's what like good stories do.  They pull you in.  The question is, is it possible to pull, you know, our brains are limited.  Is it possible to pull the brain in to where we actually stay in that world longer and longer and longer and longer?  Like, not only that, but we don't want to leave.  And so, especially, this is the key thing about the developing brain, is if we journey into that world early on in life, often.  
+
+Speaker 0: How would you even know?  Yeah.  
+
+Speaker 1: Yeah.  But like, from a video game design perspective, from a Westworld perspective, it's, I think, I think it's an important thing for even computer scientists to think about because it's clear that video games are getting much better and virtual reality, although it's been ups and downs just like artificial intelligence, it feels like virtual reality will be here in a very impressive form if we were to fast forward a hundred years into the future in a way that might change society fundamentally.  Like if I were to, I'm very limited in predicting the future as all of us are, but if I were to try to predict Like in which way I'd be surprised to see the world a hundred years from now, it'd be that, or impressed, it'd be that we're all no longer living in this physical world, that we're all living in a virtual world.  
+
+Speaker 0: You really need to recalculating God by Sawyer.  It's a, he'll read it in a night.  It's a very easy read, but it's a, assuming you're that kind of reader, but it's a good story.  And it's kind of about this, but not in a way that it appears.  And I really enjoyed the thought experiment.  And I think it's pretty sure it's Robert Sawyer.  But anyway, he's apparently Canadian's top science fiction writer, which is why the story mostly takes place in Toronto.  But it's a very good, it's a very good sort of story.  that sort of, imagines this very different kind of simulation hypothesis sort of thing from say the egg for example.  you know you know I'm talking about the short story by the guy who did the Martian who wrote the Martian?  
+
+Speaker 1: You know I'm talking about the book.  
+
+Speaker 0: The book.  
+
+Speaker 1: So we had this whole discussion that Michael doesn't partake in this exercise of reading.  
+
+Speaker 0: He doesn't seem to like it, which seems very strange to me, considering how much he has to read.  I read all the time.  I used to read ten books every week when I was in sixth grade or whatever.  A lot of it science fiction, a lot of it history, but I love to read.  But anyway, you should read Calculating God.  I think you'll you'll, it's very easy to read, like I said, and I think you'll enjoy sort of the ideas that it presents.  
+
+Speaker 1: Yeah, I think the thought experiment is quite interesting.  One thing I've noticed about people growing up now, I mean, we talk about social media, but video games is a much bigger, bigger and bigger and bigger part of their lives, and the video games have become much more realistic.  I think it's possible that, the three of us are not, maybe the two of you are not familiar exactly with the numbers we're talking about here.  I think the number of people.  
+
+Speaker 0: It's bigger than movies, right?  It's huge.  I used to do a lot of the computational narrative stuff.  
+
+Speaker 2: I understand that economists can actually see the impact of video games on the labor market, that there's fewer young men of a certain age participating in paying jobs than you'd expect, and that they trace it back to video games.  
+
+Speaker 0: I mean, the problem with Star Trek was not warp drive or teleportation.  It was the holodeck.  If you have the holodeck, That's it.  That's it.  You go in the holodeck, you never come out.  I mean, it just never made, once I saw that, I thought, okay, well, so this is the end of humanity as we know it, right?  They've invented the holodeck.  
+
+Speaker 1: Because that feels like the singularity, not some AGI or whatever.  It's some possibility to go into another world that can be artificially made better than this one.  
+
+Speaker 0: and slowing it down so you live forever, or speeding it up so you appear to live forever, or making the decision of when to die.  
+
+Speaker 1: And then most of us will just be old people on the porch yelling at the kids these days in their virtual reality worlds.  
+
+Speaker 2: But they won't hear us because they've got headphones on.  
+
+Speaker 1: So, I mean, rewinding back to MOOCs, is there lessons that you've, speaking of kids these days- There you go.  That was a transition.  I'll fix it in post.  
+
+Speaker 2: That's Charles's favorite phrase.  
+
+Speaker 1: Fix it in post?  
+
+Speaker 0: Fix it in post.  Fix it in post.  When we were recording, all the time, whenever the editor didn't like something or whatever, I would say, well, fix it in post.  He hated that.  He hated that more than anything.  
+
+Speaker 2: Because it was Charles' way of saying, I'm not going to do it again.  You're on your own for this one.  
+
+Speaker 0: But it always got fixed in post.  
+
+Speaker 1: So is there something you've learned about, I mean, it's interesting to talk about MOOCs.  Is there something you've learned about the process of education, about thinking about the present?  I think there's two lines of conversation to be had here.  is the future of education in general that you've learned about and more presciently is the education in the times of COVID.  
+
+Speaker 0: The second thing, in some ways, matters more than the first, at least in my head, not just because it's happening now, but because I think it's reminded us of a lot of things.  Coincidentally, today, there's an article out by a good friend of mine, who's also a professor at Georgia Tech, but more importantly, a writer and editor at The Atlantic, a guy named Ian Bogost.  And the title is something like, Americans Will Sacrifice Anything for the College Experience.  And it's about why we went back to college and why people wanted us to go back to college.  And it's not, you know, greedy presidents trying to get the last dollar from someone.  It's because they want to go to college.  And what they're paying for is not the classes.  What they're paying for is the college experience.  It's not the education.  It's being there.  I've believed this for a long time, that we continually make this mistake of people want to go back to college as being people want to go back to class.  They don't.  They want to go back to campus.  They want to move away from home.  They want to do all those things that people experience.  It's a rite of passage.  It's an identity, if I can steal some of Ian's words here.  And I think that's right.  And I think what we've learned through COVID is It has made it, the disaggregation was not the disaggregation of the education from the place, the university place, and that you can get the best anywhere you want to.  Turns out there's lots of reasons why that is not necessarily true.  The disaggregation is having it shoved in our faces that the reason to go, again, that the reason to go to college is not necessarily to learn, it's to have the college experience.  And that's very difficult for us to accept, even though we behaved that way, most of us, when we were undergrads.  A lot of us didn't go to every single class.  We learned and we got it and we look back on it and we're happy we had the learning experience as well, obviously, particularly us, because this is the kind of thing that we do.  And my guess is that's true of the vast majority of your audience.  But that doesn't mean the I'm standing in front of you telling you this is the thing that people are excited about.  And that's why they want to be there, primarily why they want to be there.  So to me, that's what COVID has forced us to deal with.  even though I think we're still all in deep denial about it, and hoping that it'll go back to that.  And I think about eighty-five percent of it will.  We'll be able to pretend that that's really the way it is again, and we'll forget the lessons of this.  But technically what'll come out of it, or technologically what'll come out of it, is a way of providing a more dispersed experience through online education and these kinds of remote things that we've learned, and we'll have to come up with new ways to engage them.  in the experience of college, which includes not just the parties or whatever kids do, but the learning part of it, so that they actually come out four, five, or six years later with having actually learned something.  So, I think the world will be radically different afterwards, and I think technology will matter for that, just not in the way that the people who were building the technology originally imagined it would be.  And I think this would have been true even without COVID, but COVID has accelerated that reality.  So it's happening in two or three years or five years as opposed to ten or fifteen.  
+
+Speaker 2: That was an amazing answer that I did not understand.  It was passionate and meaningful.  But I don't, no, I just didn't, no, I'm not trying to criticize it.  I don't think I'm getting it.  So you mentioned disaggregation.  So what's that?  
+
+Speaker 0: Well, so, you know, the power of technology, if you go on the West Coast and hang out long enough, is all about.  we're gonna disaggregate these things together, the books from the bookstore, you know, that kind of a thing.  And then suddenly Amazon controls the universe, right?  And technology is a disruptor, right?  And people have been predicting that for higher education for a long time, but certainly in the age of MOOCs.  
+
+Speaker 2: So is this the sort of idea like, students can aggregate on a campus someplace and then take classes over the network anywhere.  
+
+Speaker 0: Yeah, this is what people thought was going to happen, or at least people claimed it was going to happen, right?  
+
+Speaker 2: Because my daughter is essentially doing that now.  She's on one campus but learning in a different campus.  
+
+Speaker 0: Sure, and COVID makes that possible, right?  COVID makes that All but avoidable, right?  But the idea originally was that, you know, you and I were going to create this machine learning class and it was going to be great and then no one else would be the machine learning class everyone takes, right?  That was never going to happen.  But, you know, something like that you can see happening.  
+
+Speaker 2: But I feel like you didn't address that.  So why?  Why?  Why isn't that?  Why?  
+
+Speaker 0: Why?  I don't think that will be the thing that happens.  
+
+Speaker 2: So the college experience, maybe I missed what the college experience was.  I thought it was peers, like people hanging around.  
+
+Speaker 0: A large part of it is peers.  Well, it's peers and independence.  
+
+Speaker 2: Yeah, but you can do classes online for all of that.  
+
+Speaker 0: No, no, no, no.  Because we're social people, right?  
+
+Speaker 2: So when we take the classes, that also has to be part of an experience.  
+
+Speaker 0: It's in a context, and the context is the university.  And by the way, it actually matters that Georgia Tech really is different from Brown.  
+
+Speaker 2: I see, because then students can choose the kind of experience they think is gonna be best for them.  
+
+Speaker 0: Okay, I think we're giving too much agency to the students in making an informed decision.  Okay.  But the truth, but yes, they will make choices and they will have different experiences and some of those choices will be made for them, some of them will be choices they're making because they think it's this, that, or the other.  I just don't want to say, I don't want to give the idea.  
+
+Speaker 2: It's not homogenous.  
+
+Speaker 0: Yes, it's certainly not homogenous, right?  I mean, Georgia Tech is different from Brown.  Brown is different from, pick your favorite state school in Iowa.  Iowa State, okay?  Which I guess is my favorite state school in Iowa.  But, you know, these are all different.  They have different contexts.  And a lot of those contexts are, they're about history, yes, but they're also about the location of where you are.  They're about the larger group of people who are around you, whether you're in Athens, Georgia, and you're basically the only thing that's there.  as a university, you're responsible for all the jobs, or whether you're at Georgia State University, which is an urban campus, where you're surrounded by, you know, six million people, and your campus, where it ends and begins in the city, ends and begins, we don't know.  It actually matters, whether you're a small campus or a large campus.  These things matter.  
+
+Speaker 1: Why is it that if you go to Georgia Tech, you're like forever proud of that?  And you like say that to people at dinner, like bars and whatever.  And if you get a degree at an online university somewhere, that's not a thing that comes up at a bar.  
+
+Speaker 0: Well, it's funny you say that.  So the students who take our online masters, by several measures are more loyal than the students who come on campus, certainly for the master's degree.  The reason for that, I think, and you'd have to ask them, but based on my conversations with them, I feel comfortable saying this, is because this didn't exist before.  I mean, we talk about this online master's and that it's reaching, you know, eleven thousand students, and that's an amazing and we're admitting everyone we believe who can succeed.  We've got a sixty percent acceptance rate.  It's amazing, right?  It's also a sixty-six hundred dollar degree.  The entire degree costs sixty-six hundred or seven thousand, depending on how long you take, dollar degree, as opposed to the forty-six thousand it costs you to come on campus.  So that feels, and I can do it while I'm working full time and I've got a family and a mortgage and all these other things.  So it's an opportunity to do something you wanted to do but you didn't think was possible without giving up two years of your life as well as all the money and everything else in the life that you had built.  So I think we created something that's had an impact, but importantly, we gave a set of people opportunities they otherwise didn't feel they had.  So I think people feel very loyal about that.  And my biggest piece of evidence for that, besides the surveys, is that we have somewhere north of eighty students, might be a hundred at this point, who graduated but come back and TA for this class for basically minimum wage, even though they're working full-time because they believe in sort of having that opportunity and they want to be a part of something.  Now, will generation three feel this way?  Fifteen years from now, will people have that same sense?  I don't know.  But right now, they kind of do.  And so, it's a matter of feeling as if you're a part of something.  We're all very tribal.  And I think there's something very tribal about being a part of something like that.  Being on campus makes that easier.  Going through a shared experience makes that easier.  It's harder to have that shared experience if you're alone looking at a computer screen.  We can create ways to make that easier.  
+
+Speaker 1: But is it possible?  
+
+Speaker 0: It is possible.  
+
+Speaker 1: The question is, it still is.  the intuition to me.  And it was, at the beginning, when I saw something like the online master's program, is that this is gonna replace universities.  
+
+Speaker 0: And it won't replace universities, but it will.  
+
+Speaker 1: But why?  
+
+Speaker 0: Because it's living in a different part of the ecosystem, right?  The people who are taking it are already adults.  They've gone through their undergrad experience.  I think their goals have shifted from when they were seventeen.  They have other things that are going on.  But it does do something really important, something very social and very important, right?  You know this whole thing about.  don't build the sidewalks, just leave the grass and the students, or the people will walk and you put the sidewalks where they create paths, this kind of thing.  They're architects who apparently believe that's the right way to do things.  The metaphor here is that we created this environment, we didn't quite know how to think about the social aspect, but we didn't have time to do all the social engineering.  The students did it themselves, they created, you know, these groups, like on Google+, there were like thirty-something groups created in the first year because somebody had used Google+.  And they created these groups, and they divided up in ways that made sense.  We live in the same state, or we're working on the same things, or we have the same background, or whatever.  And they created these social things.  We sent them t-shirts, And we have all these great pictures of students putting on their t-shirts as they travel around the world.  I climbed this mountaintop.  I'm putting this t-shirt on.  I'm a part of this.  They were a part of them.  They created the social environment on top of the social network and the social media that existed to create this sense of belonging and being a part of something.  They found a way to do it, right?  And I think they had other.  It scratched an itch that they had, but they had scratched some of that itch that might have required they be physically in the same place long before.  So I think, yes, it's possible, and it's more than possible, it's necessary.  But I don't think it's going to replace the university as we know it.  The university as we know it will change.  But there's just a lot of power in the kind of rite of passage kind of going off to yourself.  Now maybe there'll be some other rite of passage.  that'll happen.  That'll drive us somewhere else.  It's possible.  
+
+Speaker 1: So the university is such a fascinating mess of things.  So just even the faculty position is a fascinating mess.  Like it doesn't make any sense.  It's stabilized itself.  But why are the world class researchers spending a huge amount of time of their time teaching and service, like you're doing like three jobs.  And I mean, it turns, it's maybe an accident of history or human evolution, I don't know.  It seems like the people who are really good at teaching are often really good at research.  There seems to be a parallel there, but like it doesn't make any sense that you should be doing that.  At the same time, it also doesn't seem to make sense that your place where you party It's the same place where you go to learn calculus or whatever.  
+
+Speaker 0: But it's a safe space.  
+
+Speaker 1: Safe space for everything.  
+
+Speaker 0: Yeah, relatively speaking, it's a safe space.  Now, by the way, I feel the need, very strongly, to point out that we are living in a very particular weird bubble, right?  Most people don't go to college.  And by the way, the ones who do go to college, they're not at eighteen years old, right?  They're like twenty-five or something.  I forget the numbers.  You know, the places where we've been, where we are, They look like whatever we think the traditional movie version of universities are but for most people It's not that way at all.  By the way, most people who drop out of college.  It's entirely for financial reasons, right?  So, you know, we were talking about a particular experience And so for that set of people, which is very small But larger than it was a decade or two or three or four certainly ago.  I don't think that will change.  my concern is which I think is kind of implicit in some of these questions, is that somehow we will divide the world up further.  into the people who get to have this experience and get to have the network and they sort of benefit from it and everyone else while Increasingly requiring that they have more and more credentials in order to get a job as a barista, right?  You got to have a master's degree in order to work at Starbucks.  I mean, we're gonna force people to do these things But they're not gonna get to have that experience and there'll be a small group of people who do continue to you know Positive feedback, etc, etc, etc.  I worry a lot about that which is why for me And by the way, here's an answer to your question about faculty, which is why to me that you have to focus on access and the mission.  I think the reason, whether it's good, bad, or strange, I mean, I agree it's strange, but I think it's useful to have the faculty member, particularly at large R-one universities where we've all had experiences, that you tie what they get to do and with the fundamental mission of the university.  and let the mission drive.  What I hear when I talk to faculty is they love their PhD students because they're reproducing, basically, right?  And it lets them do their research and multiply.  But they understand that the mission is the undergrads, and so they will do it without complaint, mostly.  because it's a part of the mission and why they're here, and they have experiences with it themselves, and it was important to get them where they were going.  The people who tend to get squeezed in that, by the way, are the master's students, right, who are neither the PhDs who are like us, nor the undergrads.  we have already bought into the idea that we have to teach, though.  That's increasingly changing.  Anyway, I think tying that mission in really matters, and it gives you a way to unify people around making it an actual higher calling.  Education feels like more of a higher calling to me than even research.  Because education, you cannot treat it as a hobby if you're going to do it well.  
+
+Speaker 1: But that's the pushback on this whole system is that you should, education should be a full-time job, right?  And almost like research is a distraction from that.  
+
+Speaker 0: Yes, although I think most of our colleagues, many of our colleagues would say that research is the job and education is the distraction.  
+
+Speaker 1: Right, but that's the beautiful dance.  It seems to be that that tension in itself seems to work, seems to bring out the best in the faculty.  
+
+Speaker 0: But I will point out two things.  One thing I'm gonna point out and the other thing I want Michael to point out, because I think Michael is much closer to sort of the ideal professor in some sense than I am.  
+
+Speaker 1: You're the platonic sense of a professor.  
+
+Speaker 2: I don't know what he meant by that, but he is a dean, so he has a different experience.  
+
+Speaker 0: I'm giving him time to think of the profound thing he's going to say.  That's good.  But let me point this out, which is that we have lecturers in the College of Computing where I am.  There's ten or twelve of them, depending on how you count, as opposed to the ninety or so tenure-track faculty.  Those ten lecturers who only teach, well, they don't only teach, they also do service.  Some of them do research as well, but primarily they teach.  They teach over fifty percent of our credit hours.  And we teach everybody.  So they're doing more than eight times the work of the tenure track faculty, closer to nine or ten.  And that's including our grad courses, right?  So they're doing this.  They're teaching more.  They're touching more than anyone.  And they're beloved for it.  I mean, so we recently had a survey.  You do these alumni, everyone does these alumni surveys.  You hire someone from the outside to do whatever.  And I was really struck by something.  You saw all these really cool numbers.  I'm not gonna talk about it, because it's all internal, confidential stuff.  But one thing I will talk about is there was a single question we asked our alumni.  These are people who graduated, born in the thirties and forties, all the way up to people who graduated last week, right?  
+
+Speaker 2: Well, last semester.  
+
+Speaker 1: Time flies.  
+
+Speaker 0: Yeah, time flies.  And here's the question.  Name a single person who had a strong positive impact on you, something like that.  
+
+Speaker 2: I think it was special impact.  
+
+Speaker 0: Yeah, special impact on you.  And then, so they got all the answers from people and they created a word cloud.  It was clearly a word cloud created by people who don't do word clouds for a living because they had one person whose name like appeared like nine different times, like Philip, Phil, Dr.  Phil, you know, but whatever.  But they got all this.  And I looked at it and I noticed something really cool.  The five people from the College of Computing I recognized were in that cloud.  And four of them were lecturers, the people who teach.  Two of them relatively modern, both were chairs of our Division of Computing Instruction.  One retired, one is gonna retire soon.  And the other two were lecturers I remembered from the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the  
+
+Speaker 2: the the the the the the the the the the the the the the the the the the  
+
+Speaker 0: the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the.  Thank you, Michael.  Two of those are teaching awards are named after, right?  So when you ask students, alumni, people who are now sixty, seventy years old even, you know, who touch them?  They say the dean of students.  They say the big teachers who taught the big introductory classes.  that got me into it.  There's a guy named Richard Barke.  who's on there who's, you know, who's known as a great teacher.  The Phil Adler guy who who I probably just said his last name wrong, but I know the first name's Phil, because he kept showing up over and over again.  
+
+Speaker 2: Famous- Adler is what it said.  Okay, good.  But different people spelled it differently, so he appeared multiple times.  Right.  
+
+Speaker 0: So he was a, clearly, he was a professor in the business school.  But when you read about him, I went to read about him, because I was curious who he was, you know, it's all about his teaching and the students that he touched, right?  So whatever it is that we're doing, and we think we're doing that's important, or why we think the universities function, the people who go through it, They remember the people who were kind to them, the people who taught them something, and they do remember it.  They remember it later.  I think that's important.  That's why the mission matters.  
+
+Speaker 1: Yeah.  Not to completely lose track of the fundamental problem of how do we replace the party aspect of universities.  That's right.  Before we go to what makes the platonic professor, do you, Do you think, what in your sense is the role of MOOCs in this whole picture during COVID?  Should we desperately be clamoring to get back on campus or is this a stable place to be for a little while?  
+
+Speaker 2: I don't know.  I know that the online teaching experience and learning experience has been really rough.  I think that people find it to be a struggle in a way that's not a happy, positive struggle, that when you got through it, you just feel like glad that it's over as opposed to I've achieved something.  So I worry about that, but I worry about just even before this happened, I worry about lecture teaching as how well is that actually really working as far as a way to do education, as a way to inspire people.  I mean, all the data that I'm aware of seems to indicate, and this kind of fits, I think, with Charles's story, is that people respond to connection.  If they feel connected to the person teaching the class, they're more likely to go along with it.  They're more able to retain information.  They're more motivated to be involved in the class in some way.  And that really matters.  
+
+Speaker 1: People- You mean to the human themselves?  Yeah.  So can't you do that actually perhaps more effectively online?  Like you mentioned science communication.  So I literally, I think, learned linear algebra from Gilbert Strang by watching MIT OpenCourseWare when I was in track.  And he was a personality, he was a bit like a tiny, in this tiny little world of math, It's a bit of a rock star, right?  So you kind of look up to that person.  Can't that replace the in-person education?  
+
+Speaker 0: It can help.  I will point out something.  I can't share the numbers, but we have surveyed our students, and even though they have feelings about what I would interpret as connection, I like that word, in the different modes of classrooms, There's no difference between how well they think they're learning.  For them, the thing that makes them unhappy is the situation they're in, and I think the last lack of connection.  It's not whether they're learning anything.  They seem to think they're learning something anyway, right?  In fact, they seem to think they're learning it equally well, presumably because the faculty are putting in, or the instructors, more generally speaking, are putting in the energy and effort to try to make certain that they're what they've curated can be expressed to them in a useful way.  But the connection is missing.  And so there's huge differences in what they prefer.  And as far as I can tell, what they prefer is more connection, not less.  That connection just doesn't have to be physically in a classroom.  I mean, look, I used to teach three hundred and forty-eight students in my machine learning class on campus.  Do you know why?  That was the biggest classroom on campus.  They're sitting in theater seats.  I'm literally on a stage looking down on them.  and talking to them, right?  There's no, I mean, we're not sitting down having a one-on-one conversation, reading each other's body language, trying to communicate and going, we're not doing any of that.  So, you know, if you're on the, if you're past the third row, it might as well be online anyway, is the kind of thing that people have said.  Daphne has actually said some version of this, that online starts on the third row or something like that.  And I think that's not, yeah, I like it.  I think it captures something important.  But people still came, by the way.  Even the people who had access to our material would still come to class.  
+
+Speaker 1: I mean, there's a certain element about looking to the person next to you.  It's just like their presence there, their boredom, and when the parts are boring, and their excitement when the parts are exciting.  and sharing in that, like unspoken kind of, yeah, communication.  In part, the connection is with the other people in the room.  
+
+Speaker 0: Watching the circus on TV alone is not a good way.  Have you ever been to a movie theater and been the only one there at a comedy?  It's not as funny as when you're in a room full of people all laughing.  
+
+Speaker 1: Well, you need, maybe you need just another person.  It's like, as opposed to many.  Maybe there's some kind of.  
+
+Speaker 0: Well, there's different kinds of connection, right?  
+
+Speaker 2: And there's different kinds of comedy.  Well, in the sense that...  
+
+Speaker 1: As we're learning today.  
+
+Speaker 2: I wasn't sure if that was going to land.  Just the idea that... Different jokes, I've now done a little bit of stand-up, and so different jokes work in different size crowds too.  No, that's true.  Where sometimes if it's a big enough crowd, then even a really subtle joke can take root someplace and then that cues other people.  There's a whole statistics of.  
+
+Speaker 0: So when I was really young, I decided that my brother was only laughing at sitcoms when I laughed.  He was taking cues from me.  So I purposely didn't laugh, just to see if I was right.  
+
+Speaker 2: And did you laugh at non-funny things?  Yes.  Did you really want to do both sides?  
+
+Speaker 0: I did both sides.  And at the end of it, I told him what I did.  He was very upset about this.  
+
+Speaker 2: And from that day on, He lost his sense of humor.  
+
+Speaker 0: No, no, no, no.  Well, yes.  But from that day on, he laughed on his own.  He stopped taking cues from me.  I see.  So I want to say that it was a good thing that I did.  
+
+Speaker 2: Yes, yes.  You saved that man's life.  
+
+Speaker 0: Yes, but it was mostly mean.  But it's true, though.  It's true, right?  That people, I think you're right.  
+
+Speaker 2: But OK, so where does that get us?  That gets us the idea that, I mean, certainly movie theaters are a thing.  right, where people like to be watching together, even though the people on the screen aren't really co-present with the people in the audience.  The audience is co-present with itself.  
+
+Speaker 1: By the way, on that point, it's an open question that's being raised by this, whether movies will no longer be a thing because Netflix is.  the audience is growing.  So that's, it's a very parallel question for education.  Will movie theater still be a thing in?  
+
+Speaker 2: to- No, but I think the argument is that there is a feeling of being in the crowd that isn't replicated by being at home watching it and that there's value in that.  And then I think just- But, but- It scales better online.  
+
+Speaker 0: But I feel like we're having a conversation about whether concerts will still exist after the invention of the, record or the CD or wherever it is, right?  
+
+Speaker 2: They won't.  
+
+Speaker 0: You're right.  Concerts are dead.  
+
+Speaker 2: Well, okay.  I think the joke is only funny if you say it before now.  
+
+Speaker 1: Right.  We'll fix it in post.  
+
+Speaker 2: It's like three years ago.  It's like, well, no, obviously concerts are still a big thing.  
+
+Speaker 0: I'll wait to publish this until we have a vaccine.  We'll fix it in post.  But I think the important thing is- Fix the virus in post.  Concerts changed, right?  First of all, movie theaters weren't this way, right?  In like the sixties and seventies, they weren't like this.  Like blockbusters were basically what, Jaws and Star Wars created blockbusters, right?  Before then there weren't, like the whole shared summer.  experience didn't exist in our lifetimes, right?  Certainly you were well into adulthood by the time this was true, right?  So it's just a very different, it's very different.  So what we've been experiencing in the last ten years is not like the majority of human history, but more importantly, concerts, right?  Concerts mean something different.  Most people don't go to concerts.  Anymore like there's an age where you care about it.  You sort of stop doing what you keep listening to music or whatever.  So I think that's a painful way of saying that It will change.  it was not.  the same things are going away replaces too strong of a word.  and But it will change.  It has to.  
+
+Speaker 1: I actually like to push back.  I wonder because I think you're probably just throwing that your intuition out.  Oh, I won't.  And it's possible concerts, more people go to concerts now, but obviously much more people listen to what is dumb than before there was records.  It's possible to argue that, if you look at the data, that it just expanded the pie of what music listening means.  So it's possible that universities grow in the parallel, or the theaters grow, but also more people get to watch movies, more people get to be educated.  
+
+Speaker 0: I hope that is true.  
+
+Speaker 2: Yeah, and to the extent that we can grow the pie and have education be not just something you do for four years when you're done with your other education, but it be a more lifelong thing, that would have tremendous benefits, especially as the economy and the world change rapidly.  People need opportunities to stay abreast of these changes.  And so, I don't know, that's all part of the ecosystem.  
+
+Speaker 0: It's all to the good.  I'm not going to have an argument about whether we lost fidelity when we went from Laserdisc to DVDs or record players to CDs.  I mean, I'm willing to grant that that is true, but convenience matters.  And the ability to do something that you couldn't do otherwise because of that convenience matters.  And you can tell me I'm only getting ninety percent of the experience, but I'm getting the experience.  I wasn't getting it before, or it wasn't lasting as long, or it wasn't as easy.  I mean, this just seems straightforward to me.  It's going to change.  It is for the good that more people get access, and it is our job to do two separate things.  One, to educate them and make access available.  That's our mission.  But also, for very simple, selfish reasons, we need to figure out how to do it better so that we individually stay in business.  We can do both of those things at the same time.  They may be in tension, but they are not mutually exclusive.  
+
+Speaker 1: So you've educated some scary number of people.  So you've seen a lot of people succeed, find their path through life.  Is there advice that you can give to a young person today about computer science education, about education in general, about life, about whatever the journey that one takes in their, maybe in their teens, in their early twenties, sort of in those underground years, as you try to go through the essential process of partying and not going to classes, and yet somehow trying to get a degree.  
+
+Speaker 0: If you get to the point where you're far enough up in the hierarchy of needs that you can actually make decisions like this, then find the thing that you're passionate about and pursue it.  And sometimes it's the thing that drives your life, and sometimes it's secondary.  And you'll do other things, because you've got to eat, right?  You've got a family, you've got to feed, you've got people you have to help, or whatever.  And I understand that, and it's not easy for everyone.  But always take a moment or two to pursue the things that You love the things that bring passion and happiness to your life.  And if you don't, I know that sounds corny, but I genuinely believe it.  And if you don't have such a thing, then you're lying to yourself.  You have such a thing.  You just have to find it.  And it's okay if it takes you a long time to get there.  Rodney Dangerfield became a comedian in his fifties, I think.  certainly wasn't his twenties.  And lots of people failed for a very long time before getting to where they were going.  I try to have hope.  And it wasn't obvious.  I mean, you and I talked about the experience that I had a long time ago with a particular police officer.  It wasn't my first one.  It wasn't my last one.  But in my view, I wasn't supposed to be here after that, and I'm here.  So it's all gravy.  So you might as well go ahead and grab life as you can because of that.  That's sort of how I see it.  While recognizing, again, the delusion matters, right?  Allow yourself to be deluded.  Allow yourself to believe that it's all gonna work out.  Just don't be so deluded that you miss the obvious.  And you're gonna be fine.  It's gonna be there.  It's gonna be there.  It's gonna work out.  
+
+Speaker 2: I like to say choose your parents wisely, because that has a big impact on your life.  Yeah, I mean, there's a whole lot of things that you don't get to pick, and whether you get to have one kind of life or a different kind of life can depend a lot on things out of your control.  But I really do believe in the passion, excitement thing.  I was talking to my mom on the phone the other day, Essentially what came out is that computer science is really popular right now.  And I get to be a professor teaching something that's very attractive to people.  And she was like trying to give me some appreciation for how, foresightful I was for choosing this line of work as if somehow I knew that this is what was going to happen in twenty twenty.  But that's not how it went for me at all.  I studied computer science because I was just interested.  It was just so interesting to me.  I didn't.  I didn't think it would be particularly lucrative, and I've done everything I can to keep it as un-lucrative as possible.  Some of my friends and colleagues have not done that, and I pride myself on my ability to remain un-rich.  But I do believe that, like, I'm glad.  I mean, I'm glad that it worked out for me.  It could have been like, oh, what I was really fascinated by is this particular kind of engraving that nobody cares about.  So I got lucky, and the thing that I cared about happened to be a thing that other people eventually cared about.  But I don't think I would have had a fun time choosing anything else.  This was the thing that kept me interested and engaged.  
+
+Speaker 1: Well, one thing that people tell me, especially around early undergraduate, and the internet is part of the problem here, is they say they're passionate about so many things.  How do I choose a thing?  Which is a harder thing for me to know what to do with.  Is there any?  
+
+Speaker 2: I mean, don't you know?  
+
+Speaker 0: I mean, you know, a long time ago I walked down a hallway and I took a left turn.  
+
+Speaker 1: Yeah.  
+
+Speaker 0: I could have taken a right turn and my world could be better or it could be worse.  I have no idea.  I have no way of knowing.  
+
+Speaker 2: Is there anything about this particular hallway that's relevant, or just in general, choices?  
+
+Speaker 0: Yeah, you were on the left.  
+
+Speaker 1: It sounds like you regret not taking the right turn.  
+
+Speaker 0: Oh, no, not at all.  
+
+Speaker 1: You brought it up.  
+
+Speaker 0: Well, because there was a turn there.  On the left was Michael Dimmon's office, right?  I mean, these sorts of things happen, right?  Yes.  
+
+Speaker 2: But here's the thing.  On the right, by the way, there was just a blank wall.  It wasn't a huge choice.  It would have really hurt.  
+
+Speaker 1: He tried first.  
+
+Speaker 0: No, but it's true, right?  I think about Ron Brockman, right?  I took a trip I wasn't supposed to take, and I ended up talking to... on about this, and I ended up going down this entire path that allowed me to, I think, get tenure.  But by the way, I decided to say yes to something that didn't make any sense, and I went down this educational path.  But it would have been, you know, who knows, right?  Maybe if I hadn't done that, I would be a billionaire right now.  I'd be Elon Musk.  My life could be so much better.  My life could also be so much worse.  You know, you just gotta feel that sometimes you have decisions you're gonna make, you cannot know what's gonna, you should think about it, right?  Some things are clearly smarter than other things.  You gotta play the odds a little bit, but in the end, if you've got multiple choices, there are lots of things you think you might love, go with the thing that you actually love, the thing that jumps out at you, and sort of pursue it for a little while.  The worst thing that'll happen is you took a left turn instead of a right turn, and you ended up merely happy.  
+
+Speaker 1: So accepting, so taking the step and just accepting that.  don't question the choice.  
+
+Speaker 2: I like to think that life is long and there's time to actually pursue.  
+
+Speaker 1: Every once in a while, you have to put on a leather suit and make a thriller video.  
+
+Speaker 2: Every once in a while.  
+
+Speaker 0: If I ever get the chance again, I'm doing it.  
+
+Speaker 1: Yeah.  I was told that you actually dance, but that part was edited out.  
+
+Speaker 0: I don't dance.  There was a thing where we did do the zombie thing.  We did do the zombie thing.  That wasn't edited out.  It just wasn't put into the final thing.  I'm quite happy.  There was a reason for that too, right?  Like I wasn't wearing something right.  There was a reason for that.  I can't remember what it was.  
+
+Speaker 1: No leather suit.  
+
+Speaker 0: Is that what it was?  I can't remember.  Anyway, the right thing happened.  
+
+Speaker 1: Exactly, you took the left turn and it ended up being the right thing.  So a lot of people ask me that are a little bit tangential to the programming, the computing world, and they're interested to learn programming, like all kinds of disciplines that are outside of the particular discipline of computer science.  What advice do you have for people that want to learn how to program or want to either taste this little skill set or discipline or try to see if it can be used somehow in their own life?  
+
+Speaker 0: What stage of life are they in?  
+
+Speaker 1: One of the magic things about the internet, of the people that write me, is I don't know.  
+
+Speaker 0: Because my answer is different.  My daughter is taking AP Computer Science right now.  Hi, Jenny.  She's amazing and doing amazing things.  And my son's beginning to get interested, and I'll be really curious where he takes it.  I think his mind actually works very well for this sort of thing, and she's doing great.  But one of the things I have to tell her all the time, she points out, well, I want to make a rhythm game.  So I want to go for two weeks and then build a rhythm game.  Show me how to build a rhythm game.  Start small.  Learn the building blocks and how to take the time.  Have patience.  Eventually you'll build a rhythm game.  I was in grad school when I suddenly woke up one day over the Royal East and I thought, wait a minute, I'm a computer scientist.  I should be able to write Pac-Man in an afternoon.  And I did.  Not with great graphics.  It was actually a very cool game.  I had to figure out how the ghost moved and everything and I did it in an afternoon in Pascal.  on an old Apple IIgs.  But if I had started out trying to build Pac-Man, I think it probably would have ended very poorly for me.  Luckily back then, there weren't these magical devices we call phones and software everywhere to give me this illusion that I could create something by myself from the basics inside of a weekend like that.  I mean, that was a culmination of years and years and years right before I decided I should be able to write this and I could.  So my advice if you're early on is You've got the internet, there are lots of people there to give you the information.  Find someone who cares about this.  Remember, they've been doing it for a very long time.  Take it slow, learn the little pieces, get excited about it, and then keep the big project you want to build in mind, you'll get there soon enough.  Because as a wise man once said, life is long.  Sometimes it doesn't seem that long, but it is long, and you'll have enough time to build it all out.  All the information is out there, but start small.  generates Fibonacci numbers.  That's not exciting, but it'll get you-.  Well, there's only one programming language, it's Lisp.  But if you have to pick a programming language, I guess in today's day, what would I do?  I guess I'd do-.  
+
+Speaker 2: Python is basically Lisp, but with better syntax.  Blasphemy.  Yeah, with C syntax, how about that?  
+
+Speaker 0: So you're gonna argue that C syntax is better than anything?  Anyway, also, I'm gonna answer Python despite what he said.  
+
+Speaker 2: Tell your story about somebody's dissertation that had a Lisp program in it.  
+
+Speaker 0: It was so funny.  This is Dave's.  Dave's dissertation was like Dave McAllister, who was a professor at MIT for a while, and then he came to Bell Labs, and now he's at Technology Technical Institute of Chicago.  A brilliant guy, such an interesting guy.  Anyway, his thesis.  It was a theorem prover, and he decided to have as an appendix his actual code, which of course was all written in Lisp, because of course it was.  And the last twenty pages are just right parentheses.  It's just wonderful.  That's programming right there.  Pages upon pages of right parentheses.  Anyway, Lisp is the only real language, but I understand that that's not necessarily the place where you start.  Python is just fine.  Python is good.  If you're of a certain age, if you're really young and trying to figure it out, graphical languages that let you see how the thing works, that's fine too.  They're all fine.  It almost doesn't matter.  But there are people who spend a lot of time thinking about how to build languages that get people in.  The question is, are you trying to get in and figure out what it is?  Or do you already know what you want?  And that's why I asked you what stage of life people are in.  Because if you're different stages of life, you would attack it differently.  
+
+Speaker 1: the answer to that question of which language keeps changing.  I mean, there's some value to exploring.  A lot of people write to me about Julia.  There's these more modern languages that keep being invented, Rust and Kotlin.  There's stuff that, for people who love functional languages like Lisp, apparently there's echoes of that, but much better in the modern languages.  And it's worthwhile to, Especially when you're learning languages, it feels like it's okay to try one that's not the popular one.  
+
+Speaker 2: I think you get that way of thinking almost no matter what language.  If you push far enough, it can be assembly language, but you need to push pretty far before you start to hit the really deep concepts that you would get sooner in other languages.  But I don't know, computation is computation.  Turing equivalent is kind of computation.  And so it matters how you express things, but you have to build out that mental structure in your mind.  And I don't think it super matters which language.  
+
+Speaker 0: I mean, it matters a little because some things are just at the wrong level of abstraction.  I think assembly's at the wrong level of abstraction for someone coming in new.  
+
+Speaker 2: I think that if you start- For someone coming in new.  
+
+Speaker 0: Yes, for frameworks, big frameworks are quite a bit.  You've got to get to the point where I want to learn a new language.  means I just pick up a reference book and I think of a project and I go through it in a weekend.  You got to get there.  You're right though, the languages that are designed for that, it almost doesn't matter.  Pick the ones that people have built tutorials and infrastructure around to help you get ease into it.  Because it's hard.  I did this little experiment once.  I was teaching intro to CS in the summer as a favor.  which is anyway, I was teaching Intro to CSS as a favor.  It was very funny because I'd go in every single time and I would think to myself, how am I possibly going to fill up an hour and a half talking about for loops?  There wasn't enough time.  Took me a while to realize this.  There are only three things.  There's reading from a variable, writing to a variable, and conditional branching.  Everything else is syntactic sugar.  The syntactic sugar matters, but that's it.  When I say that's it, I don't mean it's simple, I mean it's hard.  Conditional branching, loops, variable, those are really hard concepts, so you shouldn't be discouraged by this.  Here's a simple experiment.  I'm going to ask you a question now.  
+
+Speaker 2: You ready?  X equals three.  
+
+Speaker 0: Y equals four.  
+
+Speaker 1: What is X?  Three.  
+
+Speaker 0: What is Y?  Four.  Y equals S. No?  Oh, it's easy.  Y equals X.  
+
+Speaker 1: Y equals X.  
+
+Speaker 0: What is Y?  
+
+Speaker 1: Three.  
+
+Speaker 0: That's right.  X equals seven.  What is why?  
+
+Speaker 1: That's one of the trickiest things to get for programmers, that there's a memory and the variables are pointing to a particular thing in memory, and sometimes the languages hide that from you and they bring it closer to the way you think mathematics works.  
+
+Speaker 0: Right, so in fact, Mark Guzdial, who worries about these sorts of things, or used to worry about these sorts of things anyway, had this kind of belief that, actually, people, when they see these statements, x equals something, y equals something, y equals x, that you have now made a mathematical statement that y and x are the same.  
+
+Speaker 2: Which you can if you just put an anchor in front of it.  
+
+Speaker 0: Yes, but people, that's not what you're doing, right?  I thought, and I kind of asked the question, and I think I had some evidence for this, I hardly studied, is that most of the people who didn't know the answer, weren't sure about the answer, they had used spreadsheets.  Ah, interesting.  And so it's by reference, or by name, really.  And so depending upon what you think they are, you get completely different answers.  The fact that I could go, or one could go, two-thirds of the way through a semester, and people still hadn't figured out in their heads, when you say y equals x, what that meant, tells you it's actually hard.  Because all those answers are possible.  And in fact, when you said, oh, if you just put an ampersand in front of it, I mean, that doesn't make any sense for an intro class.  And of course, a lot of languages don't even give you the ability to think about it in terms of ampersand.  Do we want to have a forty-five minute discussion about the difference between equal, EQ, and equal in Lisp?  I know you do.  But you could do that.  This is actually really hard stuff.  So you shouldn't be, it's not too hard, we all do it, but you shouldn't be discouraged.  It's why you should start small, so that you can figure out these things, you have the right model in your head, so that when you write the language, you can execute it and build the machine that you want to build, right?  
+
+Speaker 1: Yeah, the funny thing about programming and those very basic things is the very basics are not often made explicit, which is actually what drives everybody away from basically any discipline, but programming is just another one.  Like even a simpler version of the equal sign that I kind of forget is in mathematics, equals is not assignment.  I think basically every single programming language with just a few handful of exceptions, equals is assignment.  You have some other operator for equality.  And even that, everyone kind of knows it.  once you started doing it, but you need to say that explicitly, or you just realize it yourself.  Otherwise, you might be stuck for, you said like half a semester, you could be stuck for quite a long time.  And I think also part of the programming is being okay in that state of confusion for a while.  It's to the debugging point.  It's like, I just wrote two lines of code.  Why doesn't this work?  And staring at that for like hours.  And trying to figure out.  And then every once in a while you just have to restart your computer and everything works again.  And then you just kind of stare into the void with the tears slowly rolling down your eye.  
+
+Speaker 0: By the way, the fact that they didn't get this actually had no impact on I mean, they were still able to do their assignments.  Because it turns out their misunderstanding wasn't being revealed to them by the problem sets we were giving them.  
+
+Speaker 1: It's profound, actually, yeah.  
+
+Speaker 0: I wrote a program a long time ago, actually, for my master's thesis, in C++, I think.  Or C, I guess it was C. And it was all memory management and terrible.  And it wouldn't work for a while.  And it was clear to me that it was overriding memory.  And I just couldn't, I was like, look, I got a paper done, time for this.  So I basically declared a variable at the front and the main that was like four hundred K, just an array.  And it worked.  Because wherever I was scribbling over memory, it would scribble into that space and it didn't matter.  And so I never figured out what the bug was.  But I did create something to deal with it.  
+
+Speaker 2: To work around it.  
+
+Speaker 0: And that's crazy.  That's crazy.  It was OK, because that's what I wanted.  But I knew enough about memory management to go, you know, I'm just going to create an empty array here and hope that that deals with the scribbling memory problem.  And it did.  That takes a long time to figure out.  And by the way, the language you first learned probably is garbage collection anyway, so you're not even going to come across that problem.  
+
+Speaker 1: So we talked about the Minsky idea of hating everything you do and hating yourself.  So let's end on a question that's gonna make both of you very uncomfortable.  Which is, what is your, Charles, what's your favorite thing that you're grateful for about Michael?  And Michael, what is your favorite thing that you're grateful for about Charles?  
+
+Speaker 0: Well, that answer is actually quite easy.  His friendship.  
+
+Speaker 1: He stole the easy answer.  
+
+Speaker 2: Yeah, I can tell you what I hate about Charles.  He steals my good answers.  The thing I like most about Charles, he sees the world in a similar enough but different way that it's sort of like having another life.  It's sort of like I get to experience things that I wouldn't otherwise get to experience because I would not naturally gravitate to them that way.  And so he just shows me a whole other world.  It's awesome.  
+
+Speaker 0: Yeah, the inner product is not zero for sure, It's not quite one.  Point seven, maybe?  Just enough that you can learn.  
+
+Speaker 2: Just enough that you can learn.  
+
+Speaker 1: That's the definition of friendship.  The inner product is point seven.  
+
+Speaker 0: Yeah, I think so.  That's the answer to life, really.  
+
+Speaker 2: Charles sometimes believes in me when I have not believed in me.  He also sometimes works as an outward confidence, that he has so much, so much confidence and self, I don't know, comfortableness.  
+
+Speaker 0: Okay, let's go with that.  
+
+Speaker 2: That I feel better a little bit.  If he thinks I'm okay, then maybe I'm not as bad as I think I am.  
+
+Speaker 1: At the end of the day, luck favors the Charles.  It's a huge honor to talk with you.  Thank you so much for taking this time, wasting your time with me.  It was an awesome conversation.  You guys are an inspiration to a huge number of people and to me, so really enjoyed this.  
+
+Speaker 0: Thanks for talking.  I enjoyed it as well.  Thank you so much.  And by the way, if luck favors the Charles, then it's certainly the case that I've been very lucky to know you.  
+
+Speaker 1: I'm going to edit that part out.  Thanks for listening to this conversation with Charles Isbell and Michael Littman.  And thank you to our sponsors, Athletic Greens, Super Nutritional Drink, Eight Sleep, Self-Cooling Mattress, Masterclass Online Courses from some of the most amazing humans in history, and Cash App, the app I use to send money to friends.  Please check out the sponsors in the description to get a discount and to support this podcast.  If you enjoy this thing, subscribe on YouTube, review it with Five Stars on Apple Podcasts, follow on Spotify, support it on Patreon, or connect with me on Twitter at Lex Friedman.  And now let me leave you with some words from Desmond Tutu.  Don't raise your voice, improve your argument.  Thank you for listening and hope to see you next time.  

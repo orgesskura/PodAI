@@ -1,0 +1,79 @@
+name: Deploy to Netlify and Modal
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd lex-chat
+          npm ci
+
+      - name: Build
+        run: |
+          cd lex-chat
+          npm run build
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.0
+        with:
+          publish-dir: './lex-chat/build'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      
+          
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download files
+        env:
+          ALL_DOCUMENTS_PICKLE: ${{ secrets.ALL_DOCUMENTS_PICKLE }}
+          FAISS_LEX: ${{ secrets.FAISS_LEX }}
+        run: |
+          pip install gdown==5.2.0
+          gdown "$ALL_DOCUMENTS_PICKLE"
+          gdown "$FAISS_LEX"
+
+      - name: Install Modal
+        run: pip install modal==0.64.52
+
+      - name: Configure Modal token
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+        run: |
+          modal token set --token-id "$MODAL_TOKEN_ID" --token-secret "$MODAL_TOKEN_SECRET"
+
+
+      - name: Deploy to Modal
+        run: python deploy.py
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}

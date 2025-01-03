@@ -1,0 +1,5 @@
+*.pkl
+*.faiss
+__pycache__/
+venv/
+*.pyc

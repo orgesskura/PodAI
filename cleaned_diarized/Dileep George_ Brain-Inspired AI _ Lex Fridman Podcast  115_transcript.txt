@@ -1,0 +1,601 @@
+﻿Speaker 1: The following is a conversation with Dalip George, a researcher at the intersection of neuroscience and artificial intelligence, co-founder of Vicarious with Scott Phoenix, and formerly co-founder of Numenta with Jeff Hawkins, who's been on this podcast, and Donna Dubinsky.  From his early work on hierarchical temporal memory to recursive cortical networks to today, De Leap's always sought to engineer intelligence that is closely inspired by the human brain.  As a side note, I think we understand very little about the fundamental principles underlying the function of the human brain.  But the little we do know gives hints that may be more useful for engineering intelligence than any idea in mathematics, computer science, physics, and scientific fields outside of biology.  And so the brain is a kind of existence proof that says it's possible.  Keep at it.  I should also say that brain inspired AI is often overhyped and use this fodder, just as quantum computing for marketing speak.  But I'm not afraid of exploring these sometimes overhyped areas since where there's smoke, there's sometimes fire.  Quick summary of the ads.  Three sponsors, Babbel, Raycon Earbuds, and Masterclass.  Please consider supporting this podcast by clicking the special links in the description to get the discount.  It really is the best way to support this podcast.  If you enjoy this thing, subscribe on YouTube, review it with the Five Stars on Apple Podcasts, support on Patreon, or connect with me on Twitter at Lex Friedman.  As usual, I'll do a few minutes of ads now and never any ads in the middle that can break the flow of the conversation.  This show is sponsored by Babbel, an app and website that gets you speaking in a new language within weeks.  Go to babbel.com and use code Lex to get three months free.  They offer fourteen languages including Spanish, French, Italian, German, and yes, Russian.  Daily lessons are ten to fifteen minutes, super easy, effective, designed by over one hundred language experts.  Let me read a few lines from the Russian poem Ночь, улица, фонарь, аптека by Alexander Bloch that you'll start to understand if you sign up to Babbel.  Ночь, улица, фонарь, аптека.  Бессмысленный и тусклый свет.  Живи еще хоть четверть века.  Все будет так, исхода нет.  Now, I say that you'll only start to understand this poem because Russian starts with a language and ends with a vodka.  Now, the latter part is definitely not endorsed or provided by Babbel and will probably lose me the sponsorship.  But once you graduate from Babbel, you can enroll in my advanced course of late night Russian conversation over vodka.  I have not yet developed enough for that.  It's in progress.  So get started by visiting babbel.com and use code LEX to get three months free.  This show is sponsored by Raycon earbuds.  Get them at buyraycon.com.  slash flex.  They become my main method of listening to podcasts, audio books, and music when I run, do pushups and pull-ups, or just living life.  In fact, I often listen to brown noise with them when I'm thinking deeply about something, it helps me focus.  They're super comfortable, pair easily, great sound, great bass, six hours of play time.  I've been putting in a lot of miles to get ready for a potential ultramarathon and listening to audio books on World War II.  The sound is rich and really comes in clear.  So again, get them at buyraycon.com.  slash lex.  This show is sponsored by Masterclass.  Sign up at masterclass.com slash Lex to get a discount and to support this podcast.  When I first heard about Masterclass, I thought it was too good to be true.  I still think it's too good to be true.  For a hundred eighty bucks a year, you get an all access pass to watch courses from, to list some of my favorites, Chris Hadfield on space exploration, Neil deGrasse Tyson on scientific thinking and communication, Will Wright, creator of SimCity and Sims on game design, Every time I do this read, I really want to play a city builder game.  Carlos Santana on guitar, Garry Kasparov on chess, Daniel Negrano on poker, and many more.  Chris Hadfield explaining how rockets work, and the experience of being launched into space alone is worth the money.  By the way, you can watch it on basically any device.  Once again, sign up at masterclass.com to get a discount and to support this podcast.  And now, here's my conversation with Dilip George.  Do you think we need to understand the brain in order to build it?  
+
+Speaker 0: Yes, if you want to build the brain, we definitely need to understand how it works.  So Bluebrain or Henry Markram's project is trying to build a brain without understanding it, just trying to put details of the brain from neuroscience experiments.  into a giant simulation by putting more and more neurons, more and more details.  But that is not going to work because when it doesn't perform as what you expect it to do, then what do you do?  You just keep adding more details.  How do you debug it?  So unless you understand, unless you have a theory about how the system is supposed to work, how the pieces are supposed to fit together, what they're going to contribute, you can't build it.  
+
+Speaker 1: At the functional level, understand.  So can you actually linger on and describe the Blue Brain Project?  It's kind of fascinating.  a principle, an idea to try to simulate the brain.  We're talking about the human brain, right?  
+
+Speaker 0: Right, human brains and rat brains or cat brains have lots in common, that the cortex, the neocortex structure is very similar.  So initially they were trying to just simulate a cat brain and to understand the nature of evil.  and understand the nature of evil.  Or as it happens in most of the simulations, you easily get one thing out, which is oscillations.  If you simulate a large number of neurons, they oscillate.  And you can adjust the parameters and say that, oh, oscillations match the rhythm that we see in the brain, et cetera.  
+
+Speaker 1: But- Oh, I see.  So the idea is, is the simulation at the level of individual neurons?  
+
+Speaker 0: Yeah.  So the BlueBrain project, the original idea as proposed was you put very detailed biophysical neurons, biophysical models of neurons, and you interconnect them according to the statistics of connections that we have found from real neuroscience experiments, and then turn it on and see what happens.  And these neural models are incredibly complicated in themselves, right?  Because these neurons are modeled using this idea called Hodgkin-Huxley models, which are about how signals propagate in a cable.  And there are active dendrites, all those phenomena, which those phenomena themselves, we don't understand that well.  And then we put in connectivity, which is part guesswork, part observed.  And of course, if we do not have any theory about how it is supposed to work, we just have to take whatever comes out of it as, okay, this is something interesting.  
+
+Speaker 1: But in your sense, like these models of the way signal travels along, like with the axons and all the basic models, that's, they're too crude.  
+
+Speaker 0: Oh, well, actually, they are pretty detailed and pretty sophisticated, and they do replicate the neural dynamics.  If you take a single neuron and you try to turn on the different channels, the calcium channels and the different receptors, and see what the effect of turning on or off those channels are in the neuron's spike output, People have built pretty sophisticated models of that, and they are, I would say, in the regime of correct.  
+
+Speaker 1: Well, see, the correctness, that's interesting, because you mentioned it at several levels.  The correctness is measured by looking at some kind of aggregate statistics?  
+
+Speaker 0: It would be more the spiking dynamics of a single neuron.  
+
+Speaker 1: Spiking dynamics of a single neuron, okay.  Yeah.  
+
+Speaker 0: And yeah, these models, because they are going to the level of mechanism, right?  So they are basically looking at, okay, what is the effect of turning on an ion channel?  And you can model that using electric circuits.  And then, so they are model, so it is not just a, function fitting.  People are looking at the mechanism underlying it and putting that in terms of electric circuit theory, signal propagation theory, and modeling that.  So those models are sophisticated, but getting a single neurons model does not still tell you how to, it would be the analog of getting a transistor model right and now trying to build a microprocessor.  And if you just observe, if you did not understand how a microprocessor works, But you say, oh, I now can model one transistor well, and now I will just try to interconnect the transistors according to whatever I could guess from the experiments and try to simulate it, then it is very unlikely that you will produce a functioning microprocessor.  You want to, you know, when you want to produce a functioning microprocessor, you want to understand Boolean logic, how does, how do the gates work, all those things, and then, you know, understand how do those gates get implemented using transistors.  
+
+Speaker 1: Yeah, there's actually, I remember, this reminds me, there's a paper, maybe you're familiar with it, that I remember going through in a reading group that approaches a microprocessor from a perspective of a neuroscientist.  I think it basically, it uses all the tools that we have of neuroscience to try to understand, like as if we just aliens showed up to study computers and to see if those tools could be used to get any kind of sense of how the microprocessor works.  And I think the final, The takeaway from at least this initial exploration is that we're screwed.  There's no way that the tools of neuroscience would be able to get us to anything, like not even Boolean logic.  I mean, it's just any aspect of the architecture of the function of the processes involved, the clocks, the timing, all that, you can't figure that out from the tools of neuroscience.  
+
+Speaker 0: So I'm very familiar with this particular paper.  I think it was called, can a neuroscientist understand a microprocessor or something like that.  Following the methodology in that paper, even an electrical engineer would not understand microprocessors.  So I don't think it is that bad in the sense of saying neuroscientists do find valuable things by observing the brain.  They do find good insights, but those insights cannot be put together just as a simulation.  You have to investigate what are the computational underpinnings of those findings.  How do all of them fit together from an information processing perspective?  Somebody has to painstakingly put those things together and build hypotheses.  So I don't want to diss all of neuroscientists saying, oh, they're not finding anything.  No, that paper almost went to that level of neuroscientists will never understand.  No, that's not true.  I think they do find lots of useful things, but it has to be put together in a computational framework.  
+
+Speaker 1: Yeah, I mean, but you know, just the AI systems will be listening to this podcast a hundred years from now and they will probably, there's some non-zero probability they'll find your words laughable.  It's like, I remember humans thought they understood something about the brain that are totally clueless.  There's a sense about neuroscience that we may be in the very, very early days of understanding.  the brain, but I mean, that's one perspective.  In your perspective, how far are we into understanding any aspect of the brain, so the dynamics of the individual neuron communication to the, how in a collective sense, how they're able to store information, transfer information, how intelligence then emerges, all that kind of stuff.  Where are we on that timeline?  
+
+Speaker 0: yeah so you know timelines are very very hard to predict and you can of course be wrong.  uh and it can be wrong in on either side.  uh you know we know that.  uh you know when we look back uh the first flight was in nineteen.  oh three uh in nineteen hundred there was a new york times article on flying machines that do not fly and and you know humans might not fly for another hundred years.  that was what that article uh stated and so.  but no they flew three years after that.  so it is.  you know it's very hard to um.  
+
+Speaker 1: So, well, and on that point, one of the Wright brothers, I think two years before, said that, like he said, like some number, like fifty years, he has become convinced that it's impossible.  
+
+Speaker 0: even during their experimentation.  Yeah.  Yeah.  Yeah.  
+
+Speaker 1: I mean, that's a tribute to when, that's like the entrepreneurial battle of like depression of going through just like thinking there's, this is impossible, but there, yeah, there's something, even the person that's in it is not able to see, estimate correctly.  
+
+Speaker 0: Exactly.  But I can tell from the point of objectively what are the things that we know about the brain and how that can be used to build AI models which can then go back and inform how the brain works.  So my way of understanding the brain would be to basically say, look at the insights neuroscientists have found.  Understand that from a computational angle, information processing angle.  Build models using that.  And then building that model, which functions, which is a functional model, which is doing the task that we want the model to do.  It is not just trying to model a phenomena in the brain.  It is trying to do what the brain is trying to do on the whole functional level.  And building that model will help you fill in the missing pieces that, you know, biology just gives you the hints.  and building the model, you know, fills in the rest of the pieces of the puzzle.  And then you can go and connect that back to biology and say, okay, now it makes sense that this part of the brain is doing this, or this layer in the cortical circuit is doing this.  And then continue this iteratively.  Because now that will inform new experiments in neuroscience.  And of course, building the model and verifying that in the real world will also tell you more about, does the model actually work?  And you can refine the model.  find better ways of putting these neuroscience insights together.  So I would say it is... So neuroscientists alone, just from experimentation, will not be able to build a model of the brain, or a functional model of the brain.  So there's lots of efforts, which are very impressive efforts, in collecting more and more connectivity data.  from the brain?  How are the microcircuits of the brain connected with each other?  
+
+Speaker 1: Those are beautiful, by the way.  
+
+Speaker 0: Those are beautiful.  And at the same time, those do not itself, by themselves, convey the story of how does it work.  And somebody has to understand, okay, why are they connected like that?  And what are those things doing?  And we do that by building models in AI.  using hints from neuroscience and repeat the cycle.  
+
+Speaker 1: So what aspect of the brain are useful in this whole endeavor?  Which, by the way, I should say you're both a neuroscientist and an AI person.  I guess the dream is to both understand the brain and to build AGI systems.  So you're, it's like an engineer's perspective of trying to understand the brain.  So what aspects of the brain, functionally speaking, like you said, do you find interesting?  
+
+Speaker 0: Yeah, quite a lot of things.  All right, so one is If you look at the visual cortex, the visual cortex is a large part of the brain.  I forgot the exact fraction, but a huge part of our brain area is occupied by just vision.  So visual cortex is not just a feed-forward cascade of neurons.  there are a lot more feedback connections in the brain compared to the feed-forward connections.  And it is surprising to the level of detail.  neuroscientists have actually studied this.  If you go into neuroscience literature and poke around and ask, you know, have they studied what will be the effect of poking a neuron in level IT in level V-one?  And have they studied that?  And you will say, yes, they have studied that.  
+
+Speaker 1: So every possible combination.  
+
+Speaker 0: I mean, it's not random exploration at all.  It's very hypothesis-driven, right?  Experimental neuroscientists are very, very systematic in how they probe the brain, because experiments are very costly to conduct.  They take a lot of preparation.  They need a lot of control.  So they are very hypothesis-driven in how they probe the brain.  And often what I find is that when we have a question in in AI about, has anybody probed how lateral connections in the brain works?  And when you go and read the literature, yes, people have probed it and people have probed it very systematically.  And they have hypotheses about how those lateral connections are supposedly contributing to visual processing.  But of course, they haven't built very, very functional detailed models of it.  
+
+Speaker 1: By the way, in those studies, sorry to interrupt, do they stimulate a neuron in one particular area of the visual cortex and then see how the signal travels?  kind of thing?  
+
+Speaker 0: Very, very fascinating experiments.  So I can give you one example I was impressed with.  So before going to that, let me give you an overview of how the layers in the cortex are organized.  Visual cortex is organized into roughly four hierarchical levels.  Okay, so V-one, V-two, V-four, IT.  And in V-one- What happened to V-three?  Well, yeah, there's another pathway.  Okay.  I'm talking about just object recognition pathway.  All right, cool.  And then in V one itself.  So it's, there is a very detailed microcircuit in V one itself, that is, that is organization within a level itself.  The cortical sheet is organized into, you know, multiple layers.  and there are columnar structure.  And this layer-wise and columnar structure is repeated in V-one, V-two, V-four, IT, all of them, right?  And the connections between these layers within a level, in V-one itself, there are six layers, roughly, and the connections between them, there is a particular structure to them.  And now, so one example of an experiment people did is when you present a stimulus, which is, let's say, requires separating the foreground from the background of an object.  So it's a textured triangle on a textured background.  And you can check, does the surface settle first or does the contour settle first?  settle in the sense that the so when you finally form the percept of the of the triangle you understand where the contours of the triangle are and you also know where the inside of the triangle is right.  that's when you form the final percept.  now you can ask what is the dynamics of forming that final percept?  Do the neurons first find the edges and converge on where the edges are, and then they find the inner surfaces, or does it go the other way around?  The other way around.  
+
+Speaker 1: So what's the answer?  
+
+Speaker 0: In this case, it turns out that it first settles on the edges, it converges on the edge hypothesis first, and then the surfaces are filled in from the edges to the inside.  That's fascinating.  The detail to which you can study this, it's amazing that you can actually not only find the temporal dynamics of when this happens, and then you can also find which layer in V-one, which layer is encoding the edges.  which layer is encoding the surfaces, and which layer is encoding the feedback, which layer is encoding the feedforward, and what's the combination of them that produces the final person.  And these kinds of experiments stand out when you try to explain illusions.  One example of a favorite illusion of mine is the Kanitsa Triangle.  I don't know that you are familiar with this one.  So this is an example where it's a triangle, but only the corners of the triangle are shown in the stimulus.  So they look like kind of Pac-Man.  
+
+Speaker 1: Oh, the black Pac-Man, yeah.  Exactly.  And then you start to see.  
+
+Speaker 0: Your visual system hallucinates the edges.  And when you look at it, you will see a faint edge, right?  And you can go inside the brain and look Do actually neurons signal the presence of this edge?  And if they signal, how do they do it?  Because they are not receiving anything from the input.  The input is black for those neurons, right?  So how do they signal it?  When does the signaling happen?  So if a real contour is present in the input, then the neurons immediately signal, okay, there is an edge here.  When it is an illusory edge, it is clearly not in the input.  It is coming from the context.  So those neurons fire later.  And you can say that, okay, it's the feedback connections that is causing them to fire.  And they happen later and you can find the dynamics of them.  So these studies are pretty impressive and very detailed.  
+
+Speaker 1: So by the way, just a step back, you said that there may be more feedback connections and feed forward connections.  First of all, if it's just for like a machine learning folks, I mean, that's crazy that there's all these feedback connections.  I mean, we often think about thanks to deep learning, you start to think about the human brain as a kind of feed forward mechanism.  So what the heck are these feedback connections?  What's the dynamics?  What are we supposed to think about them?  
+
+Speaker 0: So this fits into a very beautiful picture about how the brain works, right?  So the beautiful picture of how the brain works is that our brain is building a model of the world.  So our visual system is building a model of how objects behave in the world.  And we are constantly projecting that model back onto the world.  So what we are seeing is not just a feed-forward thing that just gets interpreted in a feed-forward part.  We are constantly projecting our expectations onto the world.  And what the final percept is a combination of what we project onto the world combined with what the actual sensory input is.  
+
+Speaker 1: Almost like trying to calculate the difference and then trying to interpret the difference.  
+
+Speaker 0: Yeah.  I wouldn't put it as calculating the difference.  It's more like, what is the best explanation for the input stimulus based on the model of the world I have?  
+
+Speaker 1: Got it.  Got it, and that's where all the illusions come in, but that's an incredibly efficient process.  So the feedback mechanism, it just helps you constantly, yeah, so hallucinate how the world should be based on your world model and then just looking.  if there's novelty, like trying to explain it.  Hence, that's why movement, we detect movement really well.  There's all these kinds of things.  And this is like at all different levels of the cortex, you're saying.  This happens at the lowest level, at the highest level.  
+
+Speaker 0: In fact, feedback connections are more prevalent everywhere in the cortex.  So one way to think about it, and there's a lot of evidence for this, inference.  so you know.  so basically if you have a model of the world and when when some evidence comes in what you are doing is inference right.  you are trying to now explain this evidence using your model of the world yep and this inference includes projecting your model onto the evidence and taking the evidence back into the model and doing an iterative procedure.  This iterative procedure is what happens using the feedforward feedback propagation.  Feedback affects what you see in the world and it also affects feedforward propagation.  And examples are everywhere.  We see these kinds of things everywhere.  The idea that there can be multiple competing hypotheses, in our model, trying to explain the same evidence, and then you have to kind of make them compete, and one hypothesis will explain away the other hypothesis through this competition process.  
+
+Speaker 1: Wait, what?  So you have competing models of the world that try to explain, what do you mean by explain away?  
+
+Speaker 0: So this is a classic example in graphical models, probabilistic models.  So if you- What are those?  Okay.  
+
+Speaker 1: I think it's useful to mention because we'll talk about them more.  
+
+Speaker 0: Yeah, yeah.  So neural networks are one class of machine learning models.  You have distributed set of nodes, which are called the neurons.  Each one is doing a dot product and you can approximate any function using this multilevel network of neurons.  So that's a class of models which are useful for function approximation.  There is another class of models in machine learning called probabilistic graphical models.  And you can think of them as each node in that model is variable, which is talking about something.  It can be a variable representing is an edge present in the input or not.  at the top of the network a node can be representing is there an object present in the world or not?  and then so it can.  it is.  it is another way of encoding knowledge and and then you once you encode the knowledge you can do inference in the right way?  What is the best way to explain some set of evidence using this model that you encoded?  So when you encode the model, you are encoding the relationship between these different variables.  How is the edge connected to the model of the object?  How is the surface connected to the model of the object?  And then, of course, this is a very distributed, complicated model, and inference is How do you explain a piece of evidence when a set of stimulus comes in?  If somebody tells me there is a fifty percent probability that there is an edge here in this part of the model, how does that affect my belief on whether I should think that there is a square percent in the image?  So this is the process of inference.  So one example of inference is having this expiring effect between multiple causes.  So graphical models can be used to represent causality in the world.  So let's say you're alarm at home can be triggered by a burglar getting into your house, or it can be triggered by an earthquake.  Both can be causes of the alarm going off.  So now, you're in your office, you heard burglar alarm going off, you are heading home, thinking that there's a burglar, got it.  But while driving home, if you hear on the radio that there was an earthquake, in the vicinity, now your strength of evidence for a burglar getting into their house is diminished.  Because now that piece of evidence is explained by the earthquake being present.  So if you think about these two causes explaining at lower level variable, which is alarm, now what we're seeing is that increasing the evidence for some cause, there is evidence coming in from below for alarm being present.  and initially it was flowing to a burglar being present, but now, since there is side evidence for this other cause, it explains away this evidence, and evidence will now flow to the other cause.  This is two competing causal things trying to explain the same evidence.  
+
+Speaker 1: And the brain has a similar kind of mechanism for doing so.  That's kind of interesting.  And that... How's that all encoded in the brain?  Like where's the storage of information?  Are we talking, just maybe to get it a little bit more specific, is it in the hardware of the actual connections?  Is it in chemical communication?  Is it electrical communication?  Do we know?  
+
+Speaker 0: So this is, you know, a paper that we are bringing out soon.  Which one is this?  This is the cortical microcircuits paper that I sent you a draft of.  Of course, a lot of it is still hypothesis.  One hypothesis is that you can think of a cortical column as encoding a concept.  Think of it as an example of a concept is an edge present or not, or is an object present or not.  Okay, so you can think of it as a binary variable, a binary random variable, the presence of an edge or not, or the presence of an object or not.  So each cortical column can be thought of as representing that one concept, one variable.  And then the connections between these cortical columns are basically encoding the relationship between these random variables.  And then there are connections within the cortical column.  Each cortical column is implemented using multiple layers of neurons with very, very, very rich structure there.  There are thousands of neurons in a cortical column.  
+
+Speaker 1: But that structure is similar across the different cortical columns.  
+
+Speaker 0: Correct.  And also these cortical columns connect to a substructure called thalamus.  So all cortical columns pass through this substructure.  So our hypothesis is that the connections between the cortical columns implement this, that's where the knowledge is stored about how these different concepts connect to each other.  And then the neurons inside this cortical column and in thalamus in combination implement this actual computations needed for inference, which includes explaining away and competing between the different hypotheses.  So what is amazing is that neuroscientists have actually done experiments to the tune of showing these things.  They might not be putting it in the overall inference framework, but they will show things like, if I poke this higher level neuron, it will inhibit through this complicated loop through the thalamus, it will inhibit this other column.  So they will do such experiments.  
+
+Speaker 1: But do they use terminology of concepts, for example?  I mean, is it something where it's easy to anthropomorphize and think about concepts, like you start moving into logic-based, kind of reasoning systems.  So how would you think of concepts in that kind of way?  Or is it a lot messier, a lot more gray area?  You know, even more gray, even more messy than the artificial neural network kinds of abstractions?  
+
+Speaker 0: easiest way to think of it as a variable, right?  It's a binary variable, which is showing the presence or absence of something.  
+
+Speaker 1: But I guess what I'm asking is, is that something that we're supposed to think of something that's human interpretable, of that something?  
+
+Speaker 0: It doesn't need to be.  It doesn't need to be human interpretable.  There's no need for it to be human interpretable.  But it's almost like, you know, you will be able to find some interpretation of it because it is connected to the other things that you know about.  
+
+Speaker 1: And the point is it's useful somehow.  It's useful as an entity in the graphic, in connecting to the other entities that are, let's call them concepts.  Okay, so by the way, are these the cortical microcircuits?  
+
+Speaker 0: Correct.  These are the cortical microcircuits.  That's what neuroscientists use to talk about the circuits within a level of the cortex.  So you can think of, let's think of a neural network, artificial neural network terms.  People talk about the architecture of the, so how many layers they build, what is the fan in, fan out, et cetera.  That is the macro architecture.  And then within a layer of the neural network, the cortical neural network is much more structured within a level.  There's a lot more intricate structure there.  But even within an artificial neural network, you can think of feature detection plus pooling as one level.  And so that is kind of a microcircuit.  It's much more complex in the real brain.  So within a level, whatever is that circuitry within a column of the cortex and between the layers of the cortex, that's the microcircuitry.  
+
+Speaker 1: I love that terminology.  Machine learning people don't use the circuit terminology, but they should.  It's nice.  Okay, so that's the cortical microcircuit.  So what's interesting about, what can we say, what is the paper that you're working on propose about the ideas around these cortical microcircuits?  
+
+Speaker 0: So this is a fully functional model for the microcircuits of the visual cortex.  
+
+Speaker 1: So the paper focuses and your idea in our discussions now is focusing on vision.  
+
+Speaker 0: Yeah.  
+
+Speaker 1: The visual cortex.  Okay.  
+
+Speaker 0: Yeah.  
+
+Speaker 1: This is a model.  This is a full model.  This is how vision works.  
+
+Speaker 0: Well, this is a hypothesis.  Okay, so let me step back a bit.  So we looked at neuroscience for insights on how to build a vision model.  And we synthesized all those insights into a computational model.  This is called the recursive cortical network model.  that we used for breaking captures and we are using the same model for robotic picking and tracking of objects.  
+
+Speaker 1: And that again is a vision system.  
+
+Speaker 0: That's a vision system.  
+
+Speaker 1: Computer vision system.  
+
+Speaker 0: That's a computer vision system.  
+
+Speaker 1: Takes in images and outputs what?  
+
+Speaker 0: On one side, it outputs the class of the image and also segments the image.  And you can also ask it further queries.  Where is the edge of the object?  Where is the interior of the object?  So it's a model that you build to answer multiple questions.  So you're not trying to build a model for just classification or just segmentation, et cetera.  It's a joint model that can do multiple things.  So that's the model that we built using insights from neuroscience.  And some of those insights are, what is the role of feedback connections?  What is the role of lateral connections?  So all those things went into the model.  The model actually uses feedback connections.  
+
+Speaker 1: All these ideas from neuroscience.  
+
+Speaker 0: Yeah.  
+
+Speaker 1: So what the heck is a recursive cortical network?  What are the architecture approaches, interesting aspects here?  which is essentially a brain-inspired approach to computer vision?  
+
+Speaker 0: Yeah, so there are multiple layers to this question.  I can go from the very, very top and then zoom in, okay?  So one important thing, constraint that went into the model is that you should not think vision, think of vision as something in isolation.  We should not think perception as something, as a pre-processor for cognition.  perception and cognition are interconnected.  And so you should not think of one problem in separation from the other problem.  And so that means if you finally want to have a system that understand concepts about the world and can learn in a very conceptual model of the world and can reason and connect to language, all of those things, you need to think all the way through and make sure that your perception system is compatible with your cognition system and language system and all of them.  And one aspect of that is top-down controllability.  
+
+Speaker 1: What does that mean?  
+
+Speaker 0: So that means, you know, so think of, you know, you can close your eyes and think about the details of one object, right?  I can zoom in further and further.  I can, you know, so think of the bottle in front of me, right?  And now you can think about, okay, what the cap of that bottle looks.  You can think about what's the texture on that bottle of the cap.  You can think about what will happen if something hits that.  You can manipulate your visual knowledge.  in cognition-driven ways.  And so this top-down controllability and being able to simulate scenarios in the world.  
+
+Speaker 1: So you're not just a passive player in this perception game.  You can control it.  You have imagination.  
+
+Speaker 0: Correct.  Correct.  So basically having a generative network, which is a model, and it is not just some arbitrary generative network.  It has to be built in a way that it is controllable top down.  It is not just trying to generate a whole picture at once.  It's not trying to generate photorealistic things of the world.  You don't have good photorealistic models of the world.  Human brains do not have.  If I, for example, ask you the question, what is the color of the letter E in the Google logo?  You have no idea.  No idea.  Although you have seen it millions of times.  Or not millions of times, hundreds of times.  So it's not, our model is not photorealistic.  But it has other properties that we can manipulate it.  And you can think about filling in a different color in that logo.  You can think about expanding the letter E. So you can imagine the consequence of actions that you have never performed.  So these are the kind of characteristics the generative model need to have.  So this is one constraint that went into our model.  When you read just the perception side of the paper, it is not obvious that this was a constraint that went into the model, this top-down controllability of the generative model.  
+
+Speaker 1: So what is top-down controllability in a model?  look like?  It's a really interesting concept, fascinating concept.  What is that?  Is that the recursiveness gives you that?  Or how do you do it?  
+
+Speaker 0: Quite a few things.  It's like, what does the model factor or factorize?  You know, what are the, what is the model representing as different pieces in the puzzle?  Like, you know, so in the RCN network, it thinks of the world, you know, so far as the background of an image is modeled separately from the foreground of the image.  So the objects are separate from the background.  They are different entities.  
+
+Speaker 1: So there's a kind of segmentation that's built in fundamentally.  
+
+Speaker 0: And then even that object is composed of parts.  And another one is the shape of the object is differently modeled from the texture of the object.  
+
+Speaker 1: Got it, so there's like these, I've been, you know who Francois Chollet is?  Yeah, yeah.  He's, so there's, he developed this like IQ test type of thing for ARC Challenge for, and it's kind of cool that there's these concepts, priors that he defines that you bring to the table in order to be able to reason about basic shapes and things in an IQ test.  Right.  So here you're making it, quite explicit that here are the things that you should be, these are like distinct things that you should be able to model in this.  
+
+Speaker 0: Keep in mind that you can derive this from much more general principles.  You don't need to explicitly put it as, oh, objects versus foreground versus background, the surface versus texture.  No, these are derivable from more fundamental principles of how.  what's the property of continuity of natural signals?  
+
+Speaker 1: What's the property of continuity of natural signals?  By the way, that sounds very poetic.  But yeah, so you're saying there's some low-level properties from which emerges the idea that shapes should be different than, like there should be parts of an object, there should be, I mean, kind of like Francois, I mean, there's objectness, there's all these things that it's kind of crazy that we humans I guess evolved to have because it's useful  
+
+Speaker 0: for us to  
+
+Speaker 1: perceive the  
+
+Speaker 0: world.  Yeah.  Correct.  And it derives mostly from the properties of natural signals.  Yeah.  
+
+Speaker 1: Natural signals.  So natural signals are the kind of things we'll perceive in the natural world.  
+
+Speaker 0: Correct.  
+
+Speaker 1: I don't know why that sounds so beautiful.  Natural signals.  Yeah.  
+
+Speaker 0: as opposed to a QR code, which is an artificial signal that we created.  Humans are not very good at classifying QR codes.  We are very good at saying something is a cat or a dog, but not very good at classifying.  Computers are very good at classifying QR codes.  So our visual system is tuned for natural signals.  And there are fundamental assumptions in the architecture that are derived from natural signals properties.  
+
+Speaker 1: I wonder when you take a hallucinogenic drugs, does that go into natural or is that closer to QR code?  It's still natural.  It's still natural?  
+
+Speaker 0: Yeah, because it is still operating using our brains.  
+
+Speaker 1: By the way, on that topic, I mean, I haven't been following, I think they're becoming legalized in certain, I can't wait until they become legalized to a degree that you like.  vision science researchers could study it.  Yeah.  Just like through medical, chemical ways, modify.  There could be ethical concerns, but that's another way to study.  the brain is to be able to chemically modify it.  There's probably a very long way to figure out how to do it ethically.  
+
+Speaker 0: Yeah, but I think there are studies on that already.  Already?  Yeah, I think so.  Because it's not unethical to give it to rats.  
+
+Speaker 1: Oh, that's true, that's true.  There's a lot of drugged up rats out there.  Okay, cool.  Sorry, sorry.  So, okay, so there's these low-level things from natural signals that...  
+
+Speaker 0: From which these properties will emerge, but it is still a very hard problem on how to encode that.  You mentioned the priors.  Franchot wanted to encode in the abstract reasoning challenge, but it is not straightforward how to encode those priors.  So some of those challenges, like the object recognition or completion challenges, are things that we purely use our visual system to do.  It looks like abstract reasoning, but it is purely an output of the vision system.  For example, completing the corners of that Kaninsa triangle, completing the lines of that Kaninsa triangle.  It's purely a visual system property.  There is no abstract reasoning involved.  It uses all these priors, but it is stored in our visual system in a particular way that is amenable to inference.  And that is one of the things that we tackled in the, you know, basically saying, okay, these are the prior knowledge, which will be derived from the world.  But then how is that prior knowledge represented in the model, such that inference, when some piece of evidence comes in, can be done very efficiently and in a very distributed way.  Because there are so many ways of representing knowledge, which is not amenable to very quick inference, quick lookups.  And so that's one core part of what we tackled in the RCN model.  How do you encode visual knowledge to do very quick inference?  Yeah.  
+
+Speaker 1: Can you maybe comment on, so folks listening to this in general may be familiar with different kinds of architectures of neural networks.  What are we talking about with RCN?  What does the architecture look like?  What are different components?  Is it close to neural networks?  Is it far away from neural networks?  What does it look like?  
+
+Speaker 0: Yeah, so you can think of the delta between the model and a convolutional neural network, if people are familiar with convolutional neural networks.  So convolutional neural networks have this feed-forward processing cascade, which is called feature detectors and pooling.  And that is repeated in the hierarchy, in a multi-level system.  And if you want an intuitive idea of what is happening, feature detectors are detecting interesting co-occurrences in the input.  It can be a line, a corner, an eye, or a piece of texture, et cetera.  And the pooling neurons are doing some local transformation of that and making it invariant to local transformations.  So this is what the structure of convolutional neural network is.  Recursive cortical network has a similar structure when you look at just the feedforward pathway.  But in addition to that, it is also structured in a way that it is generative.  So that again, it can run it backward and combine the forward with the backward.  Another aspect that it has is it has lateral connections.  this lateral connections, which is between.  So if you have an edge here and an edge here, it has connections between these edges.  It is not just feed forward connections.  It is something between these edges, which is the nodes are presenting these edges, which is to enforce compatibility between them.  So otherwise what will happen is that- Constraints?  It's a constraint.  It's basically, if you do just feature detection followed by pooling, then your transformations in different parts of the visual field are not coordinated.  And so you will create jagged, when you generate from the model, you will create jagged things and uncoordinated transformations.  So these lateral connections are enforcing the transformations.  
+
+Speaker 1: Is the whole thing still differentiable?  
+
+Speaker 0: No.  Okay.  No.  It's not trained using backprop.  
+
+Speaker 1: Okay, that's really important.  So there's this feed forward, there's feedback mechanisms, there's some interesting connectivity things, it's still layered?  Like- Yes, there are multiple levels.  Multiple layers.  Okay, very, very interesting.  And yeah, okay, so the interconnection between adjacent, so connections across service constraints that keep the thing stable.  
+
+Speaker 0: Correct.  
+
+Speaker 1: Okay, so what else?  
+
+Speaker 0: And then there's this idea of doing inference.  A neural network does not do inference on the fly.  So an example of why this inference is important is, one of the first applications that we showed in the paper was to crack text-based captures.  
+
+Speaker 1: What are CAPTCHAs, by the way?  By the way, one of the most awesome, like the people don't use this term anymore.  It's human computation, I think.  I love this term.  The guy who created CAPTCHAs, I think, came up with this term.  I love it.  Anyway, what are CAPTCHAs?  
+
+Speaker 0: So CAPTCHAs are those strings that you fill in when you're, you know, if you're opening a new account in Google, they show you a picture, you know, usually it used to be set of garbled letters that you have to kind of figure out what is that string of characters and type it.  And the reason CAPTCHAs exist is because, you know, Google or Twitter do not want automatic creation of accounts.  You can use a computer to create millions of accounts and use that for nefarious purposes.  So you want to make sure that, to the extent possible, the interaction that their system is having is with a human.  So it's called a human interaction proof.  A CAPTCHA is a human interaction proof.  So this is a CAPTCHA by design, things that are easy for humans to solve, but hard for computers.  
+
+Speaker 1: Hard for robots, yeah.  So, and text-based  
+
+Speaker 0: captures was the one which is prevalent around the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of the year of.  With the techniques that we have developed, you can quickly develop a mechanism that solves the CAPTCHA.  
+
+Speaker 1: They've probably gotten a lot harder, too.  They've been getting cleverer and cleverer generating these text CAPTCHAs, yeah.  So, okay, so that was one of the things you've tested it on, is these kinds of CAPTCHAs in the year of the year.  So what, I mean, by the way, why CAPTCHAs?  
+
+Speaker 0: Yeah, yeah.  Even now, I would say CAPTCHA is a very, very good challenge problem if you want to understand how human perception works and if you want to build systems that work like the human brain.  And I wouldn't say CAPTCHA is a solved problem.  We have cracked the fundamental defense of CAPTCHAs, but it is not solved in the way that humans solve it.  So, I can give an example.  I can take a five-year-old child who has just learned characters and show them any new capture that we create.  They will be able to solve it.  I can show you pretty much any new capture from any new website.  You'll be able to solve it without getting any training examples from that particular style of capture.  
+
+Speaker 1: You're assuming I'm human, yeah.  
+
+Speaker 0: Yes, yeah, that's right.  So if you are human, otherwise I will be able to figure that out using this one.  
+
+Speaker 1: This whole podcast is just a touring test, a long touring test.  Anyway, I'm sorry.  So yeah, so humans can figure it out with very few examples.  
+
+Speaker 0: Or no training examples, like no training examples from that particular style of capture.  And so you can, you know, so even now this is unreachable for the current deep learning system.  So basically there is no, I don't think a system exists where you can basically say, train on whatever you want.  And then now say, hey, I will show you a new capture, which I did not show you in the training setup.  Will the system be able to solve it?  It still doesn't exist.  So that is the magic of human perception.  And Doug Hofstadter put this very beautifully in one of his talks.  The central problem in AI is what is the letter A?  If you can build a system that reliably can detect all the variations of the letter A, you don't even need to go to the...  
+
+Speaker 1: The B and the C.  
+
+Speaker 0: Yeah, you don't even need to go to the B and the C or the strings of characters.  And so that is the spirit with which we tackle that problem.  
+
+Speaker 1: What does he mean by that?  I mean, is it like without training examples, Try to figure out the fundamental elements that make up the letter A. in all of its forms.  
+
+Speaker 0: In all of its forms.  It can be, A can be made with two humans standing, leaning against each other, holding the hands.  And it can be made of leaves.  It can be.  
+
+Speaker 1: Yeah, you might have to understand everything about this world in order to understand the letter A, yeah.  Exactly, exactly.  So it's common sense reasoning, essentially, yeah.  
+
+Speaker 0: Right, so to finally, to really solve, finally to say that you have solved captcha, you have to solve the whole problem.  
+
+Speaker 1: Yeah, okay, so how does this kind of the RCN architecture help us to do a better job of that kind of thing?  
+
+Speaker 0: Yeah, so as I mentioned, one of the important things was being able to do inference, being able to dynamically do inference.  
+
+Speaker 1: Can you clarify what you mean?  Because you said like neural networks don't do inference.  Yeah.  So what do you mean by inference in this context then?  
+
+Speaker 0: So, okay, so in captures, what they do to confuse people is to make these characters crowd together.  
+
+Speaker 1: Yes.  
+
+Speaker 0: And when you make the characters crowd together, what happens is that you will now start seeing combinations of characters as some other new character or an existing character.  So you would put an R and N together, it will start looking like an M. And so locally, there is very strong evidence for it being some incorrect character.  But globally, the only explanation that fits together is something that is different from what you can find locally.  Yes.  So this is inference.  You are basically taking local evidence and putting it in the global context and often coming to a conclusion locally, which is conflicting with the local information.  
+
+Speaker 1: So actually, so you mean inference like in the way it's used when you talk about reasoning, for example, as opposed to like inference, which is when you're with artificial neural networks, which is a single path to the network.  
+
+Speaker 0: Got it.  Okay.  
+
+Speaker 1: So you're basically doing some basic forms of reasoning, like integration of how local things fit into the global picture.  
+
+Speaker 0: And things like explaining away coming into this one, because you are explaining that piece of evidence as something else, because globally that's the only thing that makes sense.  So now you can amortize this inference in a neural network.  If you want to do this, you can brute force it.  You can just show it all combinations of things that you want your reasoning to work over, and you can just train the help out of that neural network, and it will look like it is doing inference on the fly, but it is really just doing amortized inference.  It is because you have shown it a lot of these combinations during training time.  So what you want to do is be able to do dynamic inference rather than just being able to show all those combinations in the training time.  And that's something we emphasized in the model.  
+
+Speaker 1: What does it mean dynamic inference?  Is that that has to do with the feedback thing?  Yes.  Like what is dynamic?  I'm trying to visualize what dynamic inference would be in this case.  Like what is it doing with the input?  It's showing the input the first time.  And what's changing over temporarily?  What's the dynamics of this inference process?  
+
+Speaker 0: So you can think of it as you have at the top of the model, the characters that you are trained on, they are the causes.  You're trying to explain the pixels using the characters as the causes.  The characters are the things that cause the pixels.  
+
+Speaker 1: Yeah, so there's this causality thing.  So the reason you mentioned causality, I guess, is because there's a temporal aspect to this whole thing.  
+
+Speaker 0: In this particular case, the temporal aspect is not important.  It is more like, if I turn the character on, the pixels will turn on.  Yeah, it will be after this a little bit, but yeah.  
+
+Speaker 1: Okay, so it's a causality in the sense of like a logic causality, like hence inference, okay.  
+
+Speaker 0: The dynamics is that even though locally, it will look like, okay, this is an A, and locally, just when I look at just that patch of the image, it looks like an A, but when I look at it in the context of all the other causes, It might not, AM is not something that makes sense.  So that is something you have to kind of recursively figure out.  Yeah.  
+
+Speaker 1: So, okay.  So, and this thing performed pretty well on the captures.  
+
+Speaker 0: Correct.  
+
+Speaker 1: And.  I mean, is there some kind of interesting intuition you can provide why it did?  well?  Like, what did it look like?  Is there visualizations that could be human interpretable to us humans?  
+
+Speaker 0: Yes, yeah, so the good thing about the model is that it is extremely, so it is not just doing a classification, right?  It is providing a full explanation for the scene.  So when it, um operates on a scene it is coming at back and saying look this is the part is the a and these are the pixels that turned on.  uh these are the pixels in the input.  that tells makes me think that it is an a and also these are the portions i hallucinated.  it provides a complete explanation of that form.  These are the contours, this is the interior, and this is in front of this other object.  That's the explanation the inference network provides.  That is useful and interpretable.  Then the errors it makes are also.  I don't want to read too much into it, but the kind of errors the network makes are very similar to the kinds of errors humans would make in a similar situation.  
+
+Speaker 1: So there's something about the structure that feels reminiscent of the way humans' visual system works.  Well, I mean, how hard-coded is this to the capture problem, this idea?  
+
+Speaker 0: Not really hard-coded because the assumptions, as I mentioned, are general, right?  It is more... And those themselves can be applied in many situations which are natural signals.  So it's the foreground versus background factorization and the factorization of the surfaces versus the contours.  So these are all generally applicable assumptions.  
+
+Speaker 1: In our vision.  So why capture?  why attack the capture problem, which is quite unique in the computer vision context versus like the traditional benchmarks of ImageNet and all those kinds of image classification or even segmentation tests and all that kind of stuff.  Do you feel like that's, I mean, what's your thinking about those kinds of benchmarks in this context?  
+
+Speaker 0: I mean, those benchmarks are useful for deep learning kind of algorithms where you, you know, so the settings that deep learning works in are, here is my huge training set, and here is my test set.  So the training set is almost, you know, hundred X, thousand X bigger than the test set in many cases.  What we wanted to do was invert that.  The training set is way smaller than the test set.  And, you know, CAPTCHA is a problem that is, by definition, hard for computers.  And it has these good properties of strong generalization, strong out-of-training distribution generalization.  If you are interested in studying that and having your model have that property, then it's a good data set to tackle.  
+
+Speaker 1: So is there, have you attempted to, which I think, I believe there's quite a growing body of work on looking at MNIST and ImageNet without training.  So like taking like the basic challenges, how, what tiny fraction of the training set can we take in order to do a reasonable job of the classification task?  Have you explored that angle on these classic benchmarks?  
+
+Speaker 0: Yes, so we did do MNIST.  So it's not just CAPTCHA.  So there was also multiple versions of MNIST, including the standard version, where we inverted the problem, which is basically saying, rather than train on sixty thousand training data, how quickly can you get to high level accuracy with very little training data?  
+
+Speaker 1: Is there some performance that you remember, like how well did it do?  How many examples did it need?  
+
+Speaker 0: Yeah, I remember that it was on the order of tens or hundreds of examples to get into a ninety five percent accuracy.  And it was.  it was definitely better than the systems, other systems out there at that time.  At that time.  
+
+Speaker 1: Yeah.  Yeah.  They're really pushing.  I think that's a really interesting space, actually.  I think there's an actual name for MNIST that like there's different names, the different sizes of training sets.  I mean, people are like attacking this problem.  I think it's super interesting.  Yeah.  It's funny how like that MNIST will probably be with us all the way to AGI.  It's a data set that just sticks by.  It's a clean, simple data set to study the fundamentals of learning with.  Just like CAPTCHAs, it's interesting.  Not enough people, I don't know, maybe you can correct me, but I feel like CAPTCHAs don't show up as often in papers as they probably should.  
+
+Speaker 0: That's correct, yeah.  Because usually these things have a momentum.  Once something gets established as a standard benchmark, there is a dynamics of how graduate students operate and how academic system works.  that pushes people to track that benchmark.  
+
+Speaker 1: Nobody wants to think outside the box.  Okay, so good performance on the CAPTCHAs.  What else is there interesting on the RCN side before we talk about the cortical microscope?  
+
+Speaker 0: Yeah, so the same model, so the important part of the model was that it trains very quickly with very little training data.  And it's quite robust to out-of-distribution perturbations.  And we are using that very fruitfully at Vicarious in many of the robotics tasks we are solving.  
+
+Speaker 1: So let me ask you this kind of touchy question.  I have spoken with your friend, colleague, Jeff Hawkins, too.  I have to kind of ask, there is a bit of, Whenever you have brain-inspired stuff and you make big claims, big sexy claims, there's critics, I mean, machine learning subreddit.  Don't get me started on those people.  Criticism is good, but they're a bit over the top.  There's quite a bit of sort of skepticism and criticism, you know, is this work really as good as it promises to be?  Do you have thoughts on that kind of skepticism?  Do you have comments on the kind of criticism we might've received about, you know, is this approach legit?  Is this a promising approach?  Or at least as promising as it seems to be, you know, advertised as?  
+
+Speaker 0: Yeah, I can comment on it.  So our Arsene paper is published in Science, which I would argue is a very high-quality journal, very hard to publish in.  And usually it is indicative of the quality of the work.  And I can... I am very, very certain that the ideas that we brought together in that paper, in terms of the importance of feedback connections, recursive inference, lateral connections, coming to best explanation of the scene as the problem to solve, trying to solve recognition, segmentation, all jointly, in a way that is compatible with higher-level cognition, top-down attention, all those ideas that we brought together into something coherent and workable in the world and tackling a challenging problem, I think that will stay and that contribution I stand by.  I can tell you a story which is funny in the context of this.  So if you read the abstract of the paper and the argument we are putting in, we are putting in, look, current deep learning systems take a lot of training data.  They don't use these insights.  And here is our new model, which is not a deep neural network.  It's a graphical model.  It does inference.  This is what the paper is.  Now, once the paper was accepted and everything, it went to the press department in AAAA's science office.  We didn't do any press release when it was published.  It went to the press department.  What was the press release that they wrote up?  A new deep learning model.  
+
+Speaker 1: Solves CAPTCHAs.  
+
+Speaker 0: Solves CAPTCHAs.  You can see what was being hyped in that thing.  There is a dynamic in the community.  That especially happens when there are lots of new people coming into the field and they get attracted to one thing and some people are trying to think different.  compared to that.  So there is some, I think skepticism in science is important and it is very much required.  But it's also, it's not skepticism usually, it's mostly bandwagon effect that is happening rather than Well, but that's not even that.  
+
+Speaker 1: I mean, I'll tell you what they react to, which is like I'm sensitive to as well.  If you look at just companies, OpenAI, DeepMind, Vicarious, I mean, there's a little bit of a race to the top and hype, right?  It's like it doesn't pay off to be humble.  So like, and the press is just irresponsible often.  They just, I mean, don't get me started on the state of journalism today.  Like, it seems like the people who write articles about these things, they literally have not even spent an hour on the Wikipedia article about what is neural networks.  Like, they haven't like invested just even the language to laziness.  It's like, robots beat humans, like they write this kind of stuff that just, and then of course the researchers are quite sensitive to that because it gets a lot of attention.  They're like, why did this word get so much attention?  You know, that's over the top and people get really sensitive, you know, the same kind of criticism with, OpenAI did work with Rubik's Cube with the robot that people criticized.  Same with GPT-II and III, they criticize.  Same thing with DeepMinds with AlphaZero.  I mean, yeah, I'm sensitive to it.  And of course, with your work, you mentioned deep learning, but there's something super sexy to the public about brain-inspired.  I mean, that immediately grabs people's imagination, not even like, neural networks, but like really brain-inspired, like brain-like neural networks, that seems really compelling to people and to me as well, to the world as a narrative.  And so people hook on to that and sometimes the skepticism engine turns on in the research community and they're skeptical.  But I think, Putting aside the ideas of the actual performance on CAPTCHAs or performance on any dataset, I mean, to me, all these datasets are useless anyway.  It's nice to have them, but in the grand scheme of things, they're silly toy examples.  The point is, is there intuition about the ideas, just like you mentioned, bringing the ideas together in a unique way?  Is there something there?  Is there some value there?  And is it going to stand the test of time?  And that's the hope.  That's the hope.  
+
+Speaker 0: My confidence there is very high.  I don't treat brain-inspired as a marketing term.  I am looking into the details of biology and I'm puzzling over those things and I am grappling with those things.  And so it is not a marketing term at all.  You can use it as a marketing term and people often use it and you can get combined with them.  And when people don't understand how we are approaching the problem, it is easy to be misunderstood and think of it as purely marketing, but that's not the way.  
+
+Speaker 1: So you really, I mean, as a scientist, you believe that if we kind of just stick to really understanding the brain, that's the right, like you should constantly meditate on the how does the brain do this?  Because that's going to be really helpful for engineering intelligence systems.  
+
+Speaker 0: Yes, so I think it's one input and it is helpful, but you should know when to deviate from it too.  So an example is convolutional neural networks, right?  Convolution is not an operation.  brain implements.  The visual cortex is not convolutional.  visual cortex has local receptive fields, local connectivity, but there is no translation in invariance in the network weights in the visual cortex.  That is a a computational trick, which is a very good engineering trick that we use for sharing the training between the different nodes.  And that trick will be with us for some time.  It will go away when we have robots with eyes and heads that move.  And so then that trick will go away.  It will not be useful at that time.  
+
+Speaker 1: So the brain doesn't have translational invariance.  It has the focal point.  It has a thing it focuses on.  
+
+Speaker 0: Correct.  It has a fovea.  And because of the fovea, the receptive fields are not copying of the weights.  The weights in the center are very different from the weights in the periphery.  
+
+Speaker 1: Yeah, so the periphery, I mean, I did this, actually wrote a paper and just gotten a chance to really study peripheral vision, which is a fascinating thing.  Very under understood thing of what the, you know, at every level the brain does with the periphery.  It does some funky stuff.  So it's another kind of trick than convolutional.  Convolution in neural networks is a trick for efficiency, is an efficiency trick.  And the brain does a whole nother kind of thing, I guess.  
+
+Speaker 0: So you need to understand the principles or processing so that you can still apply engineering tricks where you want it to.  You don't want to be slavishly mimicking all the things of the brain.  And so, yeah, so it should be one input, and I think it is extremely helpful, but it should be the point of really understanding so that you know when to deviate from it.  
+
+Speaker 1: So, okay, that's really cool.  That's work from a few years ago.  You did work in Numenta with Jeff Hawkins with hierarchical temporal memory.  How is your, if you could just give a brief history, how is your view of the way the models of the brain changed over the past, a few years leading up to now.  Is there some interesting aspects where there was an adjustment to your understanding of the brain, or is it all just building on top of each other?  
+
+Speaker 0: In terms of the higher level ideas, especially the ones Jeff wrote about in the book, if you blur out, right?  Yeah, unintelligence.  Right, unintelligence.  If you blur out the details, and if you just zoom out and at the higher level idea, things are, I would say, consistent with what he wrote about.  But many things will be consistent with that because it's a blur.  Deep learning systems are also multilevel, hierarchical, all of those things.  But in terms of the detail, a lot of things are different.  And those details matter a lot.  So one point of difference I had with Jeff was how much of biological plausibility and realism do you want in the learning algorithms?  So when I was there, this was almost ten years ago now, so  
+
+Speaker 1: I don't  
+
+Speaker 0: know what Jeff thinks now, but ten years ago, the difference was that I did not want to be so constrained on saying, my learning algorithms need to be biologically plausible based on some filter of biological plausibility available at that time.  To me, that is a dangerous cut to make because we are discovering more and more things about the brain all the time.  New biophysical mechanisms, new channels are being discovered all the time.  
+
+Speaker 1: So I don't want to upfront kill off a learning algorithm Just because we don't really understand the full biophysics or whatever of how the brain learns.  
+
+Speaker 0: Exactly, exactly.  
+
+Speaker 1: Let me ask, sorry to interrupt, what's your sense, what's our best understanding of how the brain learns?  
+
+Speaker 0: So things like backpropagation, credit assignment, so many of these algorithms have, learning algorithms have things in common, right?  It is, backpropagation is one way of credit assignment.  There is another algorithm called expectation maximization, which is, you know, another, weight adjustment algorithm.  
+
+Speaker 1: But is it your sense the brain does something like this?  
+
+Speaker 0: Has to.  There is no way around it in the sense of saying that you do have to adjust the connections.  
+
+Speaker 1: So and you're saying credit assignment, you have to reward the connections that were useful in making a correct prediction and not.  Yeah, I guess, but yeah, it doesn't have to be differentiable.  
+
+Speaker 0: Yeah, it doesn't have to be differentiable.  Yeah, but you have a model that you start with, you have data comes in, and you have to have a way of adjusting the model such that it better fits the data.  So that is all of learning, right?  And some of them can be using backprop to do that.  Some of it can be using very local graph changes to do that.  Many of these learning algorithms have similar update properties locally in terms of what the neurons need to do locally.  
+
+Speaker 1: I wonder if small differences in learning algorithms can have huge differences in the actual effect.  So the dynamics of, I mean, sort of the reverse, like spiking, like if credit assignment is like a lightning versus like a rainstorm or something.  whether there's like a looping local type of situation with the credit assignment, whether there is like regularization, like how it injects robustness into the whole thing, like whether it's chemical or electrical or mechanical, all those kinds of things.  I feel like that, Yeah, I feel like those differences could be essential, right?  
+
+Speaker 0: It could be, it's just that you don't know enough to, on the learning side, you don't know enough to say that is definitely not the way the brain does it.  
+
+Speaker 1: Got it, so you don't want to be stuck to it.  So you've been open-minded on that side of things.  
+
+Speaker 0: Correct.  On the inference side, on the recognition side, I am much more amenable to being constrained because it's much easier to do experiments because it's like, okay, here's a stimulus.  How many steps did it get to take the answer?  I can trace it back.  I can understand the speed of that computation, et cetera, much more readily on the inference side.  Got it.  
+
+Speaker 1: And then you can't do good experiments on the learning side.  
+
+Speaker 0: Correct.  
+
+Speaker 1: So let's go right into cortical microcircuits right back.  So what are these ideas beyond recursive cortical network that you're looking at now?  
+
+Speaker 0: So we have made a pass through multiple of the steps that, as I mentioned earlier, we were looking at perception from the angle of cognition, right?  It was not just perception for perception's sake.  How do you connect it to cognition?  How do you learn concepts?  And how do you learn abstract reasoning?  Similar to some of the things Francois talked about, right?  So, So we have taken one pass through it, basically saying, what is the basic cognitive architecture that you need to have, which has a perceptual system, which has a system that learns dynamics of the world, and then has something like a routine program learning system on top of it to learn concepts.  So we have built one, the version point one of that system.  This was another science robotics paper.  The title of that paper was something like cognitive programs.  How do you build cognitive programs?  
+
+Speaker 1: And the application there was on manipulation, robotic manipulation?  
+
+Speaker 0: It was.  So think of it like this.  Suppose you wanted to tell a new person that you met, you don't know the language that person uses.  You want to communicate to that person to achieve some task.  So I want to say, hey, you need to pick up all the red cups from the kitchen counter and put it here.  How do you communicate that?  You can show pictures.  You can basically say, look, this is the starting state.  The things are here.  This is the ending state.  And what does the person need to understand from that?  The person needs to understand what conceptually happened in those pictures from the input to the output.  So we are looking at pre-verbal conceptual understanding.  Without language, how do you have a set of concepts that you can manipulate in your head?  And from a set of images of input and output, can you infer what is happening in those images?  
+
+Speaker 1: Got it, with concepts that are pre-language, okay.  So what does it mean for a concept to be pre-language?  
+
+Speaker 0: Yeah.  
+
+Speaker 1: Why is language so important here?  
+
+Speaker 0: So I want to make a distinction between concepts that are just learned from text, by just feeding brute force text.  You can start extracting things like, okay, a cow is likely to be on grass.  So those kinds of things you can extract purely from text.  But that's kind of a simple association thing rather than a concept as an abstraction of something that happens in the real world in a grounded way that I can simulate it in my mind and connect it back to the real world.  
+
+Speaker 1: And you think kind of the visual world, the concepts in the visual world are somehow lower level than just the language.  
+
+Speaker 0: The lower level kind of makes it feel like, okay, that's unimportant.  It's more like, I would say the concepts in the visual and the motor system and the concept learning system, which if you cut off the language part, just what we learn by interacting with the world and abstractions from that, that is a prerequisite for any real language understanding.  
+
+Speaker 1: So you disagree with Chomsky, because he says language is at the bottom of everything.  
+
+Speaker 0: No, yeah, I disagree with Chomsky completely on so many levels, from universal grammar to, yeah.  
+
+Speaker 1: So that was a paper in Science B on the recursive cortical network.  What other interesting problems are there, open problems in brain-inspired approaches that you're thinking about?  
+
+Speaker 0: I mean, everything is open, right?  No problem is solved, solved, right?  I think of perception as kind of the first thing that you have to build, but the last thing that you will be actually solved.  Because if you do not build perception system in the right way, you cannot build concept system in the right way.  So you have to build a perception system, however wrong that might be, you have to still build that and learn concepts from there and then keep iterating.  And finally, perception will get solved fully when perception, cognition, language, all those things work together.  finally.  
+
+Speaker 1: Great, we've talked a lot about perception, but then maybe on the concept side and like common sense or just general reasoning side, is there some intuition you can draw from the brain about how we could do that?  
+
+Speaker 0: So I have this classic example I give.  So suppose I give you a few sentences and then ask you a question following that sentence.  This is a natural language processing problem, right?  So here it goes.  I'm telling you, Sally pounded a nail on the ceiling.  Okay, that's a sentence.  Now I'm asking you a question.  Was the nail horizontal or vertical?  
+
+Speaker 1: Vertical.  
+
+Speaker 0: Okay, how did you answer that?  
+
+Speaker 1: Well, I imagined Sally, it was kind of hard to imagine what the hell she was doing, but I imagined a visual of the whole situation.  
+
+Speaker 0: Exactly, exactly.  So here, I posed a question in natural language.  The answer to that question was you got the answer from actually simulating the scene.  Now I can go more and more detail about, okay, was Sally standing on something while doing this?  Could she have been standing on a light bulb to do this?  I could ask more and more questions about this and I can ask, make you simulate the scene in more and more detail.  Where is all that knowledge that you're accessing stored?  It is not in your language system.  It was not just by reading text you got that knowledge.  It is stored from the everyday experiences that you have had.  And by the age of five, you have pretty much all of this.  And it is stored in your visual system, motor system, in a way such that it can be accessed through language.  
+
+Speaker 1: Got it, I mean, right, so here, the language is just, almost serves as a query into the whole visual cortex, and that does the whole feedback thing, but I mean, is all reasoning kind of connected to the perception system in some way?  
+
+Speaker 0: You can do a lot of it, you know, you can still do a lot of it by quick associations without having to go into the depth.  And most of the time you will be right, right?  You can just do quick associations, but I can easily create tricky situations for you where that quick associations is wrong and you have to actually run the simulation.  
+
+Speaker 1: So the figuring out how these concepts connect, do I have a good idea of how to do that?  
+
+Speaker 0: That's exactly one of the problems that we are working on.  And the way we are approaching that is basically saying, okay, the takeaway is that language is simulation control.  And your perceptual plus motor system is building a simulation of the world.  And so that's basically the way we are approaching it.  And the first thing that we built was a controllable perceptual system.  And we built a schema networks, which was a controllable dynamic system.  Then we built a concept learning system that puts all these things together into programs as abstractions that you can run and simulate.  And now we are taking the step of connecting it to language.  And it will be very simple examples initially.  It will not be the GPT-three like examples, but it will be grounded simulation-based language.  
+
+Speaker 1: And for like, the querying would be like question answering kind of thing?  
+
+Speaker 0: Correct, correct.  And it will be in some simple world initially on, you know, but it will be about, okay, can the system connect the language and ground it in the right way and run the right simulations to come up with the answer.  
+
+Speaker 1: And the goal is to try to do things that, for example, GPT-III couldn't do.  
+
+Speaker 0: Correct.  
+
+Speaker 1: Speaking of which, If we could talk about GPT-III a little bit, I think it's an interesting thought provoking set of ideas that OpenAI is pushing forward.  I think it's good for us to talk about the limits and the possibilities in neural network.  So in general, what are your thoughts about this recently released very large, one hundred seventy five billion parameter language model?  
+
+Speaker 0: So I haven't directly evaluated it yet.  From what I have seen on Twitter and other people evaluating it, it looks very intriguing.  I am very intrigued by some of the properties it is displaying.  And, of course, the text generation part of that was already evident in GPT-II, that it can generate coherent text over long distances.  But of course, the weaknesses are also pretty visible in saying that, okay, it is not really carrying a world state around.  And sometimes you get sentences like, I went up the hill to reach the valley or a thing like that, some completely incompatible statements.  Or when you're traveling from one place to the other, it doesn't take into account the time of travel, things like that.  So those things, I think will happen less in GPT-III because it is trained on even more data.  And so it can do even more longer distance coherence.  But it will still have the fundamental limitations that it doesn't have a world model.  And it can't run simulations in its head to find whether something is true in the world or not.  
+
+Speaker 1: Do you think within... So it's taking a huge amount of text from the internet and forming a compressed representation.  Do you think in that could emerge something that's an approximation of a world model, which essentially could be used for reasoning?  I'm not talking about GPT-III, I'm talking about GPT-IV, V, and GPT-X.  
+
+Speaker 0: Yeah, I mean, they will look more impressive than GPT-three.  So you can, if you take that to the extreme, then a Markov chain of just first-order, if you go to, I'm taking it the other extreme.  If you read Shannon's book, right?  He has a model of English text, which is based on first-order Markov chains, second-order Markov chains, third-order Markov chains, and saying that, okay, third-order Markov chains look better than first-order Markov chains.  So does that mean a faster Markov chain has a model of the world?  Yes, it does.  So yes, in that level, when you go higher order models, or more sophisticated structure in the model like the transformer networks have, yes, they have a model of the text world.  But that is not a model of the world.  It's a model of the text world and it will have interesting properties and it will be useful, but just scaling it up is not going to give us AGI or natural language understanding or meaning.  
+
+Speaker 1: The question is whether being forced to compress a very large amount of text forces you to construct things that are very much like, because the ideas of concepts and meaning is a spectrum.  So in order to form that kind of compression, maybe it will be forced to figure out abstractions which look awfully a lot like the kind of things that we think about as concepts, as world models, as common sense.  Is that possible?  
+
+Speaker 0: No, I don't think it is possible because the information is not there.  
+
+Speaker 1: The information is there behind the text, right?  No,  
+
+Speaker 0: unless somebody has written down all the details about how everything works in the world to the absurd amounts like, okay, it is easier to walk forward than backward, that you have to open the door to go out of the thing, doctors wear underwear, you know, unless all these things somebody has written down somewhere or, you know, somehow the program found it to be useful for compression from some other text, the information is not there.  
+
+Speaker 1: So that's an argument that, like, text is a lot lower fidelity than the, you know, the experience of our physical world.  Right.  
+
+Speaker 0: So it's worth a thousand words.  
+
+Speaker 1: Well, in this case, pictures aren't really so.  the the richest aspect of the physical world isn't even just pictures.  It's the it's the interactivity with the world.  Yeah.  It's being able to Yeah, interact, it's almost like, it's almost like if you could interact, so I disagree, well, maybe I agree with you that picture's worth a thousand words, but a thousand.  
+
+Speaker 0: It's still, yeah, you could say, you could capture it with a GPT-X.  
+
+Speaker 1: So I wonder if there's some interactive element where a system could live in text world where it could be part of the chat.  be part of, you know, talking to people.  It's interesting.  I mean, fundamentally, so you're making a statement about the limitation of text.  Okay, so let's say we have a text corpus that includes basically, every experience we could possibly have.  I mean, just a very large corpus of text and also interactive components.  I guess the question is whether the neural network architecture, these very simple transformers, but if they had like hundreds of trillions or whatever comes after a trillion parameters, whether that could store the information.  needed, that's architecturally.  Do you have thoughts about the limitation on that side of things with neural networks?  
+
+Speaker 0: I mean, so, transformer is still a feed-forward neural network.  It has a very interesting architecture, which is good for text modeling and probably some aspects of video modeling, but it is still a feed-forward architecture.  
+
+Speaker 1: You believe in the feedback mechanism, the recursion?  
+
+Speaker 0: Oh, and also causality, being able to do counterfactual reasoning, being able to do interventions, which is actions in the world.  So all those things require different kinds of models to be built.  I don't think Transformers captures that family.  It is very good at statistical modeling of text.  And it will become better and better with more data, bigger models, but that is only going to get so far.  So I had this joke on Twitter saying that, hey, this is a model that has read all of quantum mechanics and theory of relativity, and we are asking it to do text completion, or we are asking it to solve simple puzzles.  When you have AGI, that's not what you ask the system to do.  We'll ask the system to do experiments and come up with hypothesis and revise the hypothesis based on evidence from experiments, all those things, right?  Those are the things that we want the system to do when we have AGI, not solve simple puzzles.  
+
+Speaker 1: like impressive demo, somebody generating a red button in HTML.  
+
+Speaker 0: Which are all useful, like, you know, there's no dissing the usefulness of it.  
+
+Speaker 1: So I get, by the way, I'm playing a little bit of a devil's advocate, so calm down internet.  So I just, I'm curious almost, in which ways will a dumb but large neural network will surprise us?  So like, it's kind of your, I completely agree with your intuition.  It's just that I don't want to dogmatically, like a hundred percent put all the chips there.  We've been surprised so much, even the current GPT.  two and three are so surprising.  The self-play mechanisms of alpha zero are really surprising.  And, the fact that reinforcement learning works at all to me is really surprising.  The fact that neural networks work at all is quite surprising, given how nonlinear the space is, the fact that it's able to find local minima that are at all reasonable, it's very surprising.  So I wonder sometimes, whether us humans just want it to not, for AGI not to be such a dumb thing.  So I just, because exactly what you're saying is like the ideas of concepts and be able to reason with those concepts and connect those concepts in like hierarchical ways and then to be able to have world models.  I mean, just everything we're describing in human language in this poetic way seems to make sense that that is what intelligence and reasoning are like.  I wonder if at the core of it, it could be much dumber.  
+
+Speaker 0: Well, finally it is still connections and messages passing over, right?  So in that way it's done.  
+
+Speaker 1: So I guess the recursion, the feedback mechanism, that does seem to be a fundamental kind of thing.  Yeah, yeah.  The idea of concepts, also memory.  
+
+Speaker 0: Correct, yeah, having an episodic memory.  
+
+Speaker 1: Yeah, that seems to be an important thing.  So how do we get memory?  
+
+Speaker 0: So yeah, we have another piece of work that which came out recently on how do you form episodic memories and form abstractions from them.  And we haven't figured out all the connections of that to the overall cognitive architecture, but- Yeah, what are your ideas about how you could have episodic memory?  So at least it's very clear that you need to have two kinds of memory, right?  That's very, very clear, right?  Which is there are things that happen as statistical patterns in the world, but then there is the one timeline of things that happen only once in your life, right?  And this day is not going to happen ever again.  And that needs to be stored as a memory.  you know, just a stream of string, right?  This is my experience.  And then the question is about how do you take that experience and connect it to the statistical part of it?  How do you now say that, okay, I experienced this thing.  Now I want to be careful about similar situations.  And so you need to be able to index that similarity using your other giants.  that is the model of the world that you have learned.  Although the situation came from the episode, you need to be able to index the other one.  So the episodic memory being implemented as an indexing over the other model that you're building.  
+
+Speaker 1: So the memories remain and they're an index into this, like the statistical thing that you formed.  
+
+Speaker 0: Yeah, statistical causal structural model that you built over time.  So it's basically the idea is that The hippocampus is just storing or sequencing in a set of pointers.  that happens over time.  And then whenever you want to reconstitute that memory and evaluate the different aspects of it, whether it was good, bad, do I need to encounter the situation again?  You need the cortex to re-instantiate, to replay that memory.  
+
+Speaker 1: So how do you find that memory?  Which direction is the important direction?  
+
+Speaker 0: Both directions are, again, bidirectional.  So, yeah.  
+
+Speaker 1: I mean, I guess, how do you retrieve the memory?  
+
+Speaker 0: So, this is, again, hypothesis, right?  Yeah, of course.  We're making this up.  So, when you come to a new situation, right, your cortex is doing inference in the new situation.  And then, of course, hippocampus is connected to different parts of the cortex.  And you have this deja vu situation, right?  okay, I have seen this thing before.  And then in the hippocampus, you can have an index of okay, this is when it happened as a timeline.  And then you can use the hippocampus to drive the similar timelines.  to say now I am rather than being driven by my current input stimuli, I am going back in time and rewinding my experience from there, but putting back into the cortex.  And then putting it back into the cortex, of course, affects what you're going to see next in your current situation.  Got it.  
+
+Speaker 1: Yeah.  So that's the whole thing, having a world model and then, yeah, connecting to the perception.  Yeah, it does seem to be that that's what's happening.  It'd be, on the neural network side, it's interesting to think of how we actually do that.  
+
+Speaker 0: Yeah, yeah.  
+
+Speaker 1: To have a knowledge base.  
+
+Speaker 0: Yes.  It is possible that you can put many of these structures into neural networks and we will find ways of combining properties of neural networks and graphical models.  So, I mean, it's already started happening.  Graph neural networks are kind of a merge between them.  And there will be more of that thing.  But to me, the direction is pretty clear.  looking at biology and the history of evolutionary history of intelligence, it is pretty clear that, okay, what is needed is more structure in the models and modeling of the world and supporting dynamic inference.  
+
+Speaker 1: Well, let me ask you, there's a guy named Elon Musk, there's a company called Neuralink, and there's a general field called brain-computer interfaces.  It's kind of an interface between your two loves, the brain and the intelligence.  So there's very direct applications of brain-computer interfaces for people with different conditions, more in the short term.  But there's also these sci-fi, futuristic kinds of ideas of AI systems being able to communicate in a high bandwidth way with the brain, bidirectional.  What are your thoughts about Neuralink and BCI in general as a possibility?  
+
+Speaker 0: So I think BCI is a cool research area.  And in fact, When I got interested in brains, initially, when I was enrolled at Stanford, and when I got interested in brains, it was through a brain-computer interface talk that Krishna Shenoy gave.  That's when I even started thinking about the problem.  So it is definitely a fascinating research area, and the applications are enormous, right?  There's the science fiction scenario of brains directly communicating.  Let's keep that aside for the time being.  Even just the intermediate milestones they're pursuing, which are very reasonable as far as I can see, being able to control an external limb using direct connections from the brain and being able to write things into the brain.  So those are all good steps to take, and they have enormous applications.  People losing limbs being able to control prosthetics, quadriplegics being able to control something, and therapeutics.  And I also know about another company working in this space called Paradromics.  They're based on a different electrode array, but trying to attack some of the same problems.  So I think it's a very- Also surgery.  Correct, surgically implanted electrons, yeah.  So, yeah, I think of it as a very, very promising field, especially when it is helping people overcome some limitations.  Now, at some point, of course, it will advance the level of being able to communicate.  
+
+Speaker 1: How hard is that problem, do you think?  Like, so, okay, let's say we magically solve what I think is a really hard problem of doing all of this safely.  So like being able to connect electrodes and not just thousands, but like millions to the brain.  
+
+Speaker 0: I think it's very, very hard because you also do not know what will happen to the brain with that, right?  In the sense of how does the brain adapt to something like that?  
+
+Speaker 1: And it's, you know, as we were learning, the brain is quite, in terms of neuroplasticity, is pretty malleable.  So it's gonna adjust.  So the machine learning side, the computer side is gonna adjust, and then the brain's gonna adjust.  
+
+Speaker 0: Exactly, and then what soup does this land us into?  
+
+Speaker 1: The kind of hallucinations you might get from this that might be pretty intense.  
+
+Speaker 0: Yeah, yeah.  
+
+Speaker 1: Just connecting to all of Wikipedia.  it's interesting whether we need to be able to figure out the basic protocol of the brain's communication schemes in order to get them to machine and the brain to talk.  Because another possibility is the brain actually just adjusts to whatever the heck the computer is doing.  
+
+Speaker 0: Exactly, that's the way I think, I find that to be a more promising way.  It's basically saying, you know, okay, attach electrodes to some part of the cortex, okay?  And maybe if it is done from birth, the brain will adapt it such that that part is not damaged.  It was not used for anything.  These electrodes are attached there.  Now, you train that part of the brain to do this high-bandwidth communication between something else.  If you do it like that, Then it is brain adapting to, and of course, your external system is designed such that it is adaptable, just like we design computers or mouse, keyboard, all of them to be interacting with humans.  So, of course, that feedback system is designed to be human compatible.  Now it is not trying to record from all of the brain and now two systems trying to adapt to each other.  It's the brain adapting it to one way.  
+
+Speaker 1: That's fascinating.  The brain is connected to the internet.  Just imagine it's connecting it to Twitter and just taking that stream of information.  Yeah, but again, if we take a step back, I don't know what your intuition is.  I feel like that is not as hard of a problem as doing it safely.  There's a huge barrier to surgery.  Because the biological system, it's a mush of weird stuff.  
+
+Speaker 0: So that, the surgery part of it, biology part of it, the long-term repercussions part of it, I don't know what else will, we often find after a long time in biology that, okay, that idea was wrong.  So people used to cut off this, the gland called the thymus or something.  And then they found that, oh no, that actually causes cancer.  So.  
+
+Speaker 1: Yeah.  And then there's a subtle, like millions of variables involved.  But this whole process, the nice thing, just like, again, with Elon, just like colonizing Mars seems like a ridiculously difficult idea, but in the process of doing it, we might learn a lot about the biology, the neurobiology of the brain, the neuroscience side of things, it's like, if you wanna learn something, do the most difficult version of it and see what you learn.  
+
+Speaker 0: The intermediate steps that they are taking sounded all very reasonable to me.  
+
+Speaker 1: Yeah, it's great.  Well, but everything with Elon is the timeline seems insanely fast, so that's the only awful question.  Well, we've been talking about cognition a little bit, so like reasoning, We haven't mentioned the other C word, which is consciousness.  Do you ever think about that one?  Is that useful at all in this whole context of what it takes to create an intelligent, reasoning being?  Or is that completely outside of the question?  you're like the engineering perspective of intelligence.  
+
+Speaker 0: It is not outside the realm, but it doesn't on a day-to-day basis inform what we do, but it's more, so in many ways, the company name is connected to this idea of consciousness.  
+
+Speaker 1: What's the company name?  
+
+Speaker 0: Vicarious, so Vicarious is the company name.  So what does Vicarious mean?  At the first level, it is about modeling the world and it is internalizing the external actions.  So you interact with the world and learn a lot about the world.  And now, after having learned a lot about the world, you can run those things in your mind without actually having to act in the world.  So you can run things vicariously just in your brain.  And similarly, you can experience another person's thoughts by having a model of how that person works and running there, putting yourself in some other person's shoes.  So that is being vicarious.  Now, it's the same modeling apparatus.  that you're using to model the external world or some other person's thoughts, you can turn it to yourself.  If that same modeling thing is applied to your own modeling apparatus, then that is what gives rise to consciousness, I think.  
+
+Speaker 1: Well, that's more like self-awareness.  There's the hard problem of consciousness, which is like when the model becomes, when the model feels like something.  When this whole process is like, it's like you really are in it.  You feel like an entity in this world.  Not just you know that you're an entity, but it feels like something to be that entity.  It, I don't know.  And thereby we attribute this, then it starts to be where in something that has consciousness can suffer.  You start to have these kinds of things that we can reason about.  that is much heavier.  It seems like there's much greater cost to your decisions.  And mortality is tied up into that.  The fact that these things end.  
+
+Speaker 0: Right.  
+
+Speaker 1: First of all, I end at some point, and then other things end, and that somehow seems to be, at least for us humans, a deep motivator.  
+
+Speaker 0: Yes.  
+
+Speaker 1: And that idea of motivation in general, we talk about goals in AI, but goals aren't quite the same thing as like our mortality.  It feels like first of all, humans don't have a goal and they just kind of create goals at different levels.  They like make up goals because we're terrified by the mystery of the thing that gets us all.  So we make these goals up.  So we're like a goal generation machine.  as opposed to a machine which optimizes the trajectory towards a singular goal.  So it feels like that's an important part of cognition, that whole mortality thing.  
+
+Speaker 0: Well, it is.  It is a part of human cognition, but there is no reason for that mortality to come to the equation for an artificial system because we can copy the artificial system.  The problem with humans is that I can't clone you.  Even if I clone you as the hardware, your experience that was stored in your brain, your episodic memory, all those will not be captured in the new clone.  But that's not the same with an AI system.  
+
+Speaker 1: But it's also possible that the thing that you mentioned with us humans is actually of fundamental importance for intelligence.  So the fact that you can copy an AI system means that that AI system is not yet an AGI.  So if you look at existence proof, if we reason based on existence proof, You could say that it doesn't feel like death is a fundamental property of an intelligent system, but we don't yet, give me an example of an immortal intelligent being, we don't have those.  It's very possible that that is a fundamental property of intelligence, is a thing that has a deadline for itself.  
+
+Speaker 0: You can think of it like this.  So suppose you invent a way to freeze people for a long time.  It's not dying, right?  So you can be frozen and woken up thousands of years from now.  So it's no fear of death.  
+
+Speaker 1: Well, no, you're still, it's not about time, it's about the knowledge that it's temporary.  And that aspect of it, the finiteness of it, I think, you know, creates a kind of urgency.  
+
+Speaker 0: Correct.  For us, for humans.  
+
+Speaker 1: Yeah, for humans.  
+
+Speaker 0: Yes.  And that is part of our drives.  And that's why I'm not too worried about AI, you know, having motivations to kill all humans and those kinds of things.  Why just wait?  So, why do you need to do that?  
+
+Speaker 1: Yeah, I've never heard that before.  That's a good point.  Yeah, just murder seems like a lot of work.  We'll just wait it out.  They'll probably hurt themselves.  Let me ask you, people often kind of wonder, world-class researchers such as yourself, what kind of books, technical, fiction, philosophical, had an impact on you in your life and maybe ones you could possibly recommend that others read?  Maybe if you have three books that pop into mind.  
+
+Speaker 0: Yeah, so I definitely liked Judea Pearl's book, Probabilistic Reasoning and Intelligent Systems.  It's a very deep technical book.  But what I liked is that, so there are many places where you can learn about probabilistic graphical models from.  But throughout this book, Judea Pearl kind of sprinkles his philosophical observations and he thinks about, connects us to how the brain thinks and attentions and resources, all those things.  So that whole thing makes it more interesting to read.  
+
+Speaker 1: he emphasizes the importance of causality.  
+
+Speaker 0: So that was in his later book.  So this was the first book, Probabilistic Reasoning in Intelligent Systems.  He mentions causality, but he hadn't really sunk his teeth into like, you know, how do you actually formalize it?  Got it.  Yeah.  And the second book, Causality, the one in two thousand, that one is really hard, so I wouldn't recommend that.  
+
+Speaker 1: Yeah, so that looks at the mathematical, like his model of- Do calculus.  Do calculus, yeah, it was pretty dense mathematically.  
+
+Speaker 0: Right, right, right.  The book of why is definitely more enjoyable.  Oh, for sure.  
+
+Speaker 1: Yeah.  
+
+Speaker 0: So, yeah, so I would recommend Probabilistic Reasoning in Intelligent Systems.  Another book I liked was one from Doug Hofstadter, This was a long time ago.  He had a book, I think it was called The Mind's Eye.  It was probably Hofstadter and Daniel Dennett together.  
+
+Speaker 1: Yeah, and I actually bought that book.  It's on my shelf.  I haven't read it yet, but I couldn't get an electronic version of it, which is annoying because you read everything on Kindle.  So you have to actually purchase the physical.  It's like one of the only physical books I have.  Anyway, a lot of people recommended it highly.  
+
+Speaker 0: And the third one I would definitely recommend reading is, this is not a technical book, it is history.  The name of the book I think is Bishop's Boys.  It's about Wright brothers and their path and how it was, There are multiple books on this topic, and all of them are great.  It's fascinating how flight was treated as an unsolvable problem.  And also, what aspects did people emphasize?  People thought, oh, it is all about just powerful engines, just need to have powerful, lightweight engines.  And so, you know, some people thought of it as, how far can we just throw the thing, you know, just throw it.  
+
+Speaker 1: Like a catapult.  
+
+Speaker 0: Yeah, so it's a very fascinating, and even after they made the invention, like, you know, people not believing it and- Ah, the social aspect of it, yeah.  The social aspect, you know, very fascinating.  
+
+Speaker 1: I mean, do you draw any parallels between, you know, birds fly?  So there's the natural approach to flight and then there's the engineered approach.  Do you see the same kind of thing with the brain and are trying to engineer intelligence?  
+
+Speaker 0: Yeah, it's a good analogy to have.  Of course, all analogies have their merits.  So people in AI often use airplanes as an example of, hey, we didn't learn anything from birds.  But the funny thing is that And the saying is airplanes don't flap wings, right?  This is what they say.  The funny thing and ironic thing is that you don't need to flap to fly is something Wright Brothers found by observing birds.  So they have in their notebook, in some of these books, they show their notebook drawings, right?  They make detailed notes about bazaars just soaring over thermals.  And they basically say, look, flapping is not the important, propulsion is not the important problem to solve here.  We want to solve control.  And once you solve control, propulsion will fall into place.  All of these are people, they realize this by observing birds.  
+
+Speaker 1: Beautifully put.  That's actually brilliant, because people do use that analogy a lot.  I'm going to have to remember that one.  Do you have advice for people interested in artificial intelligence, like young folks today?  I talk to undergraduate students all the time, interested in neuroscience, interested in understanding how the brain works.  Is there advice you would give them about their career, maybe about their life in general?  
+
+Speaker 0: Sure, I think every piece of advice should be taken with a pinch of salt, of course, because each person is different, their motivations are different.  But I can definitely say if your goal is to understand the brain from the angle of wanting to build one, then being an experimental neuroscientist might not be the way to go about it.  A better way to pursue it might be through computer science, electrical engineering, machine learning, and AI.  And of course, you have to study up the neuroscience, but that you can do on your own.  If you are more attracted by discovering something intriguing about the brain, then of course it is better to be an experimentalist.  So find that motivation, what are you intrigued by?  And of course, find your strengths too.  Some people are very good experimentalists and they enjoy doing that.  
+
+Speaker 1: And it's interesting to see which department, if you're picking in terms of like your education path, whether to go with like, at MIT it's brain and computer, no, BCS.  Brain and cognitive sciences, yeah.  Or the CS side of things.  And actually, the brain folks, the neuroscience folks, are more and more now embracing of learning TensorFlow and PyTorch.  They see the power of, trying to engineer ideas that they get from the brain into and then explore how those could be used to create intelligent systems.  So that might be the right department actually.  
+
+Speaker 0: So this was a question in one of the Red Bull Neuroscience Institute workshops that Jeff Hawkins organized almost ten years ago.  This question was put to a panel, right?  What should be the undergrad major you should take if you want to understand the brain?  And the majority opinion in that one was electrical engineering.  
+
+Speaker 1: Interesting.  
+
+Speaker 0: Because I'm a W undergrad, so I got lucky in that way.  But I think it does have some of the right ingredients because you learn about circuits.  You learn about how you can construct circuits to do functions.  You learn about microprocessors.  You learn information theory.  You learn signal processing.  You learn continuous math.  So in that way, it's a good step.  if you want to go to computer science or neuroscience, it's a good step.  
+
+Speaker 1: So one of the interesting things about, I mean, this is changing, the world is changing, but like certain departments lagged on the programming side of things, on developing good habits in software engineering.  But I think that's more and more changing and students can take that into their own hands, like learn to program.  I feel like everybody should learn to program because it, like everyone in the sciences, because it empowers, it puts the data at your fingertips.  So you can organize it, you can find all kinds of things in the data, and then you can also, for the appropriate sciences, build systems that, like, based on that.  So like then engineer intelligence systems.  We already talked about mortality, so we hit a ridiculous point, but let me ask you the, you know, One of the things about intelligence is it's goal-driven and you study the brain.  So the question is like, what's the goal that the brain is operating under?  What's the meaning of it all for us humans, in your view?  What's the meaning of life?  
+
+Speaker 0: The meaning of life is whatever you construct out of it.  It's completely obvious.  
+
+Speaker 1: It's open.  So there's nothing, like you mentioned you like constraints.  It's wide open.  Is there some useful aspect that you think about in terms of?  like the openness of it and just the basic mechanisms of generating goals in studying cognition in the brain?  that you think about?  Or is it just about, cause everything we've talked about kind of the perception system is to understand the environment.  That's like to be able to like not die.  Like not fall over and like be able to, you don't think we need to think about anything bigger than that.  
+
+Speaker 0: Yeah, I think so, because it's basically being able to understand the machinery of the world, such that you can pursue whatever goals you want, right?  
+
+Speaker 1: So the machinery of the world is really ultimately what we should be striving to understand.  The rest is just whatever the heck you want to do, or whatever fun you want to do.  
+
+Speaker 0: Whatever is culturally popular, you know?  
+
+Speaker 1: I think that's beautifully put.  I don't think there's a better way to end it.  Dilip, I'm so honored that you would show up here and waste your time with me.  It's been an awesome conversation.  Thanks so much for talking today.  
+
+Speaker 0: Oh, thank you so much.  This was so much more fun than I expected.  Thank you.  
+
+Speaker 1: Thanks for listening to this conversation with Delete George, and thank you to our sponsors, Babbel, Raycon Earbuds, and Masterclass.  Please consider supporting this podcast by going to babbel.com and use code Lex, going to buyraycon.com slash Lex, and signing up at masterclass.com.  slash Lex.  Click the links, get the discount.  It really is the best way to support this podcast.  If you enjoy this thing, subscribe on YouTube, review the Five Stars on Apple Podcast, support it on Patreon, or connect with me on Twitter, Alex Friedman, spelled, yes, without the E, just F-R-I-D-M-A-N.  And now, let me leave you with some words from Marcus Aurelius.  You have power over your mind, not outside events.  Realize this, and you will find strength.  Thank you for listening and hope to see you next time.  
